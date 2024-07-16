@@ -4,7 +4,7 @@
         <div class="col-lg-12 mb-30">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{route('admin.module.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.module.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-lg-6">
@@ -49,9 +49,10 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
 
-    @push('breadcrumb-plugins')
-        <a href="{{ route('admin.module.list') }}" class="btn btn-sm btn--primary box--shadow1 text--small"><i
-                class="las la-angle-double-left"></i>@lang('Go Back')</a>
-    @endpush
+@push('breadcrumb-plugins')
+    <a href="{{ route('admin.module.list') }}" class="btn btn-sm btn--primary box--shadow1 text--small"><i
+            class="las la-angle-double-left"></i>@lang('Go Back')</a>
+@endpush

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Entrance;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
@@ -74,6 +75,7 @@ class SubcategoryController extends Controller
             if ($delete->file && file_exists(public_path('Subcategory/' . $delete->file))) {
                 unlink(public_path('Subcategory/' . $delete->file));
             }
+            Entrance::where('subcategory_id',$request->id)->delete();
             $delete->delete();
             $notify[] = ['success', 'Subcategory has been deleted successfully'];
         } else {

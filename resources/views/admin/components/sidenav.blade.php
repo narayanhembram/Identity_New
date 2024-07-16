@@ -33,19 +33,19 @@
                 </li>
                 <li class="sidebar-menu-item {{menuActive('admin.category.*')}}">
                     <a href="{{route('admin.category.list')}}" class="nav-link ">
-                        <i class="menu-icon las la-th-large"></i>
+                        <i class="menu-icon las la-list-alt"></i>
                         <span class="menu-title">@lang('Categories')</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item {{menuActive('admin.subcategory.*')}}">
                     <a href="{{route('admin.subcategory.list')}}" class="nav-link ">
-                        <i class="menu-icon las la-th-large"></i>
+                        <i class="menu-icon las la-sitemap"></i>
                         <span class="menu-title">@lang('Subcategories')</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item {{menuActive('admin.entrance.*')}}">
                     <a href="{{route('admin.entrance.list')}}" class="nav-link ">
-                        <i class="menu-icon las la-th-large"></i>
+                        <i class="menu-icon las la-graduation-cap"></i>
                         <span class="menu-title">@lang('Entrance Exam')</span>
                     </a>
                 </li>
@@ -87,6 +87,29 @@
                         <span class="menu-title">@lang('Portfolio') </span>
                     </a>
                 </li>
+
+                <li class="sidebar__menu-header">@lang('countries')</li>
+                <li class="sidebar-menu-item {{menuActive('admin.countries.*')}}">
+                    <a href="{{route('admin.countries.index')}}" class="nav-link ">
+                        <i class="menu-icon las la-globe-americas"></i>
+                        <span class="menu-title">@lang('All countries')</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-menu-item {{menuActive('admin.states.*')}}">
+                    <a href="{{route('admin.states.index')}}" class="nav-link ">
+                        <i class="menu-icon las la-map-marked-alt"></i>
+                        <span class="menu-title">@lang('States')</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-menu-item {{menuActive('admin.districts.*')}}">
+                    <a href="{{route('admin.districts.index')}}" class="nav-link ">
+                        <i class="menu-icon las la-map-marker-alt"></i>
+                        <span class="menu-title">@lang('Districts')</span>
+                    </a>
+                </li>
+
                 <li class="sidebar__menu-header">@lang('Orders')</li>
                 <li class="sidebar-menu-item {{menuActive('admin.service.approved.orders')}}">
                     <a href="{{route('admin.service.approved.orders')}}" class="nav-link ">

@@ -41,4 +41,25 @@ class EntranceController extends Controller
         $edit = Entrance::find($id);
         return view('admin.entrance-exam.edit', compact('pageTitle','edit','categories','subcategories'));
     }
+    public function update(Request $request){
+        $update = Entrance::find($request->id);
+
+        $update->category_id = $request->category_id;
+        $update->subcategory_id = $request->subcategory_id;
+        $update->exam_name = $request->exam_name;
+        $update->issue_date = $request->issue_date;
+        $update->url = $request->url;
+
+        $update->save();
+        $notify[] = ['success', 'Entrance Exam has been created successfully'];
+        return to_route('admin.entrance.list')->withNotify($notify);
+    }
+    public function delete(Request $request){
+        $delete = Entrance::find($request->id);
+
+        $delete->delete();
+
+        $notify[] = ['success', 'Entrance Exam has been deleted successfully'];
+        return back()->withNotify($notify);
+    }
 }

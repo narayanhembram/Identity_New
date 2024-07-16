@@ -109,13 +109,36 @@ Route::middleware('admin')->group(function () {
         Route::post('delete','delete')->name('delete');
     });
 
+    //Countries
+    Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::post('store','store')->name('store');
+        Route::post('update/{id}','update')->name('update');
+        Route::post('delete','delete')->name('delete');
+    });
+
+    //States
+    Route::controller('StateController')->name('states.')->prefix('states')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::post('store','store')->name('store');
+        Route::post('update/{id}','update')->name('update');
+        Route::post('delete','delete')->name('delete');
+    });
+
+    //Districts
+    Route::controller('DistrictController')->name('districts.')->prefix('districts')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::post('store','store')->name('store');
+        Route::post('update/{id}','update')->name('update');
+        Route::post('delete','delete')->name('delete');
+    });
+
     // plan
     Route::controller('PlanController')->name('plan.')->prefix('plan')->group(function(){
 
         Route::get('/','index')->name('index');
         Route::get('create','create')->name('create');
         Route::post('store','store')->name('store');
-        Route::get('edit/{id}','edit')->name('edit');
         Route::post('update/{id}','update')->name('update');
         Route::post('delete','delete')->name('delete');
 

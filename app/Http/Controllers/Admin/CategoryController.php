@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Entrance;
 use App\Models\Module;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -70,6 +71,7 @@ class CategoryController extends Controller
                 unlink(public_path('Category/' . $delete->file));
             }
             Subcategory::where('category_id',$request->id)->delete();
+            Entrance::where('category_id',$request->id)->delete();
             $delete->delete();
             $notify[] = ['success', 'Category has been deleted successfully'];
         } else {

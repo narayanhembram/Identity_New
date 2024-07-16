@@ -45,11 +45,11 @@
                         </table>
                     </div>
                 </div>
-                {{-- @if ($categories->hasPages())
+                @if ($entrances->hasPages())
                     <div class="card-footer py-4">
-                        {{ paginateLinks($categories) }}
+                        {{ paginateLinks($entrances) }}
                     </div>
-                @endif --}}
+                @endif
             </div><!-- card end -->
         </div>
     </div>
@@ -65,12 +65,12 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{ route('admin.category.delete') }}" method="POST">
+                <form action="{{ route('admin.entrance.delete') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id">
                     <div class="modal-body">
                         <p>@lang('Are you sure to') <span class="fw-bold">@lang('delete')</span> <span
-                                class="fw-bold withdraw-amount text-success"></span> @lang('this Category') <span
+                                class="fw-bold withdraw-amount text-success"></span> @lang('this Entrance Exam') <span
                                 class="fw-bold withdraw-user"></span>?</p>
                     </div>
                     <div class="modal-footer">
