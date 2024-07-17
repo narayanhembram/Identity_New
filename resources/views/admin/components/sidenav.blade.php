@@ -49,6 +49,12 @@
                         <span class="menu-title">@lang('Entrance Exam')</span>
                     </a>
                 </li>
+                <li class="sidebar-menu-item {{menuActive('admin.institution.*')}}">
+                    <a href="{{route('admin.institution.list')}}" class="nav-link ">
+                        <i class="menu-icon las la-graduation-cap"></i>
+                        <span class="menu-title">@lang('Institution')</span>
+                    </a>
+                </li>
                 <li class="sidebar-menu-item  {{menuActive('admin.subscriber.*')}}">
                     <a href="{{route('admin.subscriber.index')}}" class="nav-link"
                         data-default-url="{{ route('admin.subscriber.index') }}">

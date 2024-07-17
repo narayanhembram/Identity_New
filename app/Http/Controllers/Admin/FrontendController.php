@@ -15,6 +15,7 @@ class FrontendController extends Controller
     {
         $pageTitle = 'Themes';
         $temPaths = array_filter(glob('application/resources/views/presets/*'), 'is_dir');
+        // $templates = [];
         foreach ($temPaths as $key => $temp) {
             $arr = explode('/', $temp);
             $tempname = end($arr);

@@ -109,6 +109,16 @@ Route::middleware('admin')->group(function () {
         Route::post('delete','delete')->name('delete');
     });
 
+    //Institution
+    Route::controller('InstitutionController')->name('institution.')->prefix('institution')->group(function(){
+        Route::get('/','list')->name('list');
+        Route::get('add','add')->name('add');
+        Route::post('store','store')->name('store');
+        Route::get('edit/{id}','edit')->name('edit');
+        Route::post('update','update')->name('update');
+        Route::post('delete','delete')->name('delete');
+    });
+
     //Countries
     Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function(){
         Route::get('/','index')->name('index');
@@ -123,6 +133,7 @@ Route::middleware('admin')->group(function () {
         Route::post('store','store')->name('store');
         Route::post('update/{id}','update')->name('update');
         Route::post('delete','delete')->name('delete');
+        Route::post('/get_state','getState')->name('getState');
     });
 
     //Districts
@@ -131,6 +142,7 @@ Route::middleware('admin')->group(function () {
         Route::post('store','store')->name('store');
         Route::post('update/{id}','update')->name('update');
         Route::post('delete','delete')->name('delete');
+        Route::post('/get_district','getDistrict')->name('getDistrict');
     });
 
     // plan

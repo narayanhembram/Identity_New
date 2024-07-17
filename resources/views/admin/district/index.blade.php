@@ -22,7 +22,7 @@
                                     <select class="form-control" name="state_id" id="">
                                         <option value="">Select State</option>
                                         @foreach ($states as $state)
-                                            <option value="{{ $state->id }}"> {{ $state->state }} </option>
+                                            <option value="{{ $state->id }}"> {{ $state->name }} </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -114,7 +114,7 @@
                             <select class="form-control" id="edit_state_id" name="state_id" required>
                                 <option value="">Select State</option>
                                 @foreach ($states as $state)
-                                    <option value="{{ $state->id }}">{{ $state->state }}</option>
+                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
                                 @endforeach
                             </select>
                         </div>

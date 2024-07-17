@@ -14,15 +14,15 @@ class StateController extends Controller
         $pageTitle = 'States';
         $countries = Country::orderBy('name','asc')->get();
 
-        $states = State::orderBy('state','asc')->paginate(5);
+        $states = State::orderBy('name','asc')->paginate(5);
         return view('admin.state.index', compact('pageTitle','states','countries'));
     }
     public function store(Request $request){
-        $request->validate(['state'=> 'required| unique:states,state,']);
+        $request->validate(['name'=> 'required| unique:states,name,']);
 
         $store = new State;
 
-        $store->state = $request->state;
+        $store->name = $request->name;
         $store->country_id = $request->country_id;
         $store->save();
 
@@ -30,14 +30,14 @@ class StateController extends Controller
         return back()->withNotify($notify);
     }
     public function update(Request $request, $id){
-        $request->validate([
-            'state' => 'required|unique:states,state,' . $id,
-            'country_id' => 'required|exists:countries,id'
-        ]);
+        // $request->validate([
+        //     'name' => 'required|unique:states,name,' . $id,
+        //     'country_id' => 'required|exists:countries,id'
+        // ]);
 
         $update = State::find($id);
 
-        $update->state = $request->state;
+        $update->name = $request->name;
         $update->country_id = $request->country_id;
         $update->save();
 
@@ -51,5 +51,11 @@ class StateController extends Controller
 
         $notify[] = ['success', 'State has been deleted successfully'];
         return back()->withNotify($notify);
+    }
+
+    public function getState(Request $request){
+        $getState = State::where('country_id',$request->country_id)->get();
+
+        return response()->json($getState);
     }
 }

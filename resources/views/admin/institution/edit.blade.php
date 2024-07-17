@@ -1,0 +1,229 @@
+@extends('admin.layouts.app')
+@section('panel')
+    <div class="row mb-none-30">
+        <div class="col-lg-12 mb-30">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ route('admin.institution.update') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <input type="hidden" name="id" value="{{$edit->id}}">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="category_id" class="font-weight-bold">@lang('Category')</label>
+                                    <select class="form-control" name="category_id" id="category">
+                                        <option value="">Select Category</option>
+                                        @foreach ($categories as $category)
+                                            <option {{( $edit->category_id == $category->id) ? 'selected' : ''}} value="{{ $category->id }}"> {{ $category->title }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="subcategory_id" class="font-weight-bold">@lang('Subcategory')</label>
+                                    <select class="form-control" name="subcategory_id" id="getSubcatagory">
+                                        <option value="">Select Subcategory</option>
+                                        @foreach ($subcategories as $subcategory)
+                                            <option {{( $edit->subcategory_id == $subcategory->id) ? 'selected' : ''}} value="{{ $subcategory->id }}"> {{ $subcategory->title }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="name" class="font-weight-bold">@lang('Logo')</label>
+                                    <input type="file" name="logo" id="logo" class="form-control">
+                                    {{-- <img src="{{ asset('Institution/' . $edit->logo) }}" width="100"
+                                                alt=""> --}}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="price" class="font-weight-bold">@lang('Institution Name')</label>
+                                    <input type="text" name="name" value="{{ $edit->name }}" class="form-control"
+                                        placeholder="@lang('Institution Name')" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="address" class="font-weight-bold">@lang('Address')</label>
+                                    <input type="text" name="address" value="{{ $edit->address }}" class="form-control"
+                                        placeholder="@lang('Address')" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="admission" class="font-weight-bold">@lang('Addmission Process')</label>
+                                    <input type="text" name="admission_process" value="{{ $edit-> admission_process }}"
+                                        class="form-control" placeholder="@lang('Addmission Process')" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="tentative" class="font-weight-bold">@lang('Tentative Date')</label>
+                                    <input type="month" name="tentative_date" value="{{ $edit->tentative_date }}"
+                                        class="form-control" placeholder="@lang('Tentative Date')" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="institution_type" class="font-weight-bold">@lang('Institution Type')</label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="radio" id="govt" name="institute_type" {{( $edit->institute_type == 0) ? 'checked' : ''}} value="0"
+                                            style="margin-right: 5px;">
+                                        <label for="govt" style="margin-right: 15px;">Govt.</label>
+
+                                        <input type="radio" id="pvt" name="institute_type" {{($edit->institute_type == 1) ? 'checked' : ''}} value="1"
+                                            style="margin-right: 5px;">
+                                        <label for="pvt">Pvt.</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="url" class="font-weight-bold">@lang('URL')</label>
+                                    <input type="text" name="url" value="{{ $edit->url }}" class="form-control"
+                                        placeholder="@lang('URL')" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="country" class="font-weight-bold">@lang('Country')</label>
+                                    <select class="form-control" name="country_id" id="country">
+                                        <option value="">Select Country</option>
+                                        @foreach ($countries as $country)
+                                            <option {{($edit->country_id == $country->id)? 'selected' : ''}} value="{{ $country->id }}"> {{ $country->name }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="state" class="font-weight-bold">@lang('State')</label>
+                                    <select class="form-control" name="state_id" id="getState">
+                                        <option value="">Select State</option>
+                                        @foreach ($states as $state)
+                                            <option {{($edit->state_id == $state->id)? 'selected' : ''}} value="{{ $state->id }}"> {{ $state->name }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="district" class="font-weight-bold">@lang('District')</label>
+                                    <select class="form-control" name="dist_id" id="getDistrict">
+                                        <option value="">Select District</option>
+                                        @foreach ($districts as $dist)
+                                            <option {{($edit->dist_id == $dist->id)? 'selected' : ''}} value="{{ $dist->id }}"> {{ $dist->name }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 ">
+                                <div class="form-group float-end p-3">
+                                    <button type="submit" class="btn btn--primary btn-block btn-lg">
+                                        @lang('Create')</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('breadcrumb-plugins')
+    <a href="{{ route('admin.institution.list') }}" class="btn btn-sm btn--primary box--shadow1 text--small"><i
+            class="las la-angle-double-left"></i>@lang('Go Back')</a>
+@endpush
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(document).on('change', '#category', function() {
+            var category_id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: '{{ route('admin.subcategory.getSubcategory') }}',
+                data: {
+                    'category_id': category_id,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $('#getSubcatagory').empty();
+                    $('#getSubcatagory').html(
+                        '<option value="">Select Subcategory</option>');
+                    $.each(response, function(key, value) {
+                        $('#getSubcatagory').append('<option value="' + value.id +
+                            '">' + value.title + '</option>');
+                    });
+                },
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $(document).on('change', '#country', function() {
+            var country_id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: '{{ route('admin.states.getState') }}',
+                data: {
+                    'country_id': country_id,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $('#getState').empty();
+                    $('#getState').html(
+                        '<option value="">Select State</option>');
+                    $.each(response, function(key, value) {
+                        $('#getState').append('<option value="' + value.id +
+                            '">' + value.name + '</option>');
+                    });
+                    $('#getDistrict').html(
+                        '<option value="">Select District</option>');
+                },
+            });
+        });
+
+        $(document).on('change', '#getState', function() {
+            var state_id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: '{{ route('admin.districts.getDistrict') }}',
+                data: {
+                    'state_id': state_id,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $('#getDistrict').empty();
+                    $('#getDistrict').html(
+                        '<option value="">Select District</option>');
+                    $.each(response, function(key, value) {
+                        $('#getDistrict').append('<option value="' + value.id +
+                            '">' + value.name + '</option>');
+                    });
+                },
+            });
+        });
+    });
+</script>

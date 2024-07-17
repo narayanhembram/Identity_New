@@ -10,9 +10,9 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="title" class="font-weight-bold">@lang('State Name')</label>
-                                    <input type="text" name="state" value="{{ old('state') }}" class="form-control"
+                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control"
                                         placeholder="@lang('State Name')" required>
-                                    @error('state')
+                                    @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -59,10 +59,10 @@
                                 @foreach ($states as $state)
                                     <tr>
                                         <td> {{ $i }} </td>
-                                        <td> {{ $state->state }} </td>
+                                        <td> {{ $state->name }} </td>
                                         <td>
                                             <button title="@lang('Edit')" data-id="{{ $state->id }}"
-                                                data-name="{{ $state->state }}" data-country_id="{{ $state->country_id }}"
+                                                data-name="{{ $state->name }}" data-country_id="{{ $state->country_id }}"
                                                 class="btn btn-sm btn--primary editBtn">
                                                 <i class="las la-edit"></i>
                                             </button>
@@ -106,7 +106,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="edit_name">@lang('Name')</label>
-                            <input type="text" class="form-control" id="edit_name" name="state" required>
+                            <input type="text" class="form-control" id="edit_name" name="name" required>
                         </div>
 
                         <div class="form-group">

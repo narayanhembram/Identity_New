@@ -6878,7 +6878,7 @@ blockquote::before {
 /*=================== Account =========*/
 .account {
     overflow: hidden;
-    height: 100vh;
+    /* height: 100vh; */
     overflow-y: scroll;
     align-items: center;
     display: flex;

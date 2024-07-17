@@ -38,9 +38,10 @@
                                 <div class="form-group">
                                     <label class="form--label">@lang('Country')</label>
                                     <select name="country" class="form-select form--control">
-                                        @foreach($countries as $key => $country)
+                                        <option value="">Select Country</option>
+                                        {{-- @foreach($countries as $key => $country)
                                             <option data-mobile_code="{{ $country->dial_code }}" value="{{ $country->country }}" data-code="{{ $key }}">{{ __($country->country) }}</option>
-                                        @endforeach
+                                        @endforeach --}}
                                     </select>
                                 </div>
                             </div>
@@ -48,12 +49,10 @@
                                 <div class="form-group">
                                     <label class="form--label">@lang('Mobile')</label>
                                     <div class="input-group ">
-                                        <span class="input-group-text bg--base text-white mobile-code">
-
-                                        </span>
+                                        {{-- <span class="input-group-text bg--base text-white mobile-code"></span>
                                         <input type="hidden" name="mobile_code">
-                                        <input type="hidden" name="country_code">
-                                        <input type="number" name="mobile" value="{{ old('mobile') }}" class="form-control form--control checkUser" required>
+                                        <input type="hidden" name="country_code"> --}}
+                                        <input type="number" name="mobile" value="{{ old('mobile') }}" class="form-control" required placeholder="Enter Mobile Number">
                                     </div>
                                     <small class="text-danger mobileExist"></small>
                                 </div>

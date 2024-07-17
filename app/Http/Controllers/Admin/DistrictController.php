@@ -11,7 +11,7 @@ class DistrictController extends Controller
 {
     public function index(){
         $pageTitle = 'Districts';
-        $states = State::orderBy('state','asc')->get();
+        $states = State::orderBy('name','asc')->get();
 
         $districts = District::orderBy('name','asc')->paginate(5);
         return view('admin.district.index', compact('pageTitle','states','districts'));
@@ -49,5 +49,10 @@ class DistrictController extends Controller
 
         $notify[] = ['success', 'District has been deleted successfully'];
         return back()->withNotify($notify);
+    }
+    public function getDistrict(Request $request){
+        $getDistrict = District::where('state_id', $request->state_id)->get();
+
+        return response()->json($getDistrict);
     }
 }
