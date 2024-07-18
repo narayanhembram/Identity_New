@@ -4,6 +4,9 @@ namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdminNotification;
+use App\Models\Country;
+use App\Models\District;
+use App\Models\State;
 use App\Models\User;
 use App\Models\UserLogin;
 use Illuminate\Auth\Events\Registered;
@@ -43,10 +46,13 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $pageTitle = "Register";
+        $countries = Country::all();
+        $states = State::all();
+        $dist = District::all();
         $info = json_decode(json_encode(getIpInfo()), true);
         $mobileCode = @implode(',', $info['code']);
-        $countries = json_decode(file_get_contents(resource_path('views/includes/country.json')));
-        return view($this->activeTemplate . 'user.auth.register', compact('pageTitle','mobileCode','countries'));
+        // $countries = json_decode(file_get_contents(resource_path('views/includes/country.json')));
+        return view($this->activeTemplate . 'user.auth.register', compact('pageTitle','mobileCode','countries','states','dist'));
     }
 
 
@@ -128,6 +134,9 @@ class RegisterController extends Controller
         $user->password = Hash::make($data['password']);
         $user->username = trim($data['username']);
         $user->ref_by = $referUser ? $referUser->id : 0;
+        $user->country_id = $data['country_id'];
+        $user->state_id = $data['state_id'];
+        $user->dist_id = $data['dist_id'];
 
         $user->status = 1;
         $user->kv = $general->kv ? 0 : 1;
