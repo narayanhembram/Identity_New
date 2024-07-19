@@ -43,6 +43,21 @@
                         <span class="menu-title">@lang('Subcategories')</span>
                     </a>
                 </li>
+
+                <li class="sidebar-menu-item {{menuActive('admin.pathtype.*')}}">
+                    <a href="{{route('admin.pathtype.index')}}" class="nav-link ">
+                        <i class="menu-icon las la-sitemap"></i>
+                        <span class="menu-title">@lang('Path Type')</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-menu-item {{menuActive('admin.path.*')}}">
+                    <a href="{{route('admin.path.list')}}" class="nav-link ">
+                        <i class="menu-icon las la-sitemap"></i>
+                        <span class="menu-title">@lang('Career Path')</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-menu-item {{menuActive('admin.entrance.*')}}">
                     <a href="{{route('admin.entrance.list')}}" class="nav-link ">
                         <i class="menu-icon las la-graduation-cap"></i>

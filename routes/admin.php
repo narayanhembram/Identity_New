@@ -99,6 +99,24 @@ Route::middleware('admin')->group(function () {
         Route::post('/get_subcategory','getSubcategory')->name('getSubcategory');
     });
 
+    //Path Type
+    Route::controller('PathtypeController')->name('pathtype.')->prefix('pathtype')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::post('store','store')->name('store');
+        Route::post('update/{id}','update')->name('update');
+        Route::post('delete','delete')->name('delete');
+    });
+
+     //Career Path
+     Route::controller('PathController')->name('path.')->prefix('path')->group(function(){
+        Route::get('/','list')->name('list');
+        Route::get('add','add')->name('add');
+        Route::post('store','store')->name('store');
+        Route::get('edit/{id}','edit')->name('edit');
+        Route::post('update','update')->name('update');
+        Route::post('delete','delete')->name('delete');
+    });
+
     //Entrance Exam
     Route::controller('EntranceController')->name('entrance.')->prefix('entrance')->group(function(){
         Route::get('/','list')->name('list');
