@@ -3,7 +3,7 @@
     $portfolios = App\Models\Portfolio::where('status',1)->latest()->limit(6)->get();
 @endphp
 <!--========================== Portfolio End ==========================-->
-<section class="portfolio py-100">
+{{-- <section class="portfolio py-100">
     <div class="container">
         <div class="title d-flex justify-content-between">
             <div>
@@ -16,5 +16,5 @@
         </div>
         @include($activeTemplate.'components.portfolio')
     </div>
-</section>
+</section> --}}
 <!--========================== Portfolio End ==========================-->

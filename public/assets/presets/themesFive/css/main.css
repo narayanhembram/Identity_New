@@ -5241,11 +5241,11 @@ select.form-control.form--control:has(option)~.form--label {
     right: 0;
 }
 
-.banner-section .shape1 svg {
+/* .banner-section .shape1 svg {
     fill: hsl(var(--base));
     width: 100%;
     height: 100%;
-}
+} */
 
 
 
@@ -5255,11 +5255,11 @@ select.form-control.form--control:has(option)~.form--label {
     left: 0;
 }
 
-.banner-section .shape2 svg {
+/* .banner-section .shape2 svg {
     fill: hsl(var(--base));
     width: 100%;
     height: 100%;
-}
+} */
 
 .banner-section .thumb {
     position: relative;
@@ -5322,8 +5322,8 @@ select.form-control.form--control:has(option)~.form--label {
 }
 
 .banner-section .banner-thumb {
-    padding-top: 15rem;
-    padding-bottom: 12rem;
+    padding-top: 8rem;
+    /* padding-bottom: 12rem; */
 }
 
 @media only screen and (max-width: 571px) {
