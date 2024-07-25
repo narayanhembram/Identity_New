@@ -1,194 +1,175 @@
-@extends($activeTemplate.'layouts.master')
+@extends($activeTemplate . 'layouts.master')
 @section('content')
-<div class="body-wrapper">
-    <div class="table-content">
-        <div class="row gy-4 mb-4">
+    <div class="body-wrapper">
+        {{-- <div class="table-content">
 
-            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                <div class="dash-card">
-                    <a href="javascript:void(0)" class="d-flex justify-content-between">
-                        <div>
+            <div class="row gy-4 mb-4">
+
+                <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                    <div class="dash-card">
+                        <a href="javascript:void(0)" class="d-flex justify-content-between">
                             <div>
-                                <p>@lang('Balance')</p>
-                            </div>
-                            <div class="content">
-                                <span class="text-uppercase">{{$general->cur_sym}}{{showAmount($user->balance)}}</span>
-                            </div>
+                                <div>
+                                    <p>@lang('Balance')</p>
+                                </div>
+                                <div class="content">
+                                    <span
+                                        class="text-uppercase">{{ $general->cur_sym }}{{ showAmount($user->balance) }}</span>
+                                </div>
 
-                        </div>
-                        <div class="icon my-auto">
-                            <i class="fas fa-money-check-alt"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            @if($subscribe)
-            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                <div class="dash-card">
-                    <a href="{{route('plans')}}" class="d-flex justify-content-between">
-                        <div>
-                            <div>
-                                <p>{{__(@$subscribe->plan->name)}} <span class="text-success">(@lang('Subscribed'))</span></p>
                             </div>
-                            <div class="content">
-                                <span class="text-uppercase">{{__($general->cur_sym)}} {{showAmount(@$subscribe->plan->price)}}</span>
+                            <div class="icon my-auto">
+                                <i class="fas fa-money-check-alt"></i>
                             </div>
-
-                        </div>
-                        <div class="icon my-auto">
-                            <i class="las la-gift"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            @elseif($subscribe === false)
-            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                <div class="dash-card">
-                    <a href="{{route('plans')}}" class="d-flex justify-content-between">
-                        <div>
-                            <div>
-                                <p>@lang('Current Plan Expired')</p>
-                            </div>
-                            <div class="content">
-                                <p class="text-uppercase">@lang('subscribe to a new plan')</p>
-                            </div>
-
-                        </div>
-                        <div class="icon my-auto">
-                            <i class="las la-gift"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            @elseif($subscribe === null)
-            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                <div class="dash-card">
-                    <a href="{{route('plans')}}" class="d-flex justify-content-between">
-                        <div>
-                            <div>
-                                <p>@lang('No Plan')</p>
-                            </div>
-                            <div class="content">
-                                <p class="text-uppercase">@lang('subscribe to a new plan')</p>
-                            </div>
-
-                        </div>
-                        <div class="icon my-auto">
-                            <i class="las la-gift"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            @endif
-
-            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                <div class="dash-card">
-                    <a href="{{route('services')}}" class="d-flex justify-content-between">
-                        <div>
-                            <div>
-                                <p>@lang('Services')</p>
-                            </div>
-                            <div class="content">
-                                <p class="text-uppercase">@lang('all services')</p>
-                            </div>
-
-                        </div>
-                        <div class="icon my-auto">
-                            <i class="fab fa-servicestack"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                <div class="dash-card">
-                    <a href="" class="d-flex justify-content-between">
-                        <div>
-                            <div>
-                                <p>@lang('All Orders')</p>
-                            </div>
-                            <div class="content">
-                                <span class="text-uppercase">{{$totalOrders}}</span>
-                            </div>
-                        </div>
-                        <div class="icon my-auto">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="chart">
-                    <div class="chart-bg">
-                        <h4>@lang('Monthly Deposit History')</h4>
-                        <div id="account-chart"></div>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="m-0">
-            <div class="list-card">
-                <div class="header-title-list">
-                    <h4 class="pb-0">@lang('Recent Services Order')</h4>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-xl-12">
-                        <table class="custom-table">
-                            <thead>
-                                <tr>
-                                    <th>@lang('Order Date')</th>
-                                    <th>@lang('Order Number')</th>
-                                    <th>@lang('Service Name')</th>
-                                    <th>@lang('File')</th>
-                                    <th>@lang('Amount')</th>
-                                    <th>@lang('Status')</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($orders as $order)
-                                <tr>
-                                    <td data-label="@lang('Order Date')">{{ showDateTime($order->created_at)}}</td>
-                                    <td data-label="@lang('Order Number')" class="fw-bold">#{{$order->order_number}}</td>
+                @if ($subscribe)
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                        <div class="dash-card">
+                            <a href="{{ route('plans') }}" class="d-flex justify-content-between">
+                                <div>
+                                    <div>
+                                        <p>{{ __(@$subscribe->plan->name) }} <span
+                                                class="text-success">(@lang('Subscribed'))</span></p>
+                                    </div>
+                                    <div class="content">
+                                        <span class="text-uppercase">{{ __($general->cur_sym) }}
+                                            {{ showAmount(@$subscribe->plan->price) }}</span>
+                                    </div>
 
-                                    @if(isset($order->service))
-                                        <td data-label="@lang('Service Name')">{{__(@$order->service->title)}}</td>
-                                        @if($order->status == 1 && isset($order->service->file) )
-                                            <td data-label="@lang('File')"> <a class="btn--base" href="{{ route('user.service.file.download',@$order->service->id) }}" title="File Download"><i class="fas fa-download"></i> @lang('File')</a></td>
-                                        @else
-                                            <td data-label="@lang('File')">@lang('File not available')</td>
-                                        @endif
-                                    @else
-                                        <td data-label="@lang('Service Name')">@lang('Service Unavailable')</td>
-                                        <td data-label="@lang('File')">@lang('Service Unavailable')</td>
-                                    @endif
+                                </div>
+                                <div class="icon my-auto">
+                                    <i class="las la-gift"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @elseif($subscribe === false)
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                        <div class="dash-card">
+                            <a href="{{ route('plans') }}" class="d-flex justify-content-between">
+                                <div>
+                                    <div>
+                                        <p>@lang('Current Plan Expired')</p>
+                                    </div>
+                                    <div class="content">
+                                        <p class="text-uppercase">@lang('subscribe to a new plan')</p>
+                                    </div>
 
-                                    <td data-label="@lang('Amount')">{{__($general->cur_sym)}} {{showAmount($order->service_price)}} </td>
-                                    <td data-label="@lang('Status')">@php echo $order->statusBadge($order->status) @endphp </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td class="text-muted text-center" colspan="100%" data-label="@lang('Order Table')">{{__($emptyMessage) }}</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                                </div>
+                                <div class="icon my-auto">
+                                    <i class="las la-gift"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @elseif($subscribe === null)
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                        <div class="dash-card">
+                            <a href="{{ route('plans') }}" class="d-flex justify-content-between">
+                                <div>
+                                    <div>
+                                        <p>@lang('No Plan')</p>
+                                    </div>
+                                    <div class="content">
+                                        <p class="text-uppercase">@lang('subscribe to a new plan')</p>
+                                    </div>
+
+                                </div>
+                                <div class="icon my-auto">
+                                    <i class="las la-gift"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                    <div class="dash-card">
+                        <a href="{{ route('services') }}" class="d-flex justify-content-between">
+                            <div>
+                                <div>
+                                    <p>@lang('Services')</p>
+                                </div>
+                                <div class="content">
+                                    <p class="text-uppercase">@lang('all services')</p>
+                                </div>
+
+                            </div>
+                            <div class="icon my-auto">
+                                <i class="fab fa-servicestack"></i>
+                            </div>
+                        </a>
                     </div>
                 </div>
+
+                <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                    <div class="dash-card">
+                        <a href="" class="d-flex justify-content-between">
+                            <div>
+                                <div>
+                                    <p>@lang('All Orders')</p>
+                                </div>
+                                <div class="content">
+                                    <span class="text-uppercase">{{ $totalOrders }}</span>
+                                </div>
+                            </div>
+                            <div class="icon my-auto">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div> --}}
+
+        <div class="container mt-5 mb-5">
+            <div class="row">
+                @foreach ($modules as $module)
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card" style="padding-left: 10px; padding-right: 10px">
+                        <div class="mt-3">
+                            <img src="{{asset('Modules/'. $module->image)}}" style="height: 285px" alt="Career Library Image">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-3"> {{ $module->title }} </h5>
+                            <a href="{{route('user.subcategory')}}" class="btn btn-warning">{{ $module->btn_text }} <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                @endforeach
+                {{-- <div class="col-lg-4 col-md-6">
+                    <div class="card">
+                        <img src="{{asset('Modules/1721024546_onetoone.jpg')}}" alt="Career Assessment Image">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Career Assessment</h5>
+                            <a href="#" class="btn btn-warning">Start Assessment <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card">
+                        <img src="{{asset('Modules/1721024449_Masterclass.jpg')}}" alt="Master Class Image">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Master Class</h5>
+                            <a href="#" class="btn btn-warning">Watch Videos <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div> --}}
             </div>
         </div>
 
     </div>
-</div>
 @endsection
 
 @push('script')
-<script src="{{asset('assets/admin/js/apexcharts.min.js')}}"></script>
+    {{-- <script src="{{asset('assets/admin/js/apexcharts.min.js')}}"></script>
 <script>
     (function () {
         "use strict";
@@ -262,7 +243,5 @@
     );
     chart.render();
     }) ();
-</script>
+</script> --}}
 @endpush
-
-

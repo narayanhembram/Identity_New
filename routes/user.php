@@ -51,6 +51,7 @@ Route::middleware('auth')->name('user.')->group(function () {
 
             Route::controller('UserController')->group(function(){
                 Route::get('dashboard', 'home')->name('home');
+                Route::get('viewcategory/{id}', 'viewcategory')->name('viewcategory');
 
                 //2FA
                 Route::get('twofactor', 'show2faForm')->name('twofactor');
@@ -70,6 +71,9 @@ Route::middleware('auth')->name('user.')->group(function () {
 
                 // fetch subscriptions
                 Route::get('all/subscription-plan', 'fetchSubscription')->name('fetch.subscription');
+
+                //subcategory
+                Route::get('subcategory', 'subcategory')->name('subcategory');
 
                 // file download
                 Route::get('service/order/{id}', 'serviceFileDownload')->name('service.file.download');

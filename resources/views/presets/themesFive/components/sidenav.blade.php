@@ -2,9 +2,9 @@
     <div class="sidebar__inner">
         <div class="sidebar-top-inner">
             <div class="sidebar__logo">
-                <a href="{{route('home')}}" class="sidebar__main-logo">
+                <a href="{{ route('home') }}" class="sidebar__main-logo">
                     <img src="{{ getImage(getFilePath('logoIcon') . '/logo.png', '?' . time()) }}"
-                    alt="{{ config('app.name') }}">
+                        alt="{{ config('app.name') }}">
                 </a>
                 <div class="navbar__left">
                     <button class="navbar__expand">
@@ -23,8 +23,39 @@
                             <span class="menu-title">@lang('Dashboard')</span>
                         </a>
                     </li>
+                    @foreach (App\Models\Module::all() as $module)
 
-                    <li class="sidebar-menu-item sidebar-dropdown">
+                    <li class="sidebar-menu-item {{ Request::is($module->route) ? 'active' : '' }}">
+                        <a href="{{route('user.home')}}">
+                            <i class="menu-icon las la-briefcase"></i>
+                            <span class="menu-title">@lang( $module->title )</span>
+                        </a>
+                    </li>
+
+                    @endforeach
+
+                    {{-- <li class="sidebar-menu-item {{ Route::is('user.home') ? 'active' : '' }}">
+                        <a href="{{route('user.home')}}">
+                            <i class="menu-icon las la-clipboard"></i>
+                            <span class="menu-title">@lang('Assessment')</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu-item {{ Route::is('user.home') ? 'active' : '' }}">
+                        <a href="{{route('user.home')}}">
+                            <i class="menu-icon las la-graduation-cap"></i>
+                            <span class="menu-title">@lang('Master Class')</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu-item {{ Route::is('user.home') ? 'active' : '' }}">
+                        <a href="{{route('user.home')}}">
+                            <i class="menu-icon las la-graduation-cap"></i>
+                            <span class="menu-title">@lang('My Sessions')</span>
+                        </a>
+                    </li> --}}
+
+                    {{-- <li class="sidebar-menu-item sidebar-dropdown">
                         <a href="javascript:void(0)">
                             <i class="menu-icon fas fa-cart-arrow-down"></i>
                             <span class="menu-title">@lang('Service Orders')</span>
@@ -49,9 +80,9 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
-                    <li class="sidebar-menu-item sidebar-dropdown">
+                    {{-- <li class="sidebar-menu-item sidebar-dropdown">
                         <a href="javascript:void(0)">
                             <i class="menu-icon las la-dollar-sign"></i>
                             <span class="menu-title">@lang('Deposit')</span>
@@ -70,7 +101,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <li class="sidebar-menu-item {{ Route::is('user.fetch.subscription') ? 'active' : '' }}">
                         <a href="{{route('user.fetch.subscription')}}">
@@ -79,14 +110,14 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-menu-item {{ Route::is('user.transactions') ? 'active' : '' }}">
+                    {{-- <li class="sidebar-menu-item {{ Route::is('user.transactions') ? 'active' : '' }}">
                         <a href="{{route('user.transactions')}}">
                             <i class="menu-icon las la-hand-holding-usd"></i>
                             <span class="menu-title">@lang('Transactions')</span>
                         </a>
-                    </li>
+                    </li> --}}
 
-                    <li class="sidebar-menu-item sidebar-dropdown">
+                    {{-- <li class="sidebar-menu-item sidebar-dropdown">
                         <a href="javascript:void(0)">
                             <i class="menu-icon las fas fa-headset"></i>
                             <span class="menu-title">@lang('Support Tickets')</span>
@@ -105,22 +136,22 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
-        <div class="sidebar-support-box d-grid align-items-center bg-img"
-        data-background="{{ asset($activeTemplateTrue . 'images/sidebar-bg.png') }}">
-        <div class="sidebar-support-icon">
-            <i class="fas fa-question-circle"></i>
-        </div>
-        <div class="sidebar-support-content">
-            <h4 class="title">@lang('Need Help')?</h4>
-            <p>@lang('Please contact our support').</p>
-            <div class="sidebar-support-btn">
-                <a href="{{route('ticket.open')}}" class="btn--base w-100 mt-2">@lang('Get Support')</a>
+        {{-- <div class="sidebar-support-box d-grid align-items-center bg-img"
+            data-background="{{ asset($activeTemplateTrue . 'images/sidebar-bg.png') }}">
+            <div class="sidebar-support-icon">
+                <i class="fas fa-question-circle"></i>
             </div>
-        </div>
-    </div>
+            <div class="sidebar-support-content">
+                <h4 class="title">@lang('Need Help')?</h4>
+                <p>@lang('Please contact our support').</p>
+                <div class="sidebar-support-btn">
+                    <a href="{{ route('ticket.open') }}" class="btn--base w-100 mt-2">@lang('Get Support')</a>
+                </div>
+            </div>
+        </div> --}}
     </div>
 </div>

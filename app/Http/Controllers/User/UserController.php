@@ -13,6 +13,9 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Lib\GoogleAuthenticator;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Module;
+use App\Models\Subcategory;
 use App\Models\Subscription;
 
 class UserController extends Controller
@@ -21,6 +24,8 @@ class UserController extends Controller
     {
         $pageTitle = 'Dashboard';
         $user = auth()->user();
+        $modules = Module::all();
+        $categories = Category::all();
         $subscribe = isSubscribe($user->id);
         $totalOrders = Order::where('user_id',$user->id)->count();
 
@@ -38,171 +43,180 @@ class UserController extends Controller
         ->latest()
         ->latest()->limit(5)->get();
 
-        return view($this->activeTemplate . 'user.dashboard', compact('pageTitle','subscribe','totalOrders','user','depositsChart','orders'));
+        return view($this->activeTemplate . 'user.dashboard', compact('pageTitle','subscribe','totalOrders','user','depositsChart','orders','modules','categories'));
     }
 
-    public function depositHistory(Request $request)
-    {
-        $pageTitle = 'Deposit History';
-        $deposits = auth()->user()->deposits();
-        if ($request->search) {
-            $deposits = $deposits->where('trx',$request->search);
-        }
-        $deposits = $deposits->with(['gateway'])->orderBy('id','desc')->paginate(getPaginate());
-        return view($this->activeTemplate.'user.deposit_history', compact('pageTitle', 'deposits'));
+    public function subcategory(){
+        $pageTitle = 'Subcategory';
+        $subcategories = Subcategory::all();
+        return view('presets.themesFive.user.subcategory',compact('pageTitle','subcategories'));
     }
+    // public function viewcategory($product_id){
+    //     return view('');
+    // }
 
-    public function show2faForm()
-    {
-        $general = gs();
-        $ga = new GoogleAuthenticator();
-        $user = auth()->user();
-        $secret = $ga->createSecret();
-        $qrCodeUrl = $ga->getQRCodeGoogleUrl($user->username . '@' . $general->site_name, $secret);
-        $pageTitle = '2FA Setting';
-        return view($this->activeTemplate.'user.twofactor', compact('pageTitle', 'secret', 'qrCodeUrl'));
-    }
+    // public function depositHistory(Request $request)
+    // {
+    //     $pageTitle = 'Deposit History';
+    //     $deposits = auth()->user()->deposits();
+    //     if ($request->search) {
+    //         $deposits = $deposits->where('trx',$request->search);
+    //     }
+    //     $deposits = $deposits->with(['gateway'])->orderBy('id','desc')->paginate(getPaginate());
+    //     return view($this->activeTemplate.'user.deposit_history', compact('pageTitle', 'deposits'));
+    // }
 
-    public function create2fa(Request $request)
-    {
-        $user = auth()->user();
-        $this->validate($request, [
-            'key' => 'required',
-            'code' => 'required',
-        ]);
-        $response = verifyG2fa($user,$request->code,$request->key);
-        if ($response) {
-            $user->tsc = $request->key;
-            $user->ts = 1;
-            $user->save();
-            $notify[] = ['success', 'Google authenticator activated successfully'];
-            return back()->withNotify($notify);
-        } else {
-            $notify[] = ['error', 'Wrong verification code'];
-            return back()->withNotify($notify);
-        }
-    }
+    // public function show2faForm()
+    // {
+    //     $general = gs();
+    //     $ga = new GoogleAuthenticator();
+    //     $user = auth()->user();
+    //     $secret = $ga->createSecret();
+    //     $qrCodeUrl = $ga->getQRCodeGoogleUrl($user->username . '@' . $general->site_name, $secret);
+    //     $pageTitle = '2FA Setting';
+    //     return view($this->activeTemplate.'user.twofactor', compact('pageTitle', 'secret', 'qrCodeUrl'));
+    // }
 
-    public function disable2fa(Request $request)
-    {
-        $this->validate($request, [
-            'code' => 'required',
-        ]);
+    // public function create2fa(Request $request)
+    // {
+    //     $user = auth()->user();
+    //     $this->validate($request, [
+    //         'key' => 'required',
+    //         'code' => 'required',
+    //     ]);
+    //     $response = verifyG2fa($user,$request->code,$request->key);
+    //     if ($response) {
+    //         $user->tsc = $request->key;
+    //         $user->ts = 1;
+    //         $user->save();
+    //         $notify[] = ['success', 'Google authenticator activated successfully'];
+    //         return back()->withNotify($notify);
+    //     } else {
+    //         $notify[] = ['error', 'Wrong verification code'];
+    //         return back()->withNotify($notify);
+    //     }
+    // }
 
-        $user = auth()->user();
-        $response = verifyG2fa($user,$request->code);
-        if ($response) {
-            $user->tsc = null;
-            $user->ts = 0;
-            $user->save();
-            $notify[] = ['success', 'Two factor authenticator deactivated successfully'];
-        } else {
-            $notify[] = ['error', 'Wrong verification code'];
-        }
-        return back()->withNotify($notify);
-    }
+    // public function disable2fa(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'code' => 'required',
+    //     ]);
 
-    public function transactions(Request $request)
-    {
-        $pageTitle = 'Transactions';
-        $remarks = Transaction::distinct('remark')->orderBy('remark')->get('remark');
-        $transactions = Transaction::where('user_id',auth()->id());
+    //     $user = auth()->user();
+    //     $response = verifyG2fa($user,$request->code);
+    //     if ($response) {
+    //         $user->tsc = null;
+    //         $user->ts = 0;
+    //         $user->save();
+    //         $notify[] = ['success', 'Two factor authenticator deactivated successfully'];
+    //     } else {
+    //         $notify[] = ['error', 'Wrong verification code'];
+    //     }
+    //     return back()->withNotify($notify);
+    // }
 
-        if ($request->search) {
-            $transactions = $transactions->where('trx',$request->search);
-        }
+    // public function transactions(Request $request)
+    // {
+    //     $pageTitle = 'Transactions';
+    //     $remarks = Transaction::distinct('remark')->orderBy('remark')->get('remark');
+    //     $transactions = Transaction::where('user_id',auth()->id());
 
-        if ($request->type) {
-            $transactions = $transactions->where('trx_type',$request->type);
-        }
+    //     if ($request->search) {
+    //         $transactions = $transactions->where('trx',$request->search);
+    //     }
 
-        if ($request->remark) {
-            $transactions = $transactions->where('remark',$request->remark);
-        }
+    //     if ($request->type) {
+    //         $transactions = $transactions->where('trx_type',$request->type);
+    //     }
 
-        $transactions = $transactions->orderBy('id','desc')->paginate(getPaginate());
-        return view($this->activeTemplate.'user.transactions', compact('pageTitle','transactions','remarks'));
-    }
+    //     if ($request->remark) {
+    //         $transactions = $transactions->where('remark',$request->remark);
+    //     }
+
+    //     $transactions = $transactions->orderBy('id','desc')->paginate(getPaginate());
+    //     return view($this->activeTemplate.'user.transactions', compact('pageTitle','transactions','remarks'));
+    // }
 
 
-    public function attachmentDownload($fileHash)
-    {
-        $filePath = decrypt($fileHash);
-        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-        $general = gs();
-        $title = slug($general->site_name).'- attachments.'.$extension;
-        $mimetype = mime_content_type($filePath);
-        header('Content-Disposition: attachment; filename="' . $title);
-        header("Content-Type: " . $mimetype);
-        return readfile($filePath);
-    }
+    // public function attachmentDownload($fileHash)
+    // {
+    //     $filePath = decrypt($fileHash);
+    //     $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+    //     $general = gs();
+    //     $title = slug($general->site_name).'- attachments.'.$extension;
+    //     $mimetype = mime_content_type($filePath);
+    //     header('Content-Disposition: attachment; filename="' . $title);
+    //     header("Content-Type: " . $mimetype);
+    //     return readfile($filePath);
+    // }
 
-    public function userData()
-    {
-        $user = auth()->user();
-        if ($user->reg_step == 1) {
-            return to_route('user.home');
-        }
-        $pageTitle = 'User Data';
-        return view($this->activeTemplate.'user.user_data', compact('pageTitle','user'));
-    }
+    // public function userData()
+    // {
+    //     $user = auth()->user();
+    //     if ($user->reg_step == 1) {
+    //         return to_route('user.home');
+    //     }
+    //     $pageTitle = 'User Data';
+    //     return view($this->activeTemplate.'user.user_data', compact('pageTitle','user'));
+    // }
 
-    public function userDataSubmit(Request $request)
-    {
-        $user = auth()->user();
-        if ($user->reg_step == 1) {
-            return to_route('user.home');
-        }
-        $request->validate([
-            'firstname'=>'required',
-            'lastname'=>'required',
-        ]);
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->address = [
-            'country'=>@$user->address->country,
-            'address'=>$request->address,
-            'state'=>$request->state,
-            'zip'=>$request->zip,
-            'city'=>$request->city,
-        ];
-        $user->reg_step = 1;
-        $user->save();
+    // public function userDataSubmit(Request $request)
+    // {
+    //     $user = auth()->user();
+    //     if ($user->reg_step == 1) {
+    //         return to_route('user.home');
+    //     }
+    //     $request->validate([
+    //         'firstname'=>'required',
+    //         'lastname'=>'required',
+    //     ]);
+    //     $user->firstname = $request->firstname;
+    //     $user->lastname = $request->lastname;
+    //     $user->address = [
+    //         'country'=>@$user->address->country,
+    //         'address'=>$request->address,
+    //         'state'=>$request->state,
+    //         'zip'=>$request->zip,
+    //         'city'=>$request->city,
+    //     ];
+    //     $user->reg_step = 1;
+    //     $user->save();
 
-        $notify[] = ['success','Registration process completed successfully'];
-        return to_route('user.home')->withNotify($notify);
+    //     $notify[] = ['success','Registration process completed successfully'];
+    //     return to_route('user.home')->withNotify($notify);
 
-    }
+    // }
 
      // get orders table
-     public function getOrders(){
-        $pageTitle = 'Orders List';
-        $orders = Order::where('user_id', auth()->user()->id)
-        ->latest()
-        ->with('service')
-        ->paginate(getPaginate());
-        return view($this->activeTemplate.'user.orders',compact('pageTitle','orders'));
-    }
+    //  public function getOrders(){
+    //     $pageTitle = 'Orders List';
+    //     $orders = Order::where('user_id', auth()->user()->id)
+    //     ->latest()
+    //     ->with('service')
+    //     ->paginate(getPaginate());
+    //     return view($this->activeTemplate.'user.orders',compact('pageTitle','orders'));
+    // }
 
-    public function approvedOrders(){
+    // public function approvedOrders(){
 
-        $pageTitle = 'Approved Orders';
-        $orders = Order::where('status',1)->where('user_id', auth()->user()->id)
-        ->latest()
-        ->with('service')
-        ->paginate(getPaginate());
-        return view($this->activeTemplate.'user.orders',compact('pageTitle','orders'));
-    }
+    //     $pageTitle = 'Approved Orders';
+    //     $orders = Order::where('status',1)->where('user_id', auth()->user()->id)
+    //     ->latest()
+    //     ->with('service')
+    //     ->paginate(getPaginate());
+    //     return view($this->activeTemplate.'user.orders',compact('pageTitle','orders'));
+    // }
 
-    public function pendingOrders(){
+    // public function pendingOrders(){
 
-        $pageTitle = 'Pending Orders';
-        $orders = Order::where('status',0)->where('user_id', auth()->user()->id)
-        ->latest()
-        ->with('service')
-        ->paginate(getPaginate());
-        return view($this->activeTemplate.'user.orders',compact('pageTitle','orders'));
-    }
+    //     $pageTitle = 'Pending Orders';
+    //     $orders = Order::where('status',0)->where('user_id', auth()->user()->id)
+    //     ->latest()
+    //     ->with('service')
+    //     ->paginate(getPaginate());
+    //     return view($this->activeTemplate.'user.orders',compact('pageTitle','orders'));
+    // }
 
     // subscription
     public function fetchSubscription(){
@@ -214,23 +228,23 @@ class UserController extends Controller
 
 
      // file download
-     public function serviceFileDownload($id) {
+    //  public function serviceFileDownload($id) {
 
-        $user = auth()->user();
-        $siteName = gs()->site_name;
-        $service = Service::findOrFail($id);
+    //     $user = auth()->user();
+    //     $siteName = gs()->site_name;
+    //     $service = Service::findOrFail($id);
 
 
-        if (isset($service->file)) {
-            $file = getFilePath('serviceFile') . '/' . $service->file;
-            $fileName =$siteName.'_'.$user->username . '_' . $service->file;
-            return response()->download($file, $fileName);
-        }else{
-            $notify = ['error', 'This File Empty'];
-            return back()->withNotify($notify);
-        }
+    //     if (isset($service->file)) {
+    //         $file = getFilePath('serviceFile') . '/' . $service->file;
+    //         $fileName =$siteName.'_'.$user->username . '_' . $service->file;
+    //         return response()->download($file, $fileName);
+    //     }else{
+    //         $notify = ['error', 'This File Empty'];
+    //         return back()->withNotify($notify);
+    //     }
 
-    }
+    // }
 
 
 }
