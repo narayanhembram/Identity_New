@@ -9,6 +9,17 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label for="category_id" class="font-weight-bold">@lang('Module')</label>
+                                    <select class="form-control" name="module_id">
+                                        <option value="">Select Module</option>
+                                        @foreach ($modules as $module)
+                                            <option value="{{ $module->id }}"> {{ $module->title }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
                                     <label for="category_id" class="font-weight-bold">@lang('Category')</label>
                                     <select class="form-control" name="category_id" id="category">
                                         <option value="">Select Category</option>

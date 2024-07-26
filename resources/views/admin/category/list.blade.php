@@ -8,7 +8,7 @@
                         <table class="table table--light style--two">
                             <thead>
                                 <tr>
-                                    <th>@lang('Module Name')</th>
+                                    {{-- <th>@lang('Module Name')</th> --}}
                                     <th>@lang('Title')</th>
                                     <th>@lang('File')</th>
                                     <th>@lang('Description')</th>
@@ -18,7 +18,7 @@
                             <tbody>
                                 @forelse($categories as $category)
                                     <tr>
-                                        <td>{{ $category->getModule->title }}</td>
+                                        {{-- <td>{{ $category->getModule->title }}</td> --}}
                                         <td>{{ $category->title }}</td>
                                         <td>
                                             <img src="{{ asset('Category/' . $category->file) }}" width="100" alt="">

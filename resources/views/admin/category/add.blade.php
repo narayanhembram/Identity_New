@@ -8,7 +8,7 @@
                         @csrf
                         <div class="row">
 
-                            <div class="col-lg-6">
+                            {{-- <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="price" class="font-weight-bold">@lang('Select Module')</label>
                                     <select name="module_id" class="form-control" required>
@@ -18,7 +18,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-6">
                                 <div class="form-group">

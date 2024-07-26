@@ -8,6 +8,7 @@
                         <table class="table table--light style--two">
                             <thead>
                                 <tr>
+                                    <th>@lang('Module Name')</th>
                                     <th>@lang('Category Name')</th>
                                     <th>@lang('Subcategory Name')</th>
                                     <th>@lang('Logo')</th>
@@ -26,6 +27,7 @@
                             <tbody>
                                 @forelse($institutions as $institution)
                                     <tr>
+                                        <td>{{ $institution->Modules->title }}</td>
                                         <td>{{ $institution->Category->title }}</td>
                                         <td>{{ $institution->Subcategory->title }}</td>
                                         <td>

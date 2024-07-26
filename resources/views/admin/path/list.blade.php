@@ -8,6 +8,7 @@
                         <table class="table table--light style--two">
                             <thead>
                                 <tr>
+                                    <th>@lang('Module Name')</th>
                                     <th>@lang('Category Name')</th>
                                     <th>@lang('Subcategory Name')</th>
                                     <th>@lang('Path Type')</th>
@@ -22,6 +23,7 @@
                             <tbody>
                                 @forelse($paths as $path)
                                     <tr>
+                                        <td>{{ $path->Module->title }}</td>
                                         <td>{{ $path->Category->title }}</td>
                                         <td>{{ $path->Subcategory->title }}</td>
                                         <td>{{ $path->Pathtype->title }}</td>

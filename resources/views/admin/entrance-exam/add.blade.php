@@ -10,6 +10,18 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label for="price" class="font-weight-bold">@lang('Select Module')</label>
+                                    <select name="module_id" class="form-control" required>
+                                        <option value="">Select Module</option>
+                                        @foreach ($modules as $module)
+                                            <option value="{{ $module->id }}"> {{ $module->title }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
                                     <label for="price" class="font-weight-bold">@lang('Select Category')</label>
                                     <select name="category_id" id="category" class="form-control" required>
                                         <option value="">Select Category</option>

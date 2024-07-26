@@ -9,7 +9,7 @@
                         <div class="row">
                             <input type="hidden" name="id" value="{{$edit->id}}">
 
-                            <div class="col-lg-6">
+                            {{-- <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="price" class="font-weight-bold">@lang('Select Module')</label>
                                     <select name="module_id" class="form-control" required>
@@ -19,7 +19,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -32,7 +32,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="name" class="font-weight-bold">@lang('File')</label>
-                                    <input type="file" name="file" class="form-control" required>
+                                    <input type="file" name="file" class="form-control">
                                 </div>
                             </div>
 
@@ -40,6 +40,12 @@
                                 <div class="form-group">
                                     <label for="type" class="font-weight-bold">@lang('Description')</label>
                                     <textarea class="form-control" name="description" cols="30" rows="3" required>{{ $edit->description }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group" >
+                                    <img src="{{ asset('Category/' . $edit->file) }}" width="100" style="border-radius: 10px">
                                 </div>
                             </div>
 

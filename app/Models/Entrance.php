@@ -9,6 +9,9 @@ class Entrance extends Model
 {
     use HasFactory;
 
+    public function Module(){
+        return $this->belongsTo(Module::class,'module_id');
+    }
     public function Category(){
         return $this->belongsTo(Category::class,'category_id');
     }

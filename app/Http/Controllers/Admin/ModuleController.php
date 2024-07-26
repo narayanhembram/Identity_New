@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Entrance;
+use App\Models\Institution;
 use App\Models\Module;
+use App\Models\Path;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -65,7 +68,10 @@ class ModuleController extends Controller
             if ($delete->image && file_exists(public_path('Modules/' . $delete->image))) {
                 unlink(public_path('Modules/' . $delete->image));
             }
-            Category::where('module_id', $request->id)->delete();
+            // Category::where('module_id', $request->id)->delete();
+            Path::where('module_id', $request->id)->delete();
+            Entrance::where('module_id', $request->id)->delete();
+            Institution::where('module_id', $request->id)->delete();
             $delete->delete();
             $notify[] = ['success', 'Module has been deleted successfully'];
         } else {

@@ -8,6 +8,7 @@
                         <table class="table table--light style--two">
                             <thead>
                                 <tr>
+                                    <th>@lang('Module Name')</th>
                                     <th>@lang('Category Name')</th>
                                     <th>@lang('Subcategory Name')</th>
                                     <th>@lang('Exam Name')</th>
@@ -19,6 +20,7 @@
                             <tbody>
                                 @forelse($entrances as $entrance)
                                     <tr>
+                                        <td>{{ $entrance->Module->title }}</td>
                                         <td>{{ $entrance->Category->title }}</td>
                                         <td>{{ $entrance->Subcategory->title }}</td>
                                         <td>{{ $entrance->exam_name }}</td>

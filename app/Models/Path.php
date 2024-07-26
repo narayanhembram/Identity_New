@@ -18,4 +18,7 @@ class Path extends Model
     public function Pathtype(){
         return $this->belongsTo(PathType::class,'pathtype_id');
     }
+    public function Module(){
+        return $this->belongsTo(Module::class,'module_id');
+    }
 }

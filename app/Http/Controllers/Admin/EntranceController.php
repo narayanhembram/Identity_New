@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Entrance;
+use App\Models\Module;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
@@ -17,12 +18,13 @@ class EntranceController extends Controller
     }
     public function add(){
         $pageTitle = 'Add Entrance Exam';
+        $modules = Module::all();
         $categories = Category::all();
-        $subcategories = Subcategory::all();
-        return view('admin.entrance-exam.add', compact('pageTitle','categories','subcategories'));
+        return view('admin.entrance-exam.add', compact('pageTitle','categories','modules'));
     }
     public function store(Request $request){
         $store = new Entrance();
+        $store->module_id = $request->module_id;
         $store->category_id = $request->category_id;
         $store->subcategory_id = $request->subcategory_id;
         $store->exam_name = $request->exam_name;
@@ -36,14 +38,16 @@ class EntranceController extends Controller
     }
     public function edit($id){
         $pageTitle = 'Edit Entrance Exam';
+        $modules = Module::all();
         $categories = Category::all();
         $subcategories = Subcategory::all();
         $edit = Entrance::find($id);
-        return view('admin.entrance-exam.edit', compact('pageTitle','edit','categories','subcategories'));
+        return view('admin.entrance-exam.edit', compact('pageTitle','edit','categories','subcategories','modules'));
     }
     public function update(Request $request){
         $update = Entrance::find($request->id);
 
+        $update->module_id = $request->module_id;
         $update->category_id = $request->category_id;
         $update->subcategory_id = $request->subcategory_id;
         $update->exam_name = $request->exam_name;

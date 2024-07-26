@@ -20,12 +20,12 @@ class CategoryController extends Controller
     }
     public function add(){
         $pageTitle = 'Add Category';
-        $modules = Module::all();
-        return view('admin.category.add', compact('pageTitle','modules'));
+        // $modules = Module::all();
+        return view('admin.category.add', compact('pageTitle'));
     }
     public function store(Request $request){
         $store = new Category;
-        $store->module_id = $request->module_id;
+        // $store->module_id = $request->module_id;
         $store->title = $request->title;
         if($request->hasFile('file')){
             $file = $request->file('file');
@@ -41,13 +41,13 @@ class CategoryController extends Controller
     }
     public function edit($id){
         $pageTitle = 'Edit Category';
-        $modules = Module::all();
+        // $modules = Module::all();
         $edit = Category::find($id);
-        return view('admin.category.edit', compact('pageTitle','edit','modules'));
+        return view('admin.category.edit', compact('pageTitle','edit'));
     }
     public function update(Request $request){
         $update = Category::find($request->id);
-        $update->module_id = $request->module_id;
+        // $update->module_id = $request->module_id;
         $update->title = $request->title;
 
         if($request->hasFile('file')){

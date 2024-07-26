@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\District;
 use App\Models\Institution;
+use App\Models\Module;
 use App\Models\State;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -22,14 +23,16 @@ class InstitutionController extends Controller
     public function add()
     {
         $pageTitle = 'Add Institutions';
+        $modules = Module::all();
         $categories = Category::all();
         $countries = Country::all();
-        return view('admin.institution.add', compact('pageTitle', 'countries', 'categories'));
+        return view('admin.institution.add', compact('pageTitle', 'countries', 'categories','modules'));
     }
     public function store(Request $request)
     {
         $store = new Institution;
 
+        $store->module_id = $request->module_id;
         $store->category_id = $request->category_id;
         $store->subcategory_id = $request->subcategory_id;
         if ($request->hasFile('logo')) {
@@ -54,17 +57,19 @@ class InstitutionController extends Controller
     }
     public function Edit($id){
         $pageTitle = 'Edit Institutions';
+        $modules = Module::all();
         $categories = Category::all();
         $subcategories = Subcategory::all();
         $countries = Country::all();
         $states = State::all();
         $districts = District::all();
         $edit = Institution::find($id);
-        return view('admin.institution.edit', compact('pageTitle','edit','categories','countries','subcategories','states','districts'));
+        return view('admin.institution.edit', compact('pageTitle','edit','categories','countries','subcategories','states','districts','modules'));
     }
     public function update(Request $request){
         $update = Institution::find($request->id);
 
+        $update->module_id = $request->module_id;
         $update->category_id = $request->category_id;
         $update->subcategory_id = $request->subcategory_id;
         if ($request->hasFile('logo')) {

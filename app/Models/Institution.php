@@ -9,6 +9,9 @@ class Institution extends Model
 {
     use HasFactory;
 
+    public function Modules(){
+        return $this->belongsTo(Module::class,'module_id');
+    }
     public function Category(){
         return $this->belongsTo(Category::class,'category_id');
     }

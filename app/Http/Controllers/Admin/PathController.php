@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Module;
 use App\Models\Path;
 use App\Models\PathType;
 use App\Models\Subcategory;
@@ -18,12 +19,14 @@ class PathController extends Controller
     }
     public function add(){
         $pageTitle = 'Add Career Path';
+        $modules = Module::all();
         $categories = Category::all();
         $pathtypes = PathType::all();
-        return view('admin.path.add', compact('pageTitle','categories','pathtypes'));
+        return view('admin.path.add', compact('pageTitle','categories','pathtypes','modules'));
     }
     public function store(Request $request){
         $store = new Path;
+        $store->module_id = $request->module_id;
         $store->category_id = $request->category_id;
         $store->subcategory_id = $request->subcategory_id;
         $store->pathtype_id = $request->pathtype_id;
@@ -40,13 +43,15 @@ class PathController extends Controller
     public function edit($id){
         $pageTitle = 'Edit Career Path';
         $edit = Path::find($id);
+        $modules = Module::all();
         $categories = Category::all();
         $subcategories = Subcategory::all();
         $pathtypes = PathType::all();
-        return view('admin.path.edit',compact('pageTitle','edit','categories','subcategories','pathtypes'));
+        return view('admin.path.edit',compact('pageTitle','edit','categories','subcategories','pathtypes','modules'));
     }
     public function update(Request $request){
         $update = Path::find($request->id);
+        $update->module_id = $request->module_id;
         $update->category_id = $request->category_id;
         $update->subcategory_id = $request->subcategory_id;
         $update->pathtype_id = $request->pathtype_id;

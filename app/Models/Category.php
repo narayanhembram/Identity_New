@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function getModule(){
-        return $this->belongsTo(Module::class,'module_id');
-    }
+    // public function getModule(){
+    //     return $this->belongsTo(Module::class,'module_id');
+    // }
 }
