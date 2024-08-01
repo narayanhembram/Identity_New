@@ -27,29 +27,38 @@ class UserController extends Controller
         $modules = Module::all();
         $categories = Category::all();
         $subscribe = isSubscribe($user->id);
-        $totalOrders = Order::where('user_id',$user->id)->count();
+        $totalOrders = Order::where('user_id', $user->id)->count();
 
         $deposits = Deposit::selectRaw("SUM(amount) as amount, MONTHNAME(created_at) as month_name, MONTH(created_at) as month_num")
-        ->whereYear('created_at', date('Y'))
-        ->whereStatus(1)
-        ->where('user_id',$user->id)
-        ->groupBy('month_name', 'month_num')
-        ->orderBy('month_num')
-        ->get();
+            ->whereYear('created_at', date('Y'))
+            ->whereStatus(1)
+            ->where('user_id', $user->id)
+            ->groupBy('month_name', 'month_num')
+            ->orderBy('month_num')
+            ->get();
         $depositsChart['labels'] = $deposits->pluck('month_name');
         $depositsChart['values'] = $deposits->pluck('amount');
 
         $orders = Order::with('service')->where('user_id', $user->id)
-        ->latest()
-        ->latest()->limit(5)->get();
+            ->latest()
+            ->latest()->limit(5)->get();
 
-        return view($this->activeTemplate . 'user.dashboard', compact('pageTitle','subscribe','totalOrders','user','depositsChart','orders','modules','categories'));
+        return view($this->activeTemplate . 'user.dashboard', compact('pageTitle', 'subscribe', 'totalOrders', 'user', 'depositsChart', 'orders', 'modules', 'categories'));
     }
 
-    public function subcategory(){
+    public function category()
+    {
+        $pageTitle = 'Carrer Library';
+        $categories = Category::all();
+        return view('presets.themesFive.user.career_library', compact('pageTitle', 'categories'));
+    }
+
+    public function subcategory($id)
+    {
         $pageTitle = 'Subcategory';
-        $subcategories = Subcategory::all();
-        return view('presets.themesFive.user.subcategory',compact('pageTitle','subcategories'));
+        $categories = Category::all();
+        $subcategories = Subcategory::where('category_id', $id)->get();
+        return view('presets.themesFive.user.career_library_subcat', compact('pageTitle', 'subcategories','categories'));
     }
     // public function viewcategory($product_id){
     //     return view('');
@@ -188,7 +197,7 @@ class UserController extends Controller
 
     // }
 
-     // get orders table
+    // get orders table
     //  public function getOrders(){
     //     $pageTitle = 'Orders List';
     //     $orders = Order::where('user_id', auth()->user()->id)
@@ -219,15 +228,16 @@ class UserController extends Controller
     // }
 
     // subscription
-    public function fetchSubscription(){
+    public function fetchSubscription()
+    {
         $pageTitle = "Subscriptions";
         $user = auth()->user();
-        $subscriptions = Subscription::with('plan')->where('user_id',$user->id)->latest()->paginate(getPaginate());
-        return view($this->activeTemplate.'user.subscriptions',compact('subscriptions','pageTitle'));
+        $subscriptions = Subscription::with('plan')->where('user_id', $user->id)->latest()->paginate(getPaginate());
+        return view($this->activeTemplate . 'user.subscriptions', compact('subscriptions', 'pageTitle'));
     }
 
 
-     // file download
+    // file download
     //  public function serviceFileDownload($id) {
 
     //     $user = auth()->user();

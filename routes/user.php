@@ -73,7 +73,10 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('all/subscription-plan', 'fetchSubscription')->name('fetch.subscription');
 
                 //subcategory
-                Route::get('subcategory', 'subcategory')->name('subcategory');
+                Route::get('/subcategory/{id}', 'subcategory')->name('subcategory');
+
+                //category
+                Route::get('/category', 'category')->name('category');
 
                 // file download
                 Route::get('service/order/{id}', 'serviceFileDownload')->name('service.file.download');

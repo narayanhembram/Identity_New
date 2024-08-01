@@ -26,8 +26,7 @@
                     @foreach (App\Models\Module::all() as $module)
 
                     <li class="sidebar-menu-item {{ Request::is($module->route) ? 'active' : '' }}">
-                        <a href="{{route('user.home')}}">
-                            <i class="menu-icon las la-briefcase"></i>
+                        <a href="{{route('user.category')}}">
                             <span class="menu-title">@lang( $module->title )</span>
                         </a>
                     </li>
@@ -103,12 +102,12 @@
                         </ul>
                     </li> --}}
 
-                    <li class="sidebar-menu-item {{ Route::is('user.fetch.subscription') ? 'active' : '' }}">
+                    {{-- <li class="sidebar-menu-item {{ Route::is('user.fetch.subscription') ? 'active' : '' }}">
                         <a href="{{route('user.fetch.subscription')}}">
                             <i class="menu-icon las la-gift"></i>
                             <span class="menu-title">@lang('Subscriptions')</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     {{-- <li class="sidebar-menu-item {{ Route::is('user.transactions') ? 'active' : '' }}">
                         <a href="{{route('user.transactions')}}">
