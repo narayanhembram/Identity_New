@@ -12,4 +12,8 @@ class Category extends Model
     // public function getModule(){
     //     return $this->belongsTo(Module::class,'module_id');
     // }
+    public function subcategories()
+    {
+        return $this->hasMany(Subcategory::class);
+    }
 }

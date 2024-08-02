@@ -49,16 +49,23 @@ class UserController extends Controller
     public function category()
     {
         $pageTitle = 'Carrer Library';
-        $categories = Category::all();
-        return view('presets.themesFive.user.career_library', compact('pageTitle', 'categories'));
+        $categories = Category::withCount('subcategories')->get();
+        return view('presets.themesFive.user.career-library.career_library', compact('pageTitle', 'categories'));
     }
 
     public function subcategory($id)
     {
-        $pageTitle = 'Subcategory';
-        $categories = Category::all();
+
+        $categories = Category::find($id);
+        $pageTitle = $categories->title;
         $subcategories = Subcategory::where('category_id', $id)->get();
-        return view('presets.themesFive.user.career_library_subcat', compact('pageTitle', 'subcategories','categories'));
+        return view('presets.themesFive.user.career-library.career_library_subcat', compact('pageTitle', 'subcategories','categories'));
+    }
+
+    public function viewSubcategory($id){
+        $viewSubcategory = Subcategory::find($id);
+        $pageTitle = $viewSubcategory->title;
+        return view('presets.themesFive.user.career-library.view_career_library', compact('viewSubcategory','pageTitle'));
     }
     // public function viewcategory($product_id){
     //     return view('');

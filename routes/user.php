@@ -72,11 +72,14 @@ Route::middleware('auth')->name('user.')->group(function () {
                 // fetch subscriptions
                 Route::get('all/subscription-plan', 'fetchSubscription')->name('fetch.subscription');
 
-                //subcategory
+                //career library subcategory
                 Route::get('/subcategory/{id}', 'subcategory')->name('subcategory');
 
-                //category
+                //career library category
                 Route::get('/category', 'category')->name('category');
+
+                //view career-library
+                Route::get('/view_subcategory/{id}', 'viewSubcategory')->name('viewSubcategory');
 
                 // file download
                 Route::get('service/order/{id}', 'serviceFileDownload')->name('service.file.download');
