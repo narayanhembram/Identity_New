@@ -53,6 +53,9 @@
                                             <option {{($edit->pathtype_id ==$pathtype->id)? 'selected': '' }} value=" {{ $pathtype->id }} "> {{ $pathtype->title }} </option>
                                         @endforeach
                                     </select>
+                                    @error('pathtype_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -68,7 +71,7 @@
                                 <div class="form-group">
                                     <label for="graduation" class="font-weight-bold">@lang('Graduation')</label>
                                     <input type="text" name="graduation" value="{{ $edit->graduation }}"
-                                        class="form-control" placeholder="@lang('Graduation')" required>
+                                        class="form-control" placeholder="@lang('Graduation')" >
                                 </div>
                             </div>
 
@@ -76,7 +79,7 @@
                                 <div class="form-group">
                                     <label for="after_graduation" class="font-weight-bold">@lang('After Graduation')</label>
                                     <input type="text" name="after_graduation" value="{{ $edit->after_graduation }}"
-                                        class="form-control" placeholder="@lang('After Graduation')" required>
+                                        class="form-control" placeholder="@lang('After Graduation')" >
                                 </div>
                             </div>
 
@@ -84,7 +87,7 @@
                                 <div class="form-group">
                                     <label for="after_pgraduation" class="font-weight-bold">@lang('After Post Graduation')</label>
                                     <input type="text" name="after_pgraduation" value="{{ $edit->after_pgraduation }}"
-                                        class="form-control" placeholder="@lang('After Post Graduation')" required>
+                                        class="form-control" placeholder="@lang('After Post Graduation')" >
                                 </div>
                             </div>
 
@@ -92,7 +95,7 @@
                                 <div class="form-group">
                                     <label for="anyother" class="font-weight-bold">@lang('Any Other')</label>
                                     <input type="text" name="anyother" value="{{ $edit->anyother }}" class="form-control"
-                                        placeholder="@lang('Any Other')" required>
+                                        placeholder="@lang('Any Other')" >
                                 </div>
                             </div>
 

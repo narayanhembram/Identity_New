@@ -12,19 +12,35 @@ use Illuminate\Http\Request;
 
 class PathController extends Controller
 {
-    public function list(){
+    public function list()
+    {
         $pageTitle = 'Career Path';
         $paths = Path::all();
-        return view('admin.path.list', compact('pageTitle','paths'));
+        return view('admin.path.list', compact('pageTitle', 'paths'));
     }
-    public function add(){
+    public function add()
+    {
         $pageTitle = 'Add Career Path';
         $modules = Module::all();
         $categories = Category::all();
         $pathtypes = PathType::all();
-        return view('admin.path.add', compact('pageTitle','categories','pathtypes','modules'));
+        return view('admin.path.add', compact('pageTitle', 'categories', 'pathtypes', 'modules'));
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        $request->validate([
+            'pathtype_id' => 'required|integer',
+            'subcategory_id' => 'required|integer',
+        ]);
+
+        $exists = \App\Models\Path::where('pathtype_id', $request->pathtype_id)
+            ->where('subcategory_id', $request->subcategory_id)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()->withErrors(['pathtype_id' => 'The selected path type is already associated with this subcategory.']);
+        }
+
         $store = new Path;
         $store->module_id = $request->module_id;
         $store->category_id = $request->category_id;
@@ -40,16 +56,34 @@ class PathController extends Controller
         $notify[] = ['success', 'Path has been created successfully'];
         return to_route('admin.path.list')->withNotify($notify);
     }
-    public function edit($id){
+    public function edit($id)
+    {
         $pageTitle = 'Edit Career Path';
         $edit = Path::find($id);
         $modules = Module::all();
         $categories = Category::all();
         $subcategories = Subcategory::all();
         $pathtypes = PathType::all();
-        return view('admin.path.edit',compact('pageTitle','edit','categories','subcategories','pathtypes','modules'));
+        return view('admin.path.edit', compact('pageTitle', 'edit', 'categories', 'subcategories', 'pathtypes', 'modules'));
     }
-    public function update(Request $request){
+    public function update(Request $request)
+    {
+        $request->validate([
+            'pathtype_id' => 'required|integer',
+            'subcategory_id' => 'required|integer',
+        ]);
+
+        $currentPath = Path::find($request->id);
+
+        $exists = \App\Models\Path::where('pathtype_id', $request->pathtype_id)
+            ->where('subcategory_id', $request->subcategory_id)
+            ->where('id', '!=', $currentPath->id)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()->withErrors(['pathtype_id' => 'The selected path type is already associated with this subcategory.']);
+        }
+
         $update = Path::find($request->id);
         $update->module_id = $request->module_id;
         $update->category_id = $request->category_id;
@@ -65,7 +99,8 @@ class PathController extends Controller
         $notify[] = ['success', 'Path has been updated successfully'];
         return to_route('admin.path.list')->withNotify($notify);
     }
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $delete = Path::find($request->id);
         $delete->delete();
         $notify[] = ['success', 'Path has been deleted successfully'];

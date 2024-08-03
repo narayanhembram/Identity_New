@@ -13,6 +13,7 @@
                                     <th>@lang('Subcategory Name')</th>
                                     <th>@lang('Exam Name')</th>
                                     <th>@lang('Exam Issue Date')</th>
+                                    <th>@lang('Last Date')</th>
                                     <th>@lang('URL')</th>
                                     <th>@lang('Action')</th>
                                 </tr>
@@ -25,6 +26,7 @@
                                         <td>{{ $entrance->Subcategory->title }}</td>
                                         <td>{{ $entrance->exam_name }}</td>
                                         <td>{{ $entrance->issue_date }}</td>
+                                        <td>{{ $entrance->last_date }}</td>
                                         <td>{{ $entrance->url }}</td>
                                         <td>
                                             <a href="{{ route('admin.entrance.edit', $entrance->id) }}" title="@lang('Edit')"

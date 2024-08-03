@@ -99,4 +99,7 @@ class User extends Authenticatable
         return $this->where('balance','>', 0);
     }
 
+    public function dist(){
+        return $this->belongsTo(District::class,'dist_id');
+    }
 }

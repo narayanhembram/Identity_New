@@ -29,6 +29,7 @@ class EntranceController extends Controller
         $store->subcategory_id = $request->subcategory_id;
         $store->exam_name = $request->exam_name;
         $store->issue_date = $request->issue_date;
+        $store->last_date = $request->last_date;
         $store->url = $request->url;
 
         $store->save();
@@ -52,6 +53,7 @@ class EntranceController extends Controller
         $update->subcategory_id = $request->subcategory_id;
         $update->exam_name = $request->exam_name;
         $update->issue_date = $request->issue_date;
+        $update->last_date = $request->last_date;
         $update->url = $request->url;
 
         $update->save();

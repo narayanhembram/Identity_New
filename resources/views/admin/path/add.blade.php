@@ -34,10 +34,13 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="price" class="font-weight-bold">@lang('Select Subcategory')</label>
+                                    <label for="subcategory_id" class="font-weight-bold">@lang('Select Subcategory')</label>
                                     <select name="subcategory_id" id="getSubcatagory" class="form-control" required>
                                         <option value="">Select Subcategory</option>
                                     </select>
+                                    @error('subcategory_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -50,6 +53,9 @@
                                             <option value=" {{ $pathtype->id }} "> {{ $pathtype->title }} </option>
                                         @endforeach
                                     </select>
+                                    @error('pathtype_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -88,8 +94,8 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="anyother" class="font-weight-bold">@lang('Any Other')</label>
-                                    <input type="text" name="anyother" value="{{ old('anyother') }}" class="form-control"
-                                        placeholder="@lang('Any Other')">
+                                    <input type="text" name="anyother" value="{{ old('anyother') }}"
+                                        class="form-control" placeholder="@lang('Any Other')">
                                 </div>
                             </div>
 

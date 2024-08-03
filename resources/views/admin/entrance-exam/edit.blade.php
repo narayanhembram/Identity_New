@@ -63,6 +63,14 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label for="last_date" class="font-weight-bold">@lang('Last Date')</label>
+                                    <input type="text" name="last_date" class="form-control"
+                                        value=" {{ $edit->last_date }} " placeholder="@lang('Last Date')" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
                                     <label for="type" class="font-weight-bold">@lang('URL')</label>
                                     <input type="text" name="url" value="{{ $edit->url }}" class="form-control"
                                         placeholder="@lang('URL')" required>

@@ -14,7 +14,9 @@ use Illuminate\Http\Request;
 use App\Lib\GoogleAuthenticator;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Entrance;
 use App\Models\Module;
+use App\Models\Path;
 use App\Models\Subcategory;
 use App\Models\Subscription;
 
@@ -65,7 +67,9 @@ class UserController extends Controller
     public function viewSubcategory($id){
         $viewSubcategory = Subcategory::find($id);
         $pageTitle = $viewSubcategory->title;
-        return view('presets.themesFive.user.career-library.view_career_library', compact('viewSubcategory','pageTitle'));
+        $paths = Path::where('subcategory_id',$id)->get();
+        $entrances = Entrance::where('subcategory_id',$id)->get();
+        return view('presets.themesFive.user.career-library.view_career_library', compact('viewSubcategory','pageTitle','paths','entrances'));
     }
     // public function viewcategory($product_id){
     //     return view('');
