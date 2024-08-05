@@ -4646,8 +4646,6 @@ select.form-control.form--control:has(option)~.form--label {
     border-radius: 5px;
     padding-top: 30px;
     transition: 0.2s linear;
-    /*============== Sidebar Show hide Css Start ===========*/
-    /*============== Sidebar Show hide Css end ===========*/
 }
 
 .sidebar-menu.show-sidebar {
@@ -6878,7 +6876,6 @@ blockquote::before {
 /*=================== Account =========*/
 .account {
     overflow: hidden;
-    /* height: 100vh; */
     overflow-y: scroll;
     align-items: center;
     display: flex;
@@ -7172,7 +7169,6 @@ blockquote::before {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* height: 100%; */
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;

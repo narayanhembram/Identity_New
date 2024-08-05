@@ -3,7 +3,7 @@
 use App\Lib\Router;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/clear', function(){
+Route::get('/clear', function () {
     \Illuminate\Support\Facades\Artisan::call('optimize:clear');
 });
 
@@ -36,12 +36,12 @@ Route::controller('SiteController')->group(function () {
     Route::get('placeholder-image/{size}', 'placeholderImage')->name('placeholder.image');
 
     // blog
-    Route::get('/blog','blog')->name('blog');
+    Route::get('/blog', 'blog')->name('blog');
     // plan
-    Route::get('/plan','plan')->name('plans');
+    Route::get('/plan', 'plan')->name('plans');
 
     // services
-    Route::get('/services','services')->name('services');
+    Route::get('/services', 'services')->name('services');
     Route::get('service/{slug}/{id}', 'serviceDetails')->name('service.details');
     Route::get('service/filter', 'serviceFilter')->name('service.filtered');
 
@@ -51,11 +51,8 @@ Route::controller('SiteController')->group(function () {
     Route::get('portfolio/filter', 'portfolioFilter')->name('portfolio.filtered');
 
     // subscriber
-    Route::post('/subscribe','subscribe')->name('subscribe');
+    Route::post('/subscribe', 'subscribe')->name('subscribe');
 
     Route::get('/{slug}', 'pages')->name('pages');
     Route::get('/', 'index')->name('home');
-
 });
-
-

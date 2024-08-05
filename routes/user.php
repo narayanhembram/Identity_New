@@ -81,6 +81,11 @@ Route::middleware('auth')->name('user.')->group(function () {
                 //view career-library
                 Route::get('/view_subcategory/{id}', 'viewSubcategory')->name('viewSubcategory');
 
+                // Route::get('/get-institutions', 'getInstitutions')->name('get-institutions');
+
+                Route::post('get_institution','viewInstitution')->name('viewInstitution');
+
+                Route::post('get_state','viewState')->name('viewState');
                 // file download
                 Route::get('service/order/{id}', 'serviceFileDownload')->name('service.file.download');
             });

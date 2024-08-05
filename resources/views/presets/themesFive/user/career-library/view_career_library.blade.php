@@ -124,7 +124,7 @@
         font-size: .75rem;
     }
 
-    .card .card-head .status-2 i{
+    .card .card-head .status-2 i {
         text-align: right;
         font-size: 1.5rem;
     }
@@ -141,14 +141,16 @@
         text-align: center;
         font-weight: bold;
     }
-    .card .card-title i{
+
+    .card .card-title i {
         font-size: 35px;
     }
 
-    .card .card-info .label{
+    .card .card-info .label {
         font-size: .75rem;
     }
-    .card .card-info .value{
+
+    .card .card-info .value {
         font-size: .75rem;
         font-weight: bold;
     }
@@ -261,26 +263,287 @@
                             {{ Auth::user()->dist->name }}
                         @endif
                     </h5>
-
-                    <div class="card col-lg-4">
-                        <div class="card-head mb-3">
-                            <div class="status-1"><span class="circle"></span> Government</div>
-                            <div class="status-2"><i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i></div>
+                    @if ($institutions->isEmpty())
+                        <div class="mt-5" style="text-align: center">
+                            <h6>No institutions are available in your district.</h6>
                         </div>
-                        <div class="card-title"><i class="fas fa-university"></i></div>
-                        <div class="card-title">IIT Madras</div>
-                        <div class="card-info mt-5">
-                            <div>
-                                <div class="label">Admission via</div>
-                                <div class="value">JEE Advanced</div>
+                    @else
+                        <div class="row">
+                            @foreach ($institutions as $institution)
+                                <div class="col-lg-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-head mb-3">
+                                            <div class="status-1">
+                                                <span class="circle"></span>
+                                                @if ($institution->institute_type == 0)
+                                                    Goverment
+                                                @else
+                                                    Private
+                                                @endif
+                                            </div>
+                                            <div class="status-2">
+                                                <a href="{{ $institution->url }}" target="_blank">
+                                                    <i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card-title">
+                                            <img src="{{ asset('Institution/' . $institution->logo) }}"
+                                                style="height: 60px; width:60px; border-radius:20px">
+                                        </div>
+                                        <div class="card-title"> {{ $institution->name }} </div>
+                                        <div class="card-info mt-3">
+                                            <div>
+                                                <div class="label">Admission via</div>
+                                                <div class="value"> {{ $institution->admission_process }} </div>
+                                            </div>
+                                            <div style="text-align:right;">
+                                                <div class="label">Tentative Date</div>
+                                                <div class="value">
+                                                    {{ \Carbon\Carbon::parse($institution->tentative_date)->format('F Y') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <div>
+                    <h5>Top Institutes outside
+                        @if (Auth::user()->dist)
+                            {{ Auth::user()->dist->name }}
+                        @endif
+                    </h5>
+
+                    <div class="mt-3 mb-3">
+                        <label for="" class="form-label">Filters :</label>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="country" class="form-label">Country :</label>
+                                <select id="country" class="form-select">
+                                    <option value="">Choose Country</option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}"> {{ $country->name }} </option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div style="text-align:right;">
-                                <div class="label">Tentative Date</div>
-                                <div class="value">JUNE</div>
+
+                            <div class="col-md-4">
+                                <label for="state" class="form-label">State :</label>
+                                <select id="state" class="form-select">
+                                    <option value="">Choose State</option>
+                                    @foreach ($states as $state)
+                                        <option value="{{ $state->id }}"> {{ $state->name }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="institutionType" class="form-label">Institution Type :</label>
+                                <select id="institutionType" class="form-select">
+                                    <option value="">Choose Institution Type</option>
+                                    <option value="government">Government</option>
+                                    <option value="private">Private</option>
+                                </select>
                             </div>
                         </div>
                     </div>
+
+                    @if ($outside_institution->isEmpty())
+                        <div class="mt-5" style="text-align: center">
+                            <h6>No institutions are available in your district.</h6>
+                        </div>
+                    @else
+                        <div class="row" id="institution-list">
+                            @foreach ($outside_institution as $institutions)
+                                <div class="col-lg-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-head mb-3">
+                                            <div class="status-1">
+                                                <span class="circle"></span>
+                                                @if ($institutions->institute_type == 0)
+                                                    Goverment
+                                                @else
+                                                    Private
+                                                @endif
+                                            </div>
+                                            <div class="status-2">
+                                                <a href="{{ $institutions->url }}" target="_blank">
+                                                    <i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card-title">
+                                            <img src="{{ asset('Institution/' . $institutions->logo) }}"
+                                                style="height: 60px; width:60px; border-radius:20px">
+                                        </div>
+                                        <div class="card-title"> {{ $institutions->name }} </div>
+                                        <div class="card-info mt-3">
+                                            <div>
+                                                <div class="label">Admission via</div>
+                                                <div class="value"> {{ $institutions->admission_process }} </div>
+                                            </div>
+                                            <div style="text-align:right;">
+                                                <div class="label">Tentative Date</div>
+                                                <div class="value">
+                                                    {{ \Carbon\Carbon::parse($institutions->tentative_date)->format('F Y') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="mt-3">
+                            {{ $outside_institution->links() }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
     @endsection
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var subcategory_id = '{{ $subcategory_id }}';
+
+            $(document).on('change', '#country', function() {
+                var country_id = $(this).val();
+                console.log(subcategory_id);
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('user.viewInstitution') }}',
+                    data: {
+                        'country_id': country_id,
+                        'subcategory_id': subcategory_id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#institution-list').empty();
+                        if (response.length === 0) {
+                            $('#institution-list').append(
+                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this country under the selected subcategory.</h6></div>'
+                            );
+                        } else {
+                            $.each(response, function(key, institution) {
+                                var institutionCard = '<div class="col-lg-4 mb-3">' +
+                                    '<div class="card">' +
+                                    '<div class="card-head mb-3">' +
+                                    '<div class="status-1">' +
+                                    '<span class="circle"></span>' +
+                                    (institution.institute_type == 0 ? 'Government' :
+                                        'Private') +
+                                    '</div>' +
+                                    '<div class="status-2">' +
+                                    '<a href="' + institution.url +
+                                    '" target="_blank">' +
+                                    '<i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>' +
+                                    '</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="card-title">' +
+                                    '<img src="{{ asset('Institution') }}/' +
+                                    institution.logo +
+                                    '" style="height: 60px; width:60px; border-radius:20px">' +
+                                    '</div>' +
+                                    '<div class="card-title">' + institution.name +
+                                    '</div>' +
+                                    '<div class="card-info mt-3">' +
+                                    '<div>' +
+                                    '<div class="label">Admission via</div>' +
+                                    '<div class="value">' + institution
+                                    .admission_process + '</div>' +
+                                    '</div>' +
+                                    '<div style="text-align:right;">' +
+                                    '<div class="label">Tentative Date</div>' +
+                                    '<div class="value">' + institution.tentative_date +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+                                $('#institution-list').append(institutionCard);
+                            });
+                        }
+                        $('.pagination').hide();
+                    },
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var subcategory_id = '{{ $subcategory_id }}';
+
+            $(document).on('change', '#state', function() {
+                var state_id = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('user.viewState') }}',
+                    data: {
+                        'state_id': state_id,
+                        'subcategory_id': subcategory_id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#institution-list').empty();
+                        if (response.length === 0) {
+                            $('#institution-list').append(
+                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this state under the selected subcategory.</h6></div>'
+                            );
+                        } else {
+                            $.each(response, function(key, institution) {
+                                var institutionCard = '<div class="col-lg-4 mb-3">' +
+                                    '<div class="card">' +
+                                    '<div class="card-head mb-3">' +
+                                    '<div class="status-1">' +
+                                    '<span class="circle"></span>' +
+                                    (institution.institute_type == 0 ? 'Government' :
+                                        'Private') +
+                                    '</div>' +
+                                    '<div class="status-2">' +
+                                    '<a href="' + institution.url +
+                                    '" target="_blank">' +
+                                    '<i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>' +
+                                    '</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="card-title">' +
+                                    '<img src="{{ asset('Institution') }}/' +
+                                    institution.logo +
+                                    '" style="height: 60px; width:60px; border-radius:20px">' +
+                                    '</div>' +
+                                    '<div class="card-title">' + institution.name +
+                                    '</div>' +
+                                    '<div class="card-info mt-3">' +
+                                    '<div>' +
+                                    '<div class="label">Admission via</div>' +
+                                    '<div class="value">' + institution
+                                    .admission_process + '</div>' +
+                                    '</div>' +
+                                    '<div style="text-align:right;">' +
+                                    '<div class="label">Tentative Date</div>' +
+                                    '<div class="value">' + institution.tentative_date +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+                                $('#institution-list').append(institutionCard);
+                            });
+                        }
+                        $('.pagination').hide();
+                    },
+                });
+            });
+        });
+    </script>
