@@ -66,7 +66,7 @@
                         <br>
                         <span class="mt-1 d-block"></span>
                         <div>
-                            <a href="#" class="btn--base">GET NOW <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="{{ route('user.login') }}" class="btn--base">GET NOW <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                         <br>
                     </div>

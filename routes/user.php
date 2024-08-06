@@ -3,25 +3,25 @@
 
 Route::namespace('User\Auth')->name('user.')->group(function () {
 
-    Route::controller('LoginController')->group(function(){
+    Route::controller('LoginController')->group(function () {
         Route::get('/login', 'showLoginForm')->name('login');
         Route::post('/login', 'login');
         Route::get('logout', 'logout')->name('logout');
     });
 
-    Route::controller('RegisterController')->group(function(){
+    Route::controller('RegisterController')->group(function () {
         Route::get('register', 'showRegistrationForm')->name('register');
         Route::post('register', 'register')->middleware('registration.status');
         Route::post('check-mail', 'checkUser')->name('checkUser');
     });
 
-    Route::controller('ForgotPasswordController')->group(function(){
+    Route::controller('ForgotPasswordController')->group(function () {
         Route::get('password/reset', 'showLinkRequestForm')->name('password.request');
         Route::post('password/email', 'sendResetCodeEmail')->name('password.email');
         Route::get('password/code-verify', 'codeVerify')->name('password.code.verify');
         Route::post('password/verify-code', 'verifyCode')->name('password.verify.code');
     });
-    Route::controller('ResetPasswordController')->group(function(){
+    Route::controller('ResetPasswordController')->group(function () {
         Route::post('password/reset', 'reset')->name('password.update');
         Route::get('password/reset/{token}', 'showResetForm')->name('password.reset');
     });
@@ -34,7 +34,7 @@ Route::namespace('User\Auth')->name('user.')->group(function () {
 
 Route::middleware('auth')->name('user.')->group(function () {
     //authorization
-    Route::namespace('User')->controller('AuthorizationController')->group(function(){
+    Route::namespace('User')->controller('AuthorizationController')->group(function () {
         Route::get('authorization', 'authorizeForm')->name('authorization');
         Route::get('resend/verify/{type}', 'sendVerifyCode')->name('send.verify.code');
         Route::post('verify/email', 'emailVerification')->name('verify.email');
@@ -49,7 +49,7 @@ Route::middleware('auth')->name('user.')->group(function () {
 
         Route::middleware('registration.complete')->namespace('User')->group(function () {
 
-            Route::controller('UserController')->group(function(){
+            Route::controller('UserController')->group(function () {
                 Route::get('dashboard', 'home')->name('home');
                 Route::get('viewcategory/{id}', 'viewcategory')->name('viewcategory');
 
@@ -60,40 +60,43 @@ Route::middleware('auth')->name('user.')->group(function () {
 
                 //Report
                 Route::any('deposit/history', 'depositHistory')->name('deposit.history');
-                Route::get('transactions','transactions')->name('transactions');
+                Route::get('transactions', 'transactions')->name('transactions');
 
-                Route::get('attachment-download/{fil_hash}','attachmentDownload')->name('attachment.download');
+                Route::get('attachment-download/{fil_hash}', 'attachmentDownload')->name('attachment.download');
 
-                 // get orders
-                 Route::get('orders', 'getOrders')->name('orders');
-                 Route::get('approved/orders', 'approvedOrders')->name('approved.orders');
-                 Route::get('pending/orders', 'pendingOrders')->name('pending.orders');
+                // get orders
+                Route::get('orders', 'getOrders')->name('orders');
+                Route::get('approved/orders', 'approvedOrders')->name('approved.orders');
+                Route::get('pending/orders', 'pendingOrders')->name('pending.orders');
 
                 // fetch subscriptions
                 Route::get('all/subscription-plan', 'fetchSubscription')->name('fetch.subscription');
 
-                //career library subcategory
-                Route::get('/subcategory/{id}', 'subcategory')->name('subcategory');
-
                 //career library category
                 Route::get('/category', 'category')->name('category');
-
-                //view career-library
+                Route::get('/subcategory/{id}', 'subcategory')->name('subcategory');
                 Route::get('/view_subcategory/{id}', 'viewSubcategory')->name('viewSubcategory');
 
-                // Route::get('/get-institutions', 'getInstitutions')->name('get-institutions');
 
-                Route::post('get_institution','viewInstitution')->name('viewInstitution');
 
-                Route::post('get_state','viewState')->name('viewState');
+                Route::post('get_institution', 'viewInstitution')->name('viewInstitution');
+
+                Route::post('get_state', 'viewState')->name('viewState');
 
                 Route::post('institute_type', 'viewType')->name('viewType');
                 // file download
                 Route::get('service/order/{id}', 'serviceFileDownload')->name('service.file.download');
             });
+            Route::controller('MasterclassController')->group(function () {
+                //master class
+                Route::get('/master_class', 'list')->name('masterClasss');
+                Route::get('/master_class_subcat/{id}', 'subcategory')->name('subcategory');
+                Route::get('/master_class_view/{id}', 'view')->name('masterClassView');
+
+            });
 
             //Profile setting
-            Route::controller('ProfileController')->group(function(){
+            Route::controller('ProfileController')->group(function () {
                 Route::get('profile/setting', 'profile')->name('profile.setting');
                 Route::post('profile/setting', 'submitProfile');
                 Route::get('change-password', 'changePassword')->name('change.password');
@@ -101,11 +104,10 @@ Route::middleware('auth')->name('user.')->group(function () {
 
                 Route::post('profile', 'imageUpdate')->name('profile.update');
             });
-
         });
 
         // Payment
-        Route::middleware('registration.complete')->controller('Gateway\PaymentController')->group(function(){
+        Route::middleware('registration.complete')->controller('Gateway\PaymentController')->group(function () {
             Route::get('payment/{id}', 'payment')->name('payment');
             Route::any('/service/payment/{id}', 'servicePayment')->name('service.payment');
             Route::any('/service/payment', 'servicePlace')->name('service.place');

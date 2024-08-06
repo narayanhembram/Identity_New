@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title mb-3"> {{ $module->title }} </h5>
-                            <a href="{{route('user.category')}}" class="btn btn-warning">{{ $module->btn_text }} <i class="fas fa-arrow-right"></i></a>
+                            <a href="{{ $module->url }}" class="btn btn-warning">{{ $module->btn_text }} <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>

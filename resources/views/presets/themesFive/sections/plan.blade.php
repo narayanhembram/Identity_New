@@ -22,7 +22,7 @@
                     <div class="row justify-content-left">
                         <div class="col-lg-4 col-md-12 text-left">
                             <h3 class="mb-3 text-danger font-weight-bold">
-                                How PickMyCareer can help you ?
+                                How CareerMap can help you ?
                             </h3>
                             <span class="mt-3 mb-4 divider mini"></span>
                             <p>

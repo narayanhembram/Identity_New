@@ -429,7 +429,7 @@
                         $('#institution-list').empty();
                         if (response.length === 0) {
                             $('#institution-list').append(
-                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this country under the selected subcategory.</h6></div>'
+                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this selected Country.</h6></div>'
                             );
                         } else {
                             $.each(response, function(key, institution) {
@@ -498,7 +498,7 @@
                         $('#institution-list').empty();
                         if (response.length === 0) {
                             $('#institution-list').append(
-                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this state under the selected subcategory.</h6></div>'
+                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this selected State</h6></div>'
                             );
                         } else {
                             $.each(response, function(key, institution) {
@@ -567,7 +567,7 @@
                         $('#institution-list').empty();
                         if (response.length === 0) {
                             $('#institution-list').append(
-                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this state under the selected subcategory.</h6></div>'
+                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this selected Institute Type.</h6></div>'
                             );
                         } else {
                             $.each(response, function(key, institution) {

@@ -24,9 +24,8 @@
                         </a>
                     </li>
                     @foreach (App\Models\Module::all() as $module)
-
                     <li class="sidebar-menu-item {{ Request::is($module->route) ? 'active' : '' }}">
-                        <a href="{{route('user.category')}}">
+                        <a href="{{ url('user/'.$module->url) }}">
                             <span class="menu-title">@lang( $module->title )</span>
                         </a>
                     </li>

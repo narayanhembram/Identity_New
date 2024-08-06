@@ -70,7 +70,6 @@ class UserController extends Controller
 
     public function viewSubcategory($id)
     {
-
         $viewSubcategory = Subcategory::find($id);
         $pageTitle = $viewSubcategory->title;
         $paths = Path::where('subcategory_id', $id)->get();
