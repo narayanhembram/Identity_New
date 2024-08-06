@@ -111,6 +111,19 @@ class UserController extends Controller
         return response()->json($states);
     }
 
+    public function viewType(Request $request){
+        if ($request->institute_type != '') {
+            $states = Institution::where('institute_type', $request->institute_type)
+                ->where('subcategory_id', $request->subcategory_id)
+                ->get();
+        } else {
+
+            $states = Institution::where('subcategory_id', $request->subcategory_id)->where('dist_id', '!=', Auth::user()->dist_id)->get();
+        }
+
+        return response()->json($states);
+    }
+
     // subscription
     public function fetchSubscription()
     {

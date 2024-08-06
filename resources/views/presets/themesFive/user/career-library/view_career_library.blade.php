@@ -347,8 +347,8 @@
                                 <label for="institutionType" class="form-label">Institution Type :</label>
                                 <select id="institutionType" class="form-select">
                                     <option value="">Choose Institution Type</option>
-                                    <option value="government">Government</option>
-                                    <option value="private">Private</option>
+                                    <option value="0">Goverment</option>
+                                    <option value="1">Private</option>
                                 </select>
                             </div>
                         </div>
@@ -490,6 +490,75 @@
                     url: '{{ route('user.viewState') }}',
                     data: {
                         'state_id': state_id,
+                        'subcategory_id': subcategory_id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#institution-list').empty();
+                        if (response.length === 0) {
+                            $('#institution-list').append(
+                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this state under the selected subcategory.</h6></div>'
+                            );
+                        } else {
+                            $.each(response, function(key, institution) {
+                                var institutionCard = '<div class="col-lg-4 mb-3">' +
+                                    '<div class="card">' +
+                                    '<div class="card-head mb-3">' +
+                                    '<div class="status-1">' +
+                                    '<span class="circle"></span>' +
+                                    (institution.institute_type == 0 ? 'Government' :
+                                        'Private') +
+                                    '</div>' +
+                                    '<div class="status-2">' +
+                                    '<a href="' + institution.url +
+                                    '" target="_blank">' +
+                                    '<i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>' +
+                                    '</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="card-title">' +
+                                    '<img src="{{ asset('Institution') }}/' +
+                                    institution.logo +
+                                    '" style="height: 60px; width:60px; border-radius:20px">' +
+                                    '</div>' +
+                                    '<div class="card-title">' + institution.name +
+                                    '</div>' +
+                                    '<div class="card-info mt-3">' +
+                                    '<div>' +
+                                    '<div class="label">Admission via</div>' +
+                                    '<div class="value">' + institution
+                                    .admission_process + '</div>' +
+                                    '</div>' +
+                                    '<div style="text-align:right;">' +
+                                    '<div class="label">Tentative Date</div>' +
+                                    '<div class="value">' + institution.tentative_date +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+                                $('#institution-list').append(institutionCard);
+                            });
+                        }
+                        $('.pagination').hide();
+                    },
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var subcategory_id = '{{ $subcategory_id }}';
+
+            $(document).on('change', '#institutionType', function() {
+                var institute_type = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('user.viewType') }}',
+                    data: {
+                        'institute_type': institute_type,
                         'subcategory_id': subcategory_id,
                         _token: "{{ csrf_token() }}"
                     },

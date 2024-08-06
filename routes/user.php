@@ -86,6 +86,8 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('get_institution','viewInstitution')->name('viewInstitution');
 
                 Route::post('get_state','viewState')->name('viewState');
+
+                Route::post('institute_type', 'viewType')->name('viewType');
                 // file download
                 Route::get('service/order/{id}', 'serviceFileDownload')->name('service.file.download');
             });
