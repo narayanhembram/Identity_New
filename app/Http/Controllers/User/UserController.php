@@ -30,7 +30,7 @@ class UserController extends Controller
     {
         $pageTitle = 'Dashboard';
         $user = auth()->user();
-        $modules = Module::all();
+        $modules = Module::orderBy('position','asc')->get();
         $categories = Category::all();
         $subscribe = isSubscribe($user->id);
         $totalOrders = Order::where('user_id', $user->id)->count();
@@ -54,7 +54,7 @@ class UserController extends Controller
 
     public function category()
     {
-        $pageTitle = 'Carrer Library';
+        $pageTitle = 'Career Library';
         $categories = Category::withCount('subcategories')->get();
         return view('presets.themesFive.user.career-library.career_library', compact('pageTitle', 'categories'));
     }
@@ -74,8 +74,8 @@ class UserController extends Controller
         $pageTitle = $viewSubcategory->title;
         $paths = Path::where('subcategory_id', $id)->get();
         $entrances = Entrance::where('subcategory_id', $id)->get();
-        $institutions = Institution::where('subcategory_id', $id)->where('dist_id', Auth::user()->dist_id)->get();
-        $outside_institution = Institution::where('subcategory_id', $id)->where('dist_id', '!=', Auth::user()->dist_id)->paginate(6);
+        $institutions = Institution::where('subcategory_id', $id)->where('state_id', Auth::user()->state_id)->get();
+        $outside_institution = Institution::where('subcategory_id', $id)->where('state_id', '!=', Auth::user()->state_id)->paginate(6);
         $countries = Country::all();
         $states = State::all();
         $subcategory_id = $id;

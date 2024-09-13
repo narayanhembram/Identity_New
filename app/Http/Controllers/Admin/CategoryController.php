@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Entrance;
 use App\Models\Institution;
+use App\Models\MasterClass;
 use App\Models\Module;
 use App\Models\Path;
 use App\Models\Subcategory;
@@ -76,6 +77,7 @@ class CategoryController extends Controller
             Entrance::where('category_id',$request->id)->delete();
             Path::where('category_id',$request->id)->delete();
             Institution::where('category_id',$request->id)->delete();
+            MasterClass::where('category_id',$request->id)->delete();
             $delete->delete();
             $notify[] = ['success','Category has been deleted successfully'];
         } else {

@@ -259,13 +259,13 @@
             <div class="mt-5">
                 <div>
                     <h5>Top Institutes in
-                        @if (Auth::user()->dist)
-                            {{ Auth::user()->dist->name }}
+                        @if (Auth::user()->state)
+                            {{ Auth::user()->state->name }}
                         @endif
                     </h5>
                     @if ($institutions->isEmpty())
                         <div class="mt-5" style="text-align: center">
-                            <h6>No institutions are available in your district.</h6>
+                            <h6>No institutions are available in your state.</h6>
                         </div>
                     @else
                         <div class="row">
@@ -315,8 +315,8 @@
             <div class="mt-5">
                 <div>
                     <h5>Top Institutes outside
-                        @if (Auth::user()->dist)
-                            {{ Auth::user()->dist->name }}
+                        @if (Auth::user()->state)
+                            {{ Auth::user()->state->name }}
                         @endif
                     </h5>
 
@@ -356,7 +356,7 @@
 
                     @if ($outside_institution->isEmpty())
                         <div class="mt-5" style="text-align: center">
-                            <h6>No institutions are available in your district.</h6>
+                            <h6>No institutions are available outside state.</h6>
                         </div>
                     @else
                         <div class="row" id="institution-list">

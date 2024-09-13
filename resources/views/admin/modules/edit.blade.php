@@ -39,6 +39,17 @@
                                 </div>
                             </div>
 
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="position" class="font-weight-bold">@lang('POSITION')</label>
+                                    <input type="number" name="position" value="{{ $edit->position }}" class="form-control"
+                                        placeholder="@lang('POSITION')" required>
+                                        @error('position')
+                                        <span style="color: red;">{{ $message }}</span>
+                                        @enderror
+                                </div>
+                            </div>
+
                             <div class="col-lg-12 ">
                                 <div class="form-group float-end p-3">
                                     <button type="submit" class="btn btn--primary btn-block btn-lg">

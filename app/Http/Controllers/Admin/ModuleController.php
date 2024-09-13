@@ -14,7 +14,7 @@ class ModuleController extends Controller
 {
     public function list(){
         $pageTitle = 'Modules';
-        $modules = Module::orderBy('id','desc')->paginate(getPaginate());
+        $modules = Module::orderBy('position','asc')->paginate(getPaginate());
         return view('admin.modules.list', compact('pageTitle','modules'));
     }
     public function add(){
@@ -23,6 +23,9 @@ class ModuleController extends Controller
     }
     public function store(Request $request){
         $store = new Module;
+        $request->validate([
+            'position'=> 'required|unique:modules,position',
+        ]);
 
         if($request->hasFile('image')){
             $photo = $request->file('image');
@@ -33,6 +36,7 @@ class ModuleController extends Controller
         $store->title = $request->title;
         $store->btn_text = $request->btn_text;
         $store->url = $request->url;
+        $store->position = $request->position;
         $store->save();
 
         $notify[] = ['success', 'Module has been created successfully'];
@@ -45,6 +49,9 @@ class ModuleController extends Controller
     }
     public function update(Request $request){
         $update = Module::find($request->id);
+        $request->validate([
+            'position'=>'required|unique:modules,position,'. $update->id,
+        ]);
         if($request->hasFile('image')){
             if($update->image && file_exists(public_path('Modules/' . $update->image))){
                 unlink(public_path('Modules/' . $update->image));
@@ -57,6 +64,7 @@ class ModuleController extends Controller
         $update->title = $request->title;
         $update->btn_text = $request->btn_text;
         $update->url = $request->url;
+        $update->position = $request->position;
         $update->save();
 
         $notify[] = ['success', 'Module has been updated successfully'];

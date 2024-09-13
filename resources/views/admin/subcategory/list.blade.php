@@ -23,7 +23,7 @@
                                         <td>
                                             <img src="{{ asset('Subcategory/' . $subcategory->file) }}" width="100">
                                         </td>
-                                        <td>{{ $subcategory->description }}</td>
+                                        <td>{{ Str::limit($subcategory->description, 35) }}</td>
 
                                         <td>
                                             <a href="{{ route('admin.subcategory.edit', $subcategory->id) }}"

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\StateController;
+use App\Http\Controllers\Admin\DistrictController;
 
 Route::namespace('Auth')->group(function () {
     Route::controller('LoginController')->group(function () {
@@ -137,6 +138,35 @@ Route::middleware('admin')->group(function () {
         Route::post('delete','delete')->name('delete');
     });
 
+    //MasterClass
+    Route::controller('MasterClassController')->name('Masterclass.')->prefix('Masterclass')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::get('/add','Add')->name('add');
+        Route::post('/store','Store')->name('Store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update/{id}','update')->name('update');
+        Route::post('/delete','delete')->name('delete');
+    });
+
+    //Scholarship
+    Route::controller('ScholarshipController')->name('scholarship.')->prefix('scholarship')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::get('/add','Add')->name('add');
+        Route::post('/store','Store')->name('Store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update','update')->name('update');
+        Route::post('/delete','delete')->name('delete');
+    });
+    //Teams
+    Route::controller('TeamController')->name('team.')->prefix('team')->group(function(){
+        Route::get('/','list')->name('list');
+        Route::get('/add','Add')->name('add');
+        Route::post('/store','Store')->name('Store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update','update')->name('update');
+        Route::post('/delete','delete')->name('delete');
+    });
+
     //Countries
     Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function(){
         Route::get('/','index')->name('index');
@@ -151,7 +181,6 @@ Route::middleware('admin')->group(function () {
         Route::post('store','store')->name('store');
         Route::post('update/{id}','update')->name('update');
         Route::post('delete','delete')->name('delete');
-        Route::post('/get_state','getState')->name('getState');
     });
 
     //Districts
@@ -160,7 +189,7 @@ Route::middleware('admin')->group(function () {
         Route::post('store','store')->name('store');
         Route::post('update/{id}','update')->name('update');
         Route::post('delete','delete')->name('delete');
-        Route::post('/get_district','getDistrict')->name('getDistrict');
+
     });
 
     // plan
@@ -375,3 +404,6 @@ Route::middleware('admin')->group(function () {
     });
 });
 
+Route::post('/get_state',[StateController::class,'getState'])->name('getState');
+Route::post('/get_district',[DistrictController::class,'getDistrict'])->name('getDistrict');
+// Route::post('/get_district','getDistrict')->name('getDistrict');

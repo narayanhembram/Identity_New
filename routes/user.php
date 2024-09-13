@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 
 Route::namespace('User\Auth')->name('user.')->group(function () {
 
@@ -73,7 +74,7 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('all/subscription-plan', 'fetchSubscription')->name('fetch.subscription');
 
                 //career library category
-                Route::get('/category', 'category')->name('category');
+                Route::get('/career_library/category', 'category')->name('category');
                 Route::get('/subcategory/{id}', 'subcategory')->name('subcategory');
                 Route::get('/view_subcategory/{id}', 'viewSubcategory')->name('viewSubcategory');
 
@@ -87,11 +88,32 @@ Route::middleware('auth')->name('user.')->group(function () {
                 // file download
                 Route::get('service/order/{id}', 'serviceFileDownload')->name('service.file.download');
             });
-            Route::controller('MasterclassController')->group(function () {
-                //master class
-                Route::get('/master_class', 'list')->name('masterClasss');
-                Route::get('/master_class_subcat/{id}', 'subcategory')->name('subcategory');
-                Route::get('/master_class_view/{id}', 'view')->name('masterClassView');
+            //master class
+            Route::controller('MasterclassController')->name('masterclass.')->prefix('masterclass')->group(function () {
+                Route::get('/videos', 'list')->name('videos');
+                Route::post('/get_videos', 'get_videos')->name('get_videos');
+            });
+
+            //Entrance Exam Controller
+            Route::controller('EntranceExamController')->name('entrance.')->prefix('entrance')->group(function () {
+                Route::get('/all', 'all')->name('all');
+                Route::post('/get_entranceexam', 'get_entranceexam')->name('get_entranceexam');
+                Route::post('/get_entranceexam_by_category', 'get_entranceexam_by_category')->name('get_entranceexam_by_category');
+                Route::post('/get_entranceexam_by_subcategory', 'get_entranceexam_by_subcategory')->name('get_entranceexam_by_subcategory');
+            });
+
+            //Institute Controller
+            Route::controller('InstituteController')->name('institute.')->prefix('institute')->group(function () {
+                Route::get('/view','index')->name('view');
+                Route::post('/country','country')->name('country');
+                Route::post('/state','state')->name('state');
+                Route::post('/inst_type','inst_type')->name('inst_type');
+            });
+            //Scholarship Controller
+            Route::controller('ScholarshipControler')->name('scholarship.')->prefix('scholarship')->group(function () {
+                Route::get('/view','index')->name('view');
+                Route::post('/get_type','getType')->name('getType');
+                Route::post('/get_class','getClass')->name('getClass');
 
             });
 

@@ -45,7 +45,7 @@
                                         <select name="country_id" class="form-select form--control" id="country">
                                             <option value="">Select Country</option>
                                             @foreach ($countries as $country)
-                                            <option value=" {{$country->id}} ">{{ $country->name}}</option>
+                                                <option value=" {{ $country->id }} ">{{ $country->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -167,50 +167,6 @@
 @endsection
 
 @push('script')
-    {{-- <script>
-      "use strict";
-        (function ($) {
-            @if ($mobileCode)
-            $(`option[data-code={{ $mobileCode }}]`).attr('selected','');
-            @endif
-
-            $('select[name=country]').change(function(){
-                $('input[name=mobile_code]').val($('select[name=country] :selected').data('mobile_code'));
-                $('input[name=country_code]').val($('select[name=country] :selected').data('code'));
-                $('.mobile-code').text('+'+$('select[name=country] :selected').data('mobile_code'));
-            });
-            $('input[name=mobile_code]').val($('select[name=country] :selected').data('mobile_code'));
-            $('input[name=country_code]').val($('select[name=country] :selected').data('code'));
-            $('.mobile-code').text('+'+$('select[name=country] :selected').data('mobile_code'));
-
-            $('.checkUser').on('focusout',function(e){
-                var url = '{{ route('user.checkUser') }}';
-                var value = $(this).val();
-                var token = '{{ csrf_token() }}';
-                if ($(this).attr('name') == 'mobile') {
-                    var mobile = `${$('.mobile-code').text().substr(1)}${value}`;
-                    var data = {mobile:mobile,_token:token}
-                }
-                if ($(this).attr('name') == 'email') {
-                    var data = {email:value,_token:token}
-                }
-                if ($(this).attr('name') == 'username') {
-                    var data = {username:value,_token:token}
-                }
-                $.post(url,data,function(response) {
-                  if (response.data != false && response.type == 'email') {
-                    $('#existModalCenter').modal('show');
-                  }else if(response.data != false){
-                    $(`.${response.type}Exist`).text(`${response.type} already exist`);
-                  }else{
-                    $(`.${response.type}Exist`).text('');
-                  }
-                });
-            });
-        })(jQuery);
-
-    </script> --}}
-
     <script>
         $(document).ready(function() {
             $(document).on('change', '#country', function() {
@@ -218,7 +174,7 @@
                 console.log(country_id);
                 $.ajax({
                     type: "POST",
-                    url: '{{ route('admin.states.getState') }}',
+                    url: '{{ route('admin.getState')}}',
                     data: {
                         'country_id': country_id,
                         _token: "{{ csrf_token() }}"
@@ -242,7 +198,7 @@
                 var state_id = $(this).val();
                 $.ajax({
                     type: "POST",
-                    url: '{{ route('admin.districts.getDistrict') }}',
+                    url: '{{ route('admin.getDistrict') }}',
                     data: {
                         'state_id': state_id,
                         _token: "{{ csrf_token() }}"

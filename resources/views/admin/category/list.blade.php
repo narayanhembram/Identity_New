@@ -23,7 +23,7 @@
                                         <td>
                                             <img src="{{ asset('Category/' . $category->file) }}" width="100" alt="">
                                         </td>
-                                        <td>{{ $category->description }}</td>
+                                        <td>{{ Str::limit($category->description, 50) }}</td>
 
                                         <td>
                                             <a href="{{ route('admin.category.edit', $category->id) }}" title="@lang('Edit')"

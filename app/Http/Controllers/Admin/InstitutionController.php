@@ -50,6 +50,7 @@ class InstitutionController extends Controller
         $store->country_id = $request->country_id;
         $store->state_id = $request->state_id;
         $store->dist_id = $request->dist_id;
+        $store->is_top = $request->is_top;
         $store->save();
 
         $notify[] = ['success', 'Institution has been created successfully'];
@@ -90,6 +91,7 @@ class InstitutionController extends Controller
         $update->country_id = $request->country_id;
         $update->state_id = $request->state_id;
         $update->dist_id = $request->dist_id;
+        $update->is_top = $request->is_top;
         $update->save();
 
         $notify[] = ['success', 'Institution has been updated successfully'];

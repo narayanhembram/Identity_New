@@ -144,10 +144,25 @@
                                 </div>
                             </div>
 
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Is_Top" class="font-weight-bold">@lang('Is Top')</label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="radio" id="yes" name="is_top" value="1" {{ ($edit->is_top == 1) ? 'checked':'' }}
+                                            style="margin-right: 5px;">
+                                        <label for="yes" style="margin-right: 15px;">Yes</label>
+
+                                        <input type="radio" id="no" name="is_top" value="0" {{ ($edit->is_top == 0) ? 'checked':'' }}
+                                            style="margin-right: 5px;">
+                                        <label for="no">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-lg-12 ">
                                 <div class="form-group float-end p-3">
                                     <button type="submit" class="btn btn--primary btn-block btn-lg">
-                                        @lang('Create')</button>
+                                        @lang('Update')</button>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +211,7 @@
             var country_id = $(this).val();
             $.ajax({
                 type: "POST",
-                url: '{{ route('admin.states.getState') }}',
+                url: '{{ route('admin.getState') }}',
                 data: {
                     'country_id': country_id,
                     _token: "{{ csrf_token() }}"
@@ -220,7 +235,7 @@
             var state_id = $(this).val();
             $.ajax({
                 type: "POST",
-                url: '{{ route('admin.districts.getDistrict') }}',
+                url: '{{ route('admin.getDistrict') }}',
                 data: {
                     'state_id': state_id,
                     _token: "{{ csrf_token() }}"

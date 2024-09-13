@@ -53,9 +53,9 @@ class StateController extends Controller
         return back()->withNotify($notify);
     }
 
-    public function getState(Request $request){
+    public function getState(Request $request)
+    {
         $getState = State::where('country_id',$request->country_id)->get();
-
         return response()->json($getState);
     }
 }

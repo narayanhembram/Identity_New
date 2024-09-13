@@ -161,458 +161,139 @@
         align-items: center;
     }
 </style>
+<style>
+    .card.custom-card video {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+        border-bottom: 1px solid black;
+    }
+
+    .card.custom-card {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card.custom-card .card-body {
+        padding: 0;
+    }
+
+    .card.custom-card video {
+        max-height: 300px;
+        max-width: 100%;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .card.custom-card .video-title {
+        padding: 8px;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 5px;
+
+    }
+
+    .card.custom-card .video-title h6 {
+        color: rgba(33, 113, 138, .89);
+        font-size: 1.25rem;
+        margin: 0;
+    }
+</style>
 
 @section('content')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <div class="body-wrapper">
         <div class="container mt-3 mb-5">
-            <div class="row pt-4 pb-4" style="background-color: rgba(33, 113, 138, .89); border-radius:8px; color:#fff">
-                <div class="col-md-8">
-                    <div class="summary">
-                        <h3 style="color: #f8be14"> {{ $viewSubcategory->title }} </h3>
-                        <h5 class="summary mb-4" style="color:#fff">Summary</h5>
-                        <p style="color:#fff"> {{ $viewSubcategory->description }} </p>
-                    </div>
+            <div class="row pt-3 pb-3" style="background-color: rgba(33, 113, 138, .89); border-radius:8px; color:#fff">
+                <div class="col-md-2">
+                    <p style="margin-top:7px; font-size:1.2rem; color:#fff;">Search Title</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="opportunity-meter mt-5">
-                        <img src=" {{ asset('subcategory/' . $viewSubcategory->file) }} " style="border-radius: 5px">
-                    </div>
+                <div class="col-md-5">
+                    {{-- <input type="text" id="search" placeholder="Search..."
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"> --}}
+                    <select id="mySelect2" style="width: 100%;">
+                        <option value="">select title</option>
+                        @foreach ($masterclass as $titles)
+                            <option value="{{ $titles->title }}"> {{ $titles->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
-
-            {{-- <div>
-                @php
-                    $i = 1;
-                @endphp
-
-                @foreach ($paths as $path)
-                    <div class="mt-5">
-                        <h5>Path : {{ $i }} </h5>
-                    </div>
-                    <div class="path-box">
-                        @if (!empty($path->stream))
-                            <div class="path-step">
-                                <strong>Stream :</strong>
-                                <p>{{ $path->stream }}</p>
-                            </div>
-                        @endif
-                        @if (!empty($path->graduation))
-                            <div class="path-step">
-                                <strong>Graduation :</strong>
-                                <p>{{ $path->graduation }}</p>
-                            </div>
-                        @endif
-                        @if (!empty($path->after_graduation))
-                            <div class="path-step">
-                                <strong>After Graduation :</strong>
-                                <p>{{ $path->after_graduation }}</p>
-                            </div>
-                        @endif
-                        @if (!empty($path->after_pgraduation))
-                            <div class="path-step">
-                                <strong>After Post Graduation :</strong>
-                                <p>{{ $path->after_pgraduation }}</p>
-                            </div>
-                        @endif
-                        @if (!empty($path->anyother))
-                            <div class="path-step">
-                                <strong>Any Other :</strong>
-                                <p>{{ $path->anyother }}</p>
-                            </div>
-                        @endif
-                    </div>
-
-                    @php
-                        $i++;
-                    @endphp
-                @endforeach
-            </div> --}}
-
-            {{-- <div class="mt-5">
-                <div>
-                    <h5>Entrance Exams</h5>
-                    @foreach ($entrances as $entrance)
-                        <div class="exam-card">
-                            <div class="icon" style="background-color: #ffeb3b;">📄</div>
-                            <div class="exam-info">
-                                <div class="col-lg-4">
-                                    <div class="exam-label">Exam Name:</div>
-                                    <div class="exam-name"> {{ $entrance->exam_name }} </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="exam-label">Form Issue Date:</div>
-                                    <div class="form-issue-date"> {{ $entrance->issue_date }} </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="exam-label">Last Date:</div>
-                                    <div class="last-date"> {{ $entrance->last_date }} </div>
+            <div class="mt-3">
+                <div class="row" id="videos">
+                    @foreach ($video as $index => $videos)
+                        <div class="col-md-6 mb-3">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <iframe id="frame{{ $index }}" width="100%" height="315"
+                                        src="{{ $videos->link }}?enablejsapi=1" title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    <div class="video-title">
+                                        <h6>{{ $videos->title }}</h6>
+                                    </div>
                                 </div>
                             </div>
-                            <a href=" {{ $entrance->url }} " target="blank">
-                                <div class="arrow"></div>
-                            </a>
                         </div>
                     @endforeach
                 </div>
-            </div> --}}
-
-            {{-- <div class="mt-5">
-                <div>
-                    <h5>Top Institutes in
-                        @if (Auth::user()->dist)
-                            {{ Auth::user()->dist->name }}
-                        @endif
-                    </h5>
-                    @if ($institutions->isEmpty())
-                        <div class="mt-5" style="text-align: center">
-                            <h6>No institutions are available in your district.</h6>
-                        </div>
-                    @else
-                        <div class="row">
-                            @foreach ($institutions as $institution)
-                                <div class="col-lg-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-head mb-3">
-                                            <div class="status-1">
-                                                <span class="circle"></span>
-                                                @if ($institution->institute_type == 0)
-                                                    Goverment
-                                                @else
-                                                    Private
-                                                @endif
-                                            </div>
-                                            <div class="status-2">
-                                                <a href="{{ $institution->url }}" target="_blank">
-                                                    <i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="card-title">
-                                            <img src="{{ asset('Institution/' . $institution->logo) }}"
-                                                style="height: 60px; width:60px; border-radius:20px">
-                                        </div>
-                                        <div class="card-title"> {{ $institution->name }} </div>
-                                        <div class="card-info mt-3">
-                                            <div>
-                                                <div class="label">Admission via</div>
-                                                <div class="value"> {{ $institution->admission_process }} </div>
-                                            </div>
-                                            <div style="text-align:right;">
-                                                <div class="label">Tentative Date</div>
-                                                <div class="value">
-                                                    {{ \Carbon\Carbon::parse($institution->tentative_date)->format('F Y') }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
-                </div>
-            </div> --}}
-
-            {{-- <div class="mt-5">
-                <div>
-                    <h5>Top Institutes outside
-                        @if (Auth::user()->dist)
-                            {{ Auth::user()->dist->name }}
-                        @endif
-                    </h5>
-
-                    <div class="mt-3 mb-3">
-                        <label for="" class="form-label">Filters :</label>
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <label for="country" class="form-label">Country :</label>
-                                <select id="country" class="form-select">
-                                    <option value="">Choose Country</option>
-                                    @foreach ($countries as $country)
-                                        <option value="{{ $country->id }}"> {{ $country->name }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="state" class="form-label">State :</label>
-                                <select id="state" class="form-select">
-                                    <option value="">Choose State</option>
-                                    @foreach ($states as $state)
-                                        <option value="{{ $state->id }}"> {{ $state->name }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label for="institutionType" class="form-label">Institution Type :</label>
-                                <select id="institutionType" class="form-select">
-                                    <option value="">Choose Institution Type</option>
-                                    <option value="0">Goverment</option>
-                                    <option value="1">Private</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if ($outside_institution->isEmpty())
-                        <div class="mt-5" style="text-align: center">
-                            <h6>No institutions are available in your district.</h6>
-                        </div>
-                    @else
-                        <div class="row" id="institution-list">
-                            @foreach ($outside_institution as $institutions)
-                                <div class="col-lg-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-head mb-3">
-                                            <div class="status-1">
-                                                <span class="circle"></span>
-                                                @if ($institutions->institute_type == 0)
-                                                    Goverment
-                                                @else
-                                                    Private
-                                                @endif
-                                            </div>
-                                            <div class="status-2">
-                                                <a href="{{ $institutions->url }}" target="_blank">
-                                                    <i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="card-title">
-                                            <img src="{{ asset('Institution/' . $institutions->logo) }}"
-                                                style="height: 60px; width:60px; border-radius:20px">
-                                        </div>
-                                        <div class="card-title"> {{ $institutions->name }} </div>
-                                        <div class="card-info mt-3">
-                                            <div>
-                                                <div class="label">Admission via</div>
-                                                <div class="value"> {{ $institutions->admission_process }} </div>
-                                            </div>
-                                            <div style="text-align:right;">
-                                                <div class="label">Tentative Date</div>
-                                                <div class="value">
-                                                    {{ \Carbon\Carbon::parse($institutions->tentative_date)->format('F Y') }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="mt-3">
-                            {{ $outside_institution->links() }}
-                        </div>
-                    @endif
-                </div>
-            </div> --}}
+            </div>
         </div>
-    @endsection
+    </div>
+@endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+<script>
+    $(document).ready(function() {
+        $('#mySelect2').select2({
+            placeholder: "Select an option",
+            allowClear: true
+        });
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var subcategory_id = '{{ $subcategory_id }}';
+        $(document).on('change', '#mySelect2', function() {
+            var Title = $(this).val();
+            // console.log(Title);
+            $.ajax({
+                type: "POST",
+                url: '{{ route('user.masterclass.get_videos') }}',
+                data: {
+                    'Title': Title,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $('#videos').empty();
+                    if (response.length == 0) {
+                        console.log(response.length);
+                        $('#videos').append(
+                            '<p>No Videos Found.</p>'
+                        );
+                    } else {
+                        $.each(response, function(key, videos) {
+                            $('#videos').append(
+                                '<div class="col-md-6 mb-3">' +
+                                '<div class="card custom-card">' +
+                                '<div class="card-body">' +
+                                '<iframe width="100%" height="315" src="' +
+                                videos.link + '"' +
+                                'title="YouTube video player" frameborder="0"' +
+                                'allow="accelerometer; autoplay; clipboard-write;' +
+                                'encrypted-media; gyroscope; picture-in-picture; web-share"' +
+                                'referrerpolicy="strict-origin-when-cross-origin"' +
+                                'allowfullscreen></iframe>' +
+                                '<div class="video-title">' +
+                                '<h6>' + videos.title + '</h6>' +
+                                ' </div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>');
 
-            $(document).on('change', '#country', function() {
-                var country_id = $(this).val();
-                console.log(subcategory_id);
-                $.ajax({
-                    type: "POST",
-                    url: '{{ route('user.viewInstitution') }}',
-                    data: {
-                        'country_id': country_id,
-                        'subcategory_id': subcategory_id,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#institution-list').empty();
-                        if (response.length === 0) {
-                            $('#institution-list').append(
-                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this selected Country.</h6></div>'
-                            );
-                        } else {
-                            $.each(response, function(key, institution) {
-                                var institutionCard = '<div class="col-lg-4 mb-3">' +
-                                    '<div class="card">' +
-                                    '<div class="card-head mb-3">' +
-                                    '<div class="status-1">' +
-                                    '<span class="circle"></span>' +
-                                    (institution.institute_type == 0 ? 'Government' :
-                                        'Private') +
-                                    '</div>' +
-                                    '<div class="status-2">' +
-                                    '<a href="' + institution.url +
-                                    '" target="_blank">' +
-                                    '<i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>' +
-                                    '</a>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="card-title">' +
-                                    '<img src="{{ asset('Institution') }}/' +
-                                    institution.logo +
-                                    '" style="height: 60px; width:60px; border-radius:20px">' +
-                                    '</div>' +
-                                    '<div class="card-title">' + institution.name +
-                                    '</div>' +
-                                    '<div class="card-info mt-3">' +
-                                    '<div>' +
-                                    '<div class="label">Admission via</div>' +
-                                    '<div class="value">' + institution
-                                    .admission_process + '</div>' +
-                                    '</div>' +
-                                    '<div style="text-align:right;">' +
-                                    '<div class="label">Tentative Date</div>' +
-                                    '<div class="value">' + institution.tentative_date +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>';
-                                $('#institution-list').append(institutionCard);
-                            });
-                        }
-                        $('.pagination').hide();
-                    },
-                });
+                        });
+                    }
+                    $('.pagination').hide();
+                },
             });
         });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            var subcategory_id = '{{ $subcategory_id }}';
-
-            $(document).on('change', '#state', function() {
-                var state_id = $(this).val();
-                $.ajax({
-                    type: "POST",
-                    url: '{{ route('user.viewState') }}',
-                    data: {
-                        'state_id': state_id,
-                        'subcategory_id': subcategory_id,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#institution-list').empty();
-                        if (response.length === 0) {
-                            $('#institution-list').append(
-                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this selected State</h6></div>'
-                            );
-                        } else {
-                            $.each(response, function(key, institution) {
-                                var institutionCard = '<div class="col-lg-4 mb-3">' +
-                                    '<div class="card">' +
-                                    '<div class="card-head mb-3">' +
-                                    '<div class="status-1">' +
-                                    '<span class="circle"></span>' +
-                                    (institution.institute_type == 0 ? 'Government' :
-                                        'Private') +
-                                    '</div>' +
-                                    '<div class="status-2">' +
-                                    '<a href="' + institution.url +
-                                    '" target="_blank">' +
-                                    '<i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>' +
-                                    '</a>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="card-title">' +
-                                    '<img src="{{ asset('Institution') }}/' +
-                                    institution.logo +
-                                    '" style="height: 60px; width:60px; border-radius:20px">' +
-                                    '</div>' +
-                                    '<div class="card-title">' + institution.name +
-                                    '</div>' +
-                                    '<div class="card-info mt-3">' +
-                                    '<div>' +
-                                    '<div class="label">Admission via</div>' +
-                                    '<div class="value">' + institution
-                                    .admission_process + '</div>' +
-                                    '</div>' +
-                                    '<div style="text-align:right;">' +
-                                    '<div class="label">Tentative Date</div>' +
-                                    '<div class="value">' + institution.tentative_date +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>';
-                                $('#institution-list').append(institutionCard);
-                            });
-                        }
-                        $('.pagination').hide();
-                    },
-                });
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            var subcategory_id = '{{ $subcategory_id }}';
-
-            $(document).on('change', '#institutionType', function() {
-                var institute_type = $(this).val();
-                $.ajax({
-                    type: "POST",
-                    url: '{{ route('user.viewType') }}',
-                    data: {
-                        'institute_type': institute_type,
-                        'subcategory_id': subcategory_id,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#institution-list').empty();
-                        if (response.length === 0) {
-                            $('#institution-list').append(
-                                '<div class="col-12 text-center mt-5"><h6>No institutions are available in this selected Institute Type.</h6></div>'
-                            );
-                        } else {
-                            $.each(response, function(key, institution) {
-                                var institutionCard = '<div class="col-lg-4 mb-3">' +
-                                    '<div class="card">' +
-                                    '<div class="card-head mb-3">' +
-                                    '<div class="status-1">' +
-                                    '<span class="circle"></span>' +
-                                    (institution.institute_type == 0 ? 'Government' :
-                                        'Private') +
-                                    '</div>' +
-                                    '<div class="status-2">' +
-                                    '<a href="' + institution.url +
-                                    '" target="_blank">' +
-                                    '<i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>' +
-                                    '</a>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '<div class="card-title">' +
-                                    '<img src="{{ asset('Institution') }}/' +
-                                    institution.logo +
-                                    '" style="height: 60px; width:60px; border-radius:20px">' +
-                                    '</div>' +
-                                    '<div class="card-title">' + institution.name +
-                                    '</div>' +
-                                    '<div class="card-info mt-3">' +
-                                    '<div>' +
-                                    '<div class="label">Admission via</div>' +
-                                    '<div class="value">' + institution
-                                    .admission_process + '</div>' +
-                                    '</div>' +
-                                    '<div style="text-align:right;">' +
-                                    '<div class="label">Tentative Date</div>' +
-                                    '<div class="value">' + institution.tentative_date +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>' +
-                                    '</div>';
-                                $('#institution-list').append(institutionCard);
-                            });
-                        }
-                        $('.pagination').hide();
-                    },
-                });
-            });
-        });
-    </script>
+    });
+</script>

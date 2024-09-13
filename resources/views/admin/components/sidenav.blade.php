@@ -70,10 +70,22 @@
                         <span class="menu-title">@lang('Institution')</span>
                     </a>
                 </li>
-                <li class="sidebar-menu-item {{menuActive('admin.institution.*')}}">
-                    <a href="{{route('admin.institution.list')}}" class="nav-link ">
+                <li class="sidebar-menu-item {{menuActive('admin.Masterclass.*')}}">
+                    <a href="{{route('admin.Masterclass.index')}}" class="nav-link ">
                         <i class="menu-icon las la-graduation-cap"></i>
                         <span class="menu-title">@lang('Master Class')</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item {{menuActive('admin.scholarship.*')}}">
+                    <a href="{{route('admin.scholarship.index')}}" class="nav-link ">
+                        <i class="menu-icon las la-graduation-cap"></i>
+                        <span class="menu-title">@lang('Scholarship')</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item {{menuActive('admin.team.*')}}">
+                    <a href="{{route('admin.team.list')}}" class="nav-link ">
+                        <i class="menu-icon las la-graduation-cap"></i>
+                        <span class="menu-title">@lang('Teams')</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item  {{menuActive('admin.subscriber.*')}}">

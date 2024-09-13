@@ -102,4 +102,7 @@ class User extends Authenticatable
     public function dist(){
         return $this->belongsTo(District::class,'dist_id');
     }
+    public function state(){
+        return $this->belongsTo(State::class,'state_id');
+    }
 }

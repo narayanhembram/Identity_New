@@ -23,7 +23,7 @@
                             <span class="menu-title">@lang('Dashboard')</span>
                         </a>
                     </li>
-                    @foreach (App\Models\Module::all() as $module)
+                    @foreach (App\Models\Module::orderBy('position','asc')->get() as $module)
                     <li class="sidebar-menu-item {{ Request::is($module->route) ? 'active' : '' }}">
                         <a href="{{ url('user/'.$module->url) }}">
                             <span class="menu-title">@lang( $module->title )</span>
