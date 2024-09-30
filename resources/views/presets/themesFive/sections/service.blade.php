@@ -18,13 +18,13 @@
 <style>
 
 </style>
-<section class="services py-100">
+<section class="services">
     <div class="">
         <div class="row">
             <div class="col-lg-8">
                 <div class="row">
                     <div class="col-12 text-center mt-5">
-                        <div class="mt-6 mb-6 font-weight-bold text-danger display-5">
+                        <div class="mt-6 mb-6 font-weight-bold text-danger display-5" style="font-size: 2rem">
                             Choose your Perfect Career
                             <br>
                             <div class="h4 font-weight-semibold text-dark">
@@ -74,7 +74,7 @@
             </div>
             <div class="col-lg-4 d-none d-lg-block">
                 <figure class="image">
-                    <img src="https://lmes-mars-cdn.jujube.in/site/home/freedom_1.svg" class="img-fluid">
+                    <img src="https://lmes-mars-cdn.jujube.in/site/home/freedom_1.svg" class="img-fluid" style="height: 30rem">
                 </figure>
             </div>
 

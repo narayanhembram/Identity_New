@@ -4,7 +4,7 @@
 @endphp
 
 <!-- ==================== Team Start ==================== -->
-<section class="team py-100 bg-img" data-background="{{ asset($activeTemplateTrue .'images/team_bg.png') }}">
+{{-- <section class="team py-100 bg-img" data-background="{{ asset($activeTemplateTrue .'images/team_bg.png') }}">
     <div class="container pb-5">
         <div class="title">
             <h6>{{__(@$team->data_values->top_heading)}}</h6>
@@ -50,5 +50,5 @@
             @endforeach
         </div>
     </div>
-</section>
+</section> --}}
 <!-- ==================== Team End ==================== -->

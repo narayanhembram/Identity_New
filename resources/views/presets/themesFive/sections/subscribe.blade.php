@@ -3,7 +3,7 @@
 $subscribe = getContent('subscribe.content',true);
 @endphp
 <!-- ==================== action Start ==================== -->
-<section class="action py-100 bg-overlay-two bg-img" data-background="{{ asset($activeTemplateTrue .'images/action_bg.png') }}">
+{{-- <section class="action py-100 bg-overlay-two bg-img" data-background="{{ asset($activeTemplateTrue .'images/action_bg.png') }}">
     <div class="container">
         <div class="row gy-4 justify-content-center">
             <div class="col-lg-6 col-12">
@@ -22,5 +22,5 @@ $subscribe = getContent('subscribe.content',true);
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- ==================== action End ==================== -->

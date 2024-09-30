@@ -1243,7 +1243,7 @@ button:focus {
 .btn--base {
     color: hsl(var(--white));
     font-weight: 400;
-    padding: 14px 22px;
+    padding: 6px 6px;
     text-transform: capitalize;
     font-size: 18px;
     background-color: hsl(var(--base));
@@ -2458,7 +2458,7 @@ select.form-control.form--control:has(option)~.form--label {
 .header {
     z-index: 999;
     position: absolute;
-    top: 0;
+    top: 45px;
     left: 0;
     right: 0;
     transition: all 0.3s ease;
@@ -3377,7 +3377,7 @@ select.form-control.form--control:has(option)~.form--label {
     background-repeat: no-repeat;
     background-position: center center;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 .bg-overlay {
@@ -5340,7 +5340,7 @@ select.form-control.form--control:has(option)~.form--label {
 .banner-section .banner-thumb .content h1 {
     color: hsl(var(--dark));
     padding: 0;
-    font-size: 54px;
+    font-size: 35px;
     font-weight: 700;
     text-transform: capitalize;
     margin: auto;
@@ -5380,7 +5380,7 @@ select.form-control.form--control:has(option)~.form--label {
 .title h4 {
     margin-bottom: 10px;
     text-align: center;
-    font-size: 35px;
+    font-size: 25px;
     font-weight: 700;
     text-transform: capitalize;
 }
@@ -5444,12 +5444,13 @@ select.form-control.form--control:has(option)~.form--label {
 .about .thumb img {
     width: auto;
     display: flex;
+    height: 30rem;
 }
 
 .about .thumb .experience {
     background-color: hsl(var(--base));
     width: fit-content;
-    padding: 25px 15px;
+    padding: 15px 15px;
     text-align: center;
     border: 10px solid hsl(var(--white));
     position: absolute;
@@ -5497,7 +5498,7 @@ select.form-control.form--control:has(option)~.form--label {
     top: 50%;
     transform: translateY(-50%);
     color: hsl(var(--base));
-    font-size: 15px;
+    font-size: 10px;
 }
 
 /*====================== Blog Style ====================*/
@@ -5540,7 +5541,7 @@ select.form-control.form--control:has(option)~.form--label {
 
 .blog .card .content h5 {
     margin-bottom: 0;
-    font-size: 18px;
+    font-size: 15px;
     text-transform: capitalize;
     line-height: 27px;
     transition: 0.4s;
@@ -6128,8 +6129,8 @@ select.form-control.form--control:has(option)~.form--label {
 }
 
 .why-choose .details {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     border-radius: 10px;
 }
@@ -6211,7 +6212,7 @@ select.form-control.form--control:has(option)~.form--label {
 .services {
     overflow: hidden;
     position: relative;
-    background-color: hsl(var(--base)/0.04);
+    /* background-color: hsl(var(--base)/0.04); */
 }
 
 .services-page {
@@ -7367,7 +7368,8 @@ blockquote::before {
 }
 
 .navbar__action-list li {
-    margin-right: 15px;
+    margin-right: 10px;
+    padding: 10px;
 }
 
 .navbar__action-list li:last-child {
@@ -7593,15 +7595,15 @@ blockquote::before {
 }
 
 .body-wrapper {
-    padding-left: 345px;
+    /* padding-left: 345px; */
     padding-right: 30px;
     transition: all 0.5s;
 }
 
 @media only screen and (max-width: 1627px) {
-    .body-wrapper {
+    /* .body-wrapper {
         padding-left: 280px;
-    }
+    } */
 }
 
 @media only screen and (max-width: 991px) {
@@ -7906,16 +7908,16 @@ blockquote::before {
 
 .navbar-wrapper {
     margin-bottom: 40px;
-    margin-left: 320px;
+    /* margin-left: 320px; */
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     transition: all 0.5s;
 }
 
 @media only screen and (max-width: 1627px) {
-    .navbar-wrapper {
+    /* .navbar-wrapper {
         margin-left: 250px;
-    }
+    } */
 }
 
 @media only screen and (max-width: 991px) {
@@ -7936,7 +7938,7 @@ blockquote::before {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    margin: 20px 25px;
+    margin: 20px 0;
     border-radius: 10px;
     background-color: hsl(var(--white));
     padding: 20px;

@@ -167,6 +167,15 @@ Route::middleware('admin')->group(function () {
         Route::post('/delete','delete')->name('delete');
     });
 
+    //Brand Logo
+    Route::controller('BrandController')->name('brand.')->prefix('brand')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::post('/store','Store')->name('Store');
+        Route::post('/update','update')->name('update');
+        Route::post('/delete','delete')->name('delete');
+    });
+
+
     //Countries
     Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function(){
         Route::get('/','index')->name('index');

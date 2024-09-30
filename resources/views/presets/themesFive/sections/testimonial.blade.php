@@ -4,7 +4,7 @@
 @endphp
 
 <!--========================== Testimonial Start ==========================-->
-<section class="testimonial py-100">
+{{-- <section class="testimonial py-100">
     <div class="shape d-lg-block d-none">
         <svg width="493" height="560" viewBox="0 0 493 560" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M14.8814 74.1128H130.783L72.8337 174.491L14.8814 74.1128Z" />
@@ -71,5 +71,5 @@
             @endforeach
         </div>
     </div>
-</section>
+</section> --}}
 <!--========================== Testimonial End ==========================-->

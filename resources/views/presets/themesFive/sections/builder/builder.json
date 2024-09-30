@@ -23,6 +23,13 @@
             "sub_heading": "text"
         }
     },
+    "news": {
+        "builder": true,
+        "name": "News Section",
+        "content": {
+            "heading": "text"
+        }
+    },
     "theme_five_about": {
         "builder": true,
         "name": "About Us",

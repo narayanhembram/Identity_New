@@ -281,11 +281,11 @@
                                                     Private
                                                 @endif
                                             </div>
-                                            <div class="status-2">
+                                            {{-- <div class="status-2">
                                                 <a href="{{ $institution->url }}" target="_blank">
                                                     <i class="fas fa-arrow-right" style="transform: rotate(-50deg);"></i>
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div class="card-title">
                                             <img src="{{ asset('Institution/' . $institution->logo) }}"
@@ -294,8 +294,10 @@
                                         <div class="card-title"> {{ $institution->name }} </div>
                                         <div class="card-info mt-3">
                                             <div>
-                                                <div class="label">Admission via</div>
-                                                <div class="value"> {{ $institution->admission_process }} </div>
+                                                <div class="label"><a href="{{ $institution->url }}" target="_blank">
+                                                        Visit Now
+                                                    </a></div>
+                                                {{-- <div class="value"> {{ $institution->admission_process }} </div> --}}
                                             </div>
                                             <div style="text-align:right;">
                                                 <div class="label">Tentative Date</div>

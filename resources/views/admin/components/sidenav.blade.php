@@ -88,6 +88,12 @@
                         <span class="menu-title">@lang('Teams')</span>
                     </a>
                 </li>
+                <li class="sidebar-menu-item {{menuActive('admin.brand.*')}}">
+                    <a href="{{route('admin.brand.index')}}" class="nav-link ">
+                        <i class="menu-icon las la-graduation-cap"></i>
+                        <span class="menu-title">@lang('Brands')</span>
+                    </a>
+                </li>
                 <li class="sidebar-menu-item  {{menuActive('admin.subscriber.*')}}">
                     <a href="{{route('admin.subscriber.index')}}" class="nav-link"
                         data-default-url="{{ route('admin.subscriber.index') }}">

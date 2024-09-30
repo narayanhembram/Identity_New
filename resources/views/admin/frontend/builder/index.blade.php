@@ -9,19 +9,30 @@
                     @csrf
                     <input type="hidden" name="id" value="{{ $pdata->id }}">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>@lang('Page Name')</label>
                                 <input type="text" class="form-control" name="name" value="{{ $pdata->name }}" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>@lang('Page Slug')</label>
                                 <input type="text" class="form-control" name="slug" value="{{ $pdata->slug }}" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@lang('Choose Parent Menu')</label>
+                                <select name="menu_id" class="form-control">
+                                    <option value="">Select Menu</option>
+                                    @foreach ($menus as $menu)
+                                        <option value="{{ $menu->id }}" {{ ($menu->id == $pdata->menu_id) ? 'selected' : '' }}>{{ $menu->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>&nbsp;</label>
                                 <button type="submit" class="btn btn--primary btn-global">@lang('Save')</button>

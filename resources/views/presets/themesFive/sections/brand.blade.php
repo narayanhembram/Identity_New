@@ -2,7 +2,7 @@
 $brandElements = getContent('brand.element',false);
 @endphp
 <!-- ==================== brand start ==================== -->
-<section class="brand py-80">
+{{-- <section class="brand py-80">
     <div class="container">
         <div class="brand-slider">
             @foreach($brandElements as $item)
@@ -14,5 +14,5 @@ $brandElements = getContent('brand.element',false);
             @endforeach
         </div>
     </div>
-</section>
+</section> --}}
 <!-- ==================== brand end ==================== -->

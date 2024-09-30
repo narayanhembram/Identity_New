@@ -1,4 +1,4 @@
-@php
+{{-- @php
 $counter = getContent('theme_five_counter.content',true);
 $counterElements = getContent('theme_five_counter.element',false,4);
 @endphp
@@ -29,5 +29,5 @@ $counterElements = getContent('theme_five_counter.element',false,4);
             @endforeach
         </div>
     </div>
-</section>
+</section> --}}
 <!-- ==================== Experience end ==================== -->

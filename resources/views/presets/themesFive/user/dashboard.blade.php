@@ -6,7 +6,7 @@
             <div class="row">
                 @foreach ($modules as $module)
 
-                <div class="col-lg-4 col-md-6 mb-3">
+                <div class="col-lg-3 col-md-6 mb-3">
                     <div class="card" style="text-align:center">
                         <div class="mt-3">
                             <img src="{{asset('Modules/'. $module->image)}}" style="height: 200px" alt="Career Library Image">

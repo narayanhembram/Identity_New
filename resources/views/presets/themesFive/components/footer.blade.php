@@ -15,11 +15,11 @@
         <img src="{{ asset($activeTemplateTrue .'images/shape/shape14.png') }}" alt="@lang('shape')">
     </div>
     <div class="container">
-        <div class="logo-area">
+        {{-- <div class="logo-area">
             <a class="logo" href="{{route('home')}}">
                 <img src="{{ getImage(getFilePath('logoIcon').'/logo_white.png', '?'.time()) }}" alt="{{config('app.name')}}">
             </a>
-        </div>
+        </div> --}}
         <div class="row justify-content-center g-5">
 
             <div class="col-xl-3 col-sm-6">

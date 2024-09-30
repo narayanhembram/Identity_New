@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ config('app.locale') }}" itemscope itemtype="http://schema.org/WebPage">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -9,75 +10,78 @@
     <!-- Bootstrap CSS -->
     <link href="{{ asset('assets/common/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/common/css/all.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('assets/common/css/line-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/slick.css')}}">
-    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/odometer.css')}}">
-    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/animate.min.css')}}">
-    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/lightcase.css')}}">
-    <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/main.css')}}">
-
+    <link rel="stylesheet" href="{{ asset('assets/common/css/line-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/odometer.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/lightcase.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/main.css') }}">
     @stack('style-lib')
     @stack('style')
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue.'css/color.php') }}?color1={{ $general->theme_five_base_color }}&color2={{ $general->theme_five_secondary_color }}">
+    <link rel="stylesheet"
+        href="{{ asset($activeTemplateTrue . 'css/color.php') }}?color1={{ $general->theme_five_base_color }}&color2={{ $general->theme_five_secondary_color }}">
 </head>
-<body class="{{$general->rtl==1?'rtl':'ltr'}}">
 
-@include($activeTemplate.'components.loader')
+<body class="{{ $general->rtl == 1 ? 'rtl' : 'ltr' }}">
 
-@include($activeTemplate.'components.header')
+    @include($activeTemplate . 'components.loader')
 
-@if(request()->route()->uri != '/')
-    @include($activeTemplate.'components.breadcrumb')
-@endif
+    @include($activeTemplate . 'components.header')
 
-@yield('content')
+    @if (request()->route()->uri != '/')
+        @include($activeTemplate . 'components.breadcrumb')
+    @endif
 
-@include($activeTemplate.'components.footer')
+    @yield('content')
 
-@include($activeTemplate.'components.cookie')
+    @include($activeTemplate . 'components.footer')
+
+    @include($activeTemplate . 'components.cookie')
 
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="{{asset('assets/common/js/jquery-3.7.1.min.js')}}"></script>
-<script src="{{asset('assets/common/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/popper.min.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/slick.min.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/jquery.magnific-popup.min.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/odometer.min.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/viewport.jquery.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/smoothscroll.min.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/wow.min.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/lightcase.js')}}"></script>
-<script src="{{asset($activeTemplateTrue.'js/main.js')}}"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ asset('assets/common/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/common/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/popper.min.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/slick.min.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/odometer.min.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/viewport.jquery.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/smoothscroll.min.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/wow.min.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/lightcase.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/main.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'nav/slider.js') }}"></script>
 
-@stack('script-lib')
-@stack('script')
-@include('includes.plugins')
-@include('includes.notify')
+    @stack('script-lib')
+    @stack('script')
+    @include('includes.plugins')
+    @include('includes.notify')
 
-<script>
-    (function ($) {
+    <script>
+        (function($) {
 
-        "use strict";
+            "use strict";
 
-        $(".langSel").on("change", function() {
-            window.location.href = "{{route('home')}}/change/"+$(this).val() ;
-        });
-
-        $('.policy').on('click',function(){
-            $.get('{{route('cookie.accept')}}', function(response){
-                $('.cookies-card').addClass('d-none');
+            $(".langSel").on("change", function() {
+                window.location.href = "{{ route('home') }}/change/" + $(this).val();
             });
-        });
 
-        setTimeout(function(){
-            $('.cookies-card').removeClass('hide')
-        },2000);
+            $('.policy').on('click', function() {
+                $.get('{{ route('cookie.accept') }}', function(response) {
+                    $('.cookies-card').addClass('d-none');
+                });
+            });
 
-    })(jQuery);
-</script>
+            setTimeout(function() {
+                $('.cookies-card').removeClass('hide')
+            }, 2000);
+
+        })(jQuery);
+    </script>
 
 </body>
+
 </html>

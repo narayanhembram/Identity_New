@@ -14,7 +14,7 @@
     </div>
 </section> --}}
 
-<section class="plan py-5">
+<section class="plan py-3">
     <div class="container">
         <div class="notification text-center bg-light p-4 rounded">
             <div class="row justify-content-center">

@@ -3,7 +3,7 @@ $blog = getContent('blog.content',true);
 $blogs = getContent('blog.element',false,3);
 @endphp
 <!-- ==================== Blog Start ==================== -->
-<section class="blog py-80">
+{{-- <section class="blog py-80">
     <div class="shape2">
         <img src="{{ asset($activeTemplateTrue .'images/shape/shape6.png') }}" alt="@lang('shape')">
     </div>
@@ -15,5 +15,5 @@ $blogs = getContent('blog.element',false,3);
         </div>
         @include($activeTemplate.'components.blog')
     </div>
-</section>
+</section> --}}
 <!-- ==================== Blog End ==================== -->

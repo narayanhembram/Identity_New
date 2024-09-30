@@ -24,8 +24,9 @@ class PageBuilderController extends Controller
         $content = Frontend::where('data_keys', $key . '.content')->orderBy('id','desc')->first();
         $elements = Frontend::where('data_keys', $key . '.element')->orderBy('id')->orderBy('id','desc')->get();
         $pdata = Page::where('tempname',$this->activeTemplate)->get();
+        $menus = Page::where('tempname',$this->activeTemplate)->where('menu_id',null)->get();
         $pageTitle = '';
-        return view('admin.frontend.builder.pages', compact('section', 'content', 'elements', 'key','pageTitle','pdata'));
+        return view('admin.frontend.builder.pages', compact('section', 'content', 'elements', 'key','pageTitle','pdata','menus'));
     }
 
     public function managePagesSave(Request $request){
@@ -44,6 +45,7 @@ class PageBuilderController extends Controller
         $page->tempname = $this->activeTemplate;
         $page->name = $request->name;
         $page->slug = slug($request->slug);
+        $page->menu_id = $request->menu_id;
         $page->save();
         $notify[] = ['success', 'New page has been added successfully'];
         return back()->withNotify($notify);
@@ -68,6 +70,7 @@ class PageBuilderController extends Controller
 
         $page->name = $request->name;
         $page->slug = slug($request->slug);
+        $page->menu_id = $request->menu_id;
         $page->save();
 
         $notify[] = ['success', 'Page has been updated successfully'];
@@ -89,7 +92,8 @@ class PageBuilderController extends Controller
         $pdata = Page::findOrFail($id);
         $pageTitle = 'Manage '.$pdata->name.' Page';
         $sections =  getPageSections(true);
-        return view('admin.frontend.builder.index', compact('pageTitle','pdata','sections'));
+        $menus = Page::where('tempname',$this->activeTemplate)->where('menu_id',null)->get();
+        return view('admin.frontend.builder.index', compact('pageTitle','pdata','sections','menus'));
     }
 
 

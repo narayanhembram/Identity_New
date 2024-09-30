@@ -116,6 +116,14 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('/get_class','getClass')->name('getClass');
 
             });
+            //Mysession Controller
+            Route::controller('MysessionController')->name('mysession.')->prefix('mysession')->group(function () {
+                Route::get('/team','index')->name('view');
+                Route::post('/get_team_by_category','get_team_by_category')->name('get_team_by_category');
+                Route::post('/get_team_by_subcategory','get_team_by_subcategory')->name('get_team_by_subcategory');
+                Route::post('/get_team','get_team')->name('get_team');
+
+            });
 
             //Profile setting
             Route::controller('ProfileController')->group(function () {

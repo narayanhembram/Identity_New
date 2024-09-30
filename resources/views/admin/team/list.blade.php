@@ -8,6 +8,8 @@
                         <table class="table table--light style--two">
                             <thead>
                                 <tr>
+                                    <th>@lang('Category')</th>
+                                    <th>@lang('Subcategory')</th>
                                     <th>@lang('Name')</th>
                                     <th>@lang('email')</th>
                                     <th>@lang('Phone')</th>
@@ -17,22 +19,24 @@
                                     <th>@lang('Action')</th>
                                 </tr>
                             </thead>
-                            {{-- <tbody>
-                                @forelse($modules as $module)
+                            <tbody>
+                                @forelse($teams as $team)
                                     <tr>
-                                        <td>
-                                            <img src="{{ asset('Modules/'. $module->image) }}" width="100" alt="">
-                                        </td>
-                                        <td>{{ $module->title }}</td>
-                                        <td>{{ $module->btn_text }}</td>
-                                        <td>{{ $module->url }}</td>
+                                        <td>{{ $team->category_id }}</td>
+                                        <td>{{ $team->sub_category_id }}</td>
+                                        <td>{{ $team->name }}</td>
+                                        <td>{{ $team->email }}</td>
+                                        <td>{{ $team->phone }}</td>
+                                        <td>{{ $team->experience }}</td>
+                                        <td><img src="{{ asset('Teams/'. $team->photo) }}" width="100" height="100" alt=""></td>
+                                        <td>{{ $team->dob }}</td>
 
                                         <td>
-                                            <a href="{{ route('admin.module.edit', $module->id) }}" title="@lang('Edit')"
-                                                data-id="{{ $module->id }}" class="btn btn-sm btn--primary ">
+                                            <a href="{{ route('admin.team.edit', $team->id) }}" title="@lang('Edit')"
+                                                data-id="{{ $team->id }}" class="btn btn-sm btn--primary ">
                                                 <i class="las la-edit"></i>
                                             </a>
-                                            <button title="@lang('Remove')" data-id="{{ $module->id }}"
+                                            <button title="@lang('Remove')" data-id="{{ $team->id }}"
                                                 class="btn btn-sm btn--danger rejectBtn">
                                                 <i class="las la-trash"></i>
                                             </button>
@@ -44,7 +48,7 @@
                                     </tr>
                                 @endforelse
 
-                            </tbody> --}}
+                            </tbody>
                         </table><!-- table end -->
                     </div>
                 </div>
@@ -63,17 +67,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">@lang('Delete Module Confirmation')</h5>
+                    <h5 class="modal-title">@lang('Delete Member Confirmation')</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{ route('admin.module.delete') }}" method="POST">
+                <form action="{{ route('admin.team.delete') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id">
                     <div class="modal-body">
                         <p>@lang('Are you sure to') <span class="fw-bold">@lang('delete')</span> <span
-                                class="fw-bold withdraw-amount text-success"></span> @lang('this module') <span
+                                class="fw-bold withdraw-amount text-success"></span> @lang('this member') <span
                                 class="fw-bold withdraw-user"></span>?</p>
                     </div>
                     <div class="modal-footer">
