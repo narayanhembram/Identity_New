@@ -18,7 +18,7 @@
 <style>
 
 </style>
-<section class="services">
+{{-- <section class="services">
     <div class="">
         <div class="row">
             <div class="col-lg-8">
@@ -80,5 +80,5 @@
 
         </div>
     </div>
-</section>
+</section> --}}
 <!-- ==================== Services end ==================== -->

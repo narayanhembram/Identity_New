@@ -234,7 +234,7 @@
 
 <div class="side-icon-bar">
     <a href="tel:+91-9108510058" class="side-icon-bar-call"><i class="fa fa-phone-alt"></i></a>
-    <a id="whatsappLink" class="side-icon-bar-whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+    <a id="whatsappLink" href="https://wa.me/8249753459?text=Your%20predefined%20message" target="blank" class="side-icon-bar-whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
     <a id="contactForm" class="side-icon-bar-inquiry"><i class="fa fa-info"></i></a>
 </div>
 
@@ -252,7 +252,8 @@
             {{-- <script src="https://www.google.com/recaptcha/api.js?render=6Lckir0mAAAAABcq7fsKxtLiCBPb58DXEHNqJR7p" async defer></script> --}}
 
             <!-- Form -->
-            <form id="enquiry" method="Post" enctype="multipart/form-data" action="" >
+            <form id="enquiry" method="Post" enctype="multipart/form-data" action=" {{ Route('admin.ibutton.store') }} " >
+                @csrf
                 <div class="field-control-group">
                     <input type="text" placeholder="Full Name" name="name" maxlength="100" required>
                 </div>
@@ -265,7 +266,7 @@
                 <div class="field-control-group">
                     <textarea placeholder="Anything we need to know?" name="note" maxlength="2000" style="height: 100px;"></textarea>
                 </div>
-                <button id="form-submit-button" class="btn btn-primary">Submit</button>
+                <button id="form-submit-button" class="btn btn-primary" type="submit">Submit</button>
             </form>
         </div>
     </div>

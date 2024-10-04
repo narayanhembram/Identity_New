@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\DistrictController;
+use App\Http\Controllers\Admin\IButtonController;
 
 Route::namespace('Auth')->group(function () {
     Route::controller('LoginController')->group(function () {
@@ -173,6 +174,34 @@ Route::middleware('admin')->group(function () {
         Route::post('/store','Store')->name('Store');
         Route::post('/update','update')->name('update');
         Route::post('/delete','delete')->name('delete');
+    });
+
+    //I Button Controller
+    Route::controller('IButtonController')->name('ibutton.')->prefix('ibutton')->group(function(){
+        Route::get('/','list')->name('list');
+        Route::post('/delete','delete')->name('delete');
+    });
+
+    //Banner Slider Controller
+    Route::controller('BannersliderController')->name('bannerslider.')->prefix('bannerslider')->group(function(){
+        Route::get('/','list')->name('list');
+        Route::get('/add','Add')->name('add');
+        Route::post('/store','Store')->name('Store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update/{id}','update')->name('update');
+        Route::post('/delete','delete')->name('delete');
+
+    });
+
+    //CareerPlan Controller
+    Route::controller('CareerplanController')->name('careerplan.')->prefix('careerplan')->group(function(){
+        Route::get('/','list')->name('list');
+        Route::get('/add','Add')->name('add');
+        Route::post('/store','Store')->name('Store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update/{id}','update')->name('update');
+        Route::post('/delete','delete')->name('delete');
+
     });
 
 
@@ -415,4 +444,5 @@ Route::middleware('admin')->group(function () {
 
 Route::post('/get_state',[StateController::class,'getState'])->name('getState');
 Route::post('/get_district',[DistrictController::class,'getDistrict'])->name('getDistrict');
+Route::post('/ibutton/store',[IButtonController::class,'store'])->name('ibutton.store');
 // Route::post('/get_district','getDistrict')->name('getDistrict');

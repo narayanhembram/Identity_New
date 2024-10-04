@@ -2,6 +2,8 @@
     $plan = getContent('plan.content', true);
     $plans = App\Models\Plan::where('status', 1)->latest()->limit(3)->get();
 @endphp
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <!--========================== Plan Start ==========================-->
 {{-- <section class="plan py-100">
     <div class="container">
@@ -13,8 +15,174 @@
         @include($activeTemplate.'components.plan')
     </div>
 </section> --}}
+<style>
+    .bio {
+        display: grid;
+        grid-auto-flow: row;
+        grid-template-rows: min-content;
+        grid-gap: 24px;
+    }
 
-<section class="plan py-3">
+    .artist-list {
+        display: flex;
+        min-height: 200px;
+        height: 450px !important;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        list-style-type: none;
+        width: 100%;
+        min-width: 100%;
+        flex-direction: column;
+    }
+
+    @media only screen and (min-width: 1280px) {
+        .artist-list {
+            flex-direction: row;
+        }
+    }
+
+    .artist-item {
+        flex: 1;
+        display: flex;
+        align-items: stretch;
+        cursor: pointer;
+        transition: all 0.35s ease;
+        position: relative;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top center;
+        overflow: hidden;
+    }
+
+    .artist-item::before {
+        content: "";
+        position: absolute;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 450px;
+        background: rgba(15, 15, 15, 0.75);
+    }
+
+    .artist-item.active {
+        flex: 6;
+        cursor: default;
+    }
+
+    .artist-item.active::before {
+        background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
+    }
+
+    h2 {
+        font-size: 36px;
+        line-height: 36px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    @media only screen and (min-width: 768px) {
+        h2 {
+            font-size: 48px;
+            line-height: 48px;
+        }
+    }
+
+    @media only screen and (min-width: 1280px) {
+        h2 {
+            font-size: 64px;
+            line-height: 64px;
+        }
+    }
+
+    h3 {
+        font-weight: bold;
+        white-space: nowrap;
+        position: absolute;
+        z-index: 30;
+        opacity: 1;
+        top: 50%;
+        left: 50%;
+        transition: top 0.35s, opacity 0.15s;
+        transform-origin: 0 0;
+        font-size: 24px;
+        text-transform: uppercase;
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    @media only screen and (min-width: 1280px) {
+        h3 {
+            top: 100%;
+            left: 50%;
+            font-size: 32px;
+            transform: translate(-20px, -50%) rotate(-90deg);
+        }
+    }
+
+    .artist-item.active h3 {
+        opacity: 0;
+        top: 200%;
+    }
+
+    .section-content {
+        position: relative;
+        z-index: 30;
+        opacity: 0;
+        align-self: flex-end;
+        width: 100%;
+        transition: all 0.35s 0.1s ease-out;
+    }
+
+    .artist-item.active .section-content {
+        opacity: 1;
+    }
+
+    .section-content .inner {
+        position: absolute;
+        display: grid;
+        grid-auto-flow: row;
+        grid-template-columns: 1fr;
+        grid-column-gap: 20px;
+        align-items: flex-end;
+        left: 0;
+        bottom: 0;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 0.25s ease-out;
+    }
+
+    @media only screen and (min-width: 768px) {
+        .section-content .inner {
+            grid-auto-flow: column;
+            grid-template-columns: calc(100% - 340px) 300px;
+            grid-column-gap: 40px;
+            padding: 40px;
+        }
+    }
+
+    @media only screen and (min-width: 1280px) {
+        .section-content .inner {
+            grid-auto-flow: column;
+            grid-template-columns: 460px 200px;
+            grid-column-gap: 40px;
+            padding: 40px;
+        }
+    }
+
+    .artist-item.active .section-content .inner {
+        opacity: 1;
+    }
+
+    .artist-profile-link {
+        pointer-events: none;
+    }
+
+    .artist-item.active .artist-profile-link {
+        pointer-events: all;
+    }
+</style>
+{{-- <section class="plan py-3">
     <div class="container">
         <div class="notification text-center bg-light p-4 rounded">
             <div class="row justify-content-center">
@@ -118,5 +286,117 @@
             </div>
         </div>
     </div>
+</section> --}}
+<section class="plan py-100">
+    <ul class="artist-list" id="artist-list">
+        <li class="artist-item active" style="background-image: url('https://assets.codepen.io/152347/dom-dolla.jpg');"
+            role="button">
+            <h3 style="color: #fff">Dom Dolla</h3>
+            <div class="section-content">
+                <div class="inner">
+                    <div class="bio">
+                        <h2 style="color: #fff">Dom Dolla</h2>
+                        <p>Dom Dolla is one of the latest Australian DJ/Producers to break globally...</p>
+                        <a href="https://open.spotify.com/artist/205i7E8fNVfojowcQSfK9m?si=HidnJ9jEQ5aK-dKZEZWdLw"
+                            target="_blank" class="artist-profile-link">
+                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
+                                width="176"  loading="lazy" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="artist-item" style="background-image: url('https://assets.codepen.io/152347/crooked-colours.jpg');"
+            role="button">
+            <h3 style="color: #fff">Crooked Colours</h3>
+            <div class="section-content">
+                <div class="inner">
+                    <div class="bio">
+                        <h2 style="color: #fff">Crooked Colours</h2>
+                        <p>Crooked Colours are a three-piece band formed in Perth, Western Australia...</p>
+                        <a href="https://open.spotify.com/artist/0aA1GTrIMutjIh4GlPPUVN?si=N6CkDtcYQx-O4Zehl6CPag"
+                            target="_blank" class="artist-profile-link">
+                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
+                                width="176" height="64" loading="lazy" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="artist-item" style="background-image: url('https://assets.codepen.io/152347/crooked-colours.jpg');"
+            role="button">
+            <h3 style="color: #fff">Crooked Colours</h3>
+            <div class="section-content">
+                <div class="inner">
+                    <div class="bio">
+                        <h2 style="color: #fff">Crooked Colours</h2>
+                        <p>Crooked Colours are a three-piece band formed in Perth, Western Australia...</p>
+                        <a href="https://open.spotify.com/artist/0aA1GTrIMutjIh4GlPPUVN?si=N6CkDtcYQx-O4Zehl6CPag"
+                            target="_blank" class="artist-profile-link">
+                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
+                                width="176" height="64" loading="lazy" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="artist-item" style="background-image: url('https://assets.codepen.io/152347/crooked-colours.jpg');"
+            role="button">
+            <h3 style="color: #fff">Crooked Colours</h3>
+            <div class="section-content">
+                <div class="inner">
+                    <div class="bio">
+                        <h2 style="color: #fff">Crooked Colours</h2>
+                        <p>Crooked Colours are a three-piece band formed in Perth, Western Australia...</p>
+                        <a href="https://open.spotify.com/artist/0aA1GTrIMutjIh4GlPPUVN?si=N6CkDtcYQx-O4Zehl6CPag"
+                            target="_blank" class="artist-profile-link">
+                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
+                                width="176" height="64" loading="lazy" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="artist-item" style="background-image: url('https://assets.codepen.io/152347/crooked-colours.jpg');"
+            role="button">
+            <h3 style="color: #fff">Crooked Colours</h3>
+            <div class="section-content">
+                <div class="inner">
+                    <div class="bio">
+                        <h2 style="color: #fff">Crooked Colours</h2>
+                        <p>Crooked Colours are a three-piece band formed in Perth, Western Australia...</p>
+                        <a href="https://open.spotify.com/artist/0aA1GTrIMutjIh4GlPPUVN?si=N6CkDtcYQx-O4Zehl6CPag"
+                            target="_blank" class="artist-profile-link">
+                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
+                                width="176" height="64" loading="lazy" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
 </section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let active = 0;
+        const artistListItems = document.querySelectorAll('#artist-list li');
+
+        function updateActiveClass() {
+            artistListItems.forEach((item, index) => {
+                item.classList.toggle('active', index === active);
+            });
+        }
+
+        artistListItems.forEach((item, i) => {
+            item.addEventListener('click', () => {
+                active = i;
+                updateActiveClass();
+            });
+        });
+
+        updateActiveClass();
+    });
+</script>
 <!--========================== Plan End ==========================-->

@@ -1039,7 +1039,7 @@ ul {
 }
 
 img {
-    max-width: 100%;
+    /* max-width: 100%; */
     height: auto;
     vertical-align: middle;
 }
@@ -5224,7 +5224,11 @@ select.form-control.form--control:has(option)~.form--label {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    background-color: hsl(var(--base)/0.05);
+    /* background-color: hsl(var(--base)/0.05); */
+    background-color: #fff !important;
+    background-image:
+        radial-gradient(circle at 20% 100%, rgba(171, 41, 49, 0.1) 0%, rgba(171, 41, 49, 0.1) 33%, rgba(150, 30, 36, 0.1) 33%, rgba(150, 30, 36, 0.1) 66%, rgba(100, 20, 24, 0.1) 66%, rgba(100, 20, 24, 0.1) 99%),
+        linear-gradient(40deg, #ab2931, #d8ccce, #9c3337, #c5b3b5) !important;
 }
 
 @media only screen and (max-width: 586px) {
@@ -5320,7 +5324,7 @@ select.form-control.form--control:has(option)~.form--label {
 }
 
 .banner-section .banner-thumb {
-    padding-top: 8rem;
+    padding-top: 4rem;
     /* padding-bottom: 12rem; */
 }
 
@@ -5340,10 +5344,10 @@ select.form-control.form--control:has(option)~.form--label {
 .banner-section .banner-thumb .content h1 {
     color: hsl(var(--dark));
     padding: 0;
-    font-size: 35px;
+    /* font-size: 35px; */
     font-weight: 700;
     text-transform: capitalize;
-    margin: auto;
+    /* margin: auto; */
 }
 
 .banner-section .banner-thumb .content h1 span {

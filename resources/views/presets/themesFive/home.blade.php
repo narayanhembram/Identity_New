@@ -5,10 +5,12 @@
         $highlightedText = $banner->data_values->highlighted_heading_text;
     @endphp
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    <style>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.8.0/tsparticles.bundle.min.js"></script>
+
+    {{-- <style>
         .swiper {
             position: relative;
-            width: 350px;
+            width: 650px;
             height: 350px;
         }
 
@@ -95,10 +97,200 @@
                 height: 400px;
             }
         }
+    </style> --}}
+
+    <style>
+        /* .content h1 {
+                        font-family: "Comfortaa", sans-serif;
+                        font-size: clamp(2rem, 4vw, 3.5rem) !important;
+                        font-weight: 700 !important;
+                        line-height: 1.2 !important;
+                        letter-spacing: 1px !important;
+                        margin-bottom: 36px !important;
+                        color: #fff !important;
+                    } */
+
+        /* .content p {
+                        font-size: clamp(0.9rem, 3vw, 1.25rem);
+                        font-weight: 300;
+                        line-height: 1.5;
+                        margin-bottom: 30px;
+                        color: #fff;
+                    } */
+
+        /* .content button {
+                        background: #eaeaea;
+                        color: #202134;
+                        font-size: clamp(0.9rem, 4vw, 1rem);
+                        font-weight: 600;
+                        border: 0;
+                        outline: 0;
+                        padding: 8px 14px;
+                        border-radius: 7px;
+                        transform: scale(1);
+                        transition: all 0.4s ease-in;
+                        cursor: pointer;
+                    } */
+        /*
+                    .content button:is(:hover, :focus) {
+                        transform: scale(0.98);
+                        background-color: #6f7aa6;
+                        color: #eaeaea;
+                    } */
+
+        /* SLIDER */
+
+        .swiper {
+            position: relative;
+            width: 500px;
+            height: 425px;
+        }
+
+        .swiper-slide {
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            user-select: none;
+            border-radius: 20px;
+        }
+
+        .cost {
+            position: absolute;
+            top: 8px;
+            right: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 30px;
+            padding: 6px 10px;
+            color: #fff;
+            font-size: clamp(0.8rem, 4vw, 0.9rem);
+            font-weight: 600;
+        }
+
+        .dark-text {
+            color: #202134;
+        }
+
+        .swiper-slide img {
+            width: 500px !important;
+            height: 350px;
+            border-radius: 20px;
+        }
+
+        .overlay {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            left: 0;
+            bottom: 0;
+            width: 500px;
+            height: 150px;
+            padding: 5px 10px;
+            background: rgba(109, 38, 35, 0.2);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .overlay h1 {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .overlay p {
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 1.3;
+        }
+
+        .ratings {
+            display: flex;
+            column-gap: 10px;
+            margin-top: -6px;
+        }
+
+        .ratings span {
+            font-size: clamp(0.8rem, 4vw, 0.9rem);
+            font-weight: 300;
+        }
+
+        .star {
+            color: #afe312;
+        }
+
+        /* .logo {
+                    position: fixed;
+                    right: -20px;
+                    bottom: -30px;
+                    z-index: 10;
+                }
+
+                .logo img {
+                    width: 120px;
+                } */
+
+        @media (max-width: 890px) {
+            .logo {
+                right: -10px;
+                bottom: -20px;
+            }
+
+            .logo img {
+                width: 80px;
+            }
+        }
+
+        @media (max-width: 1050px) {
+            .swiper {
+                width: 350px;
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 930px) {
+            section {
+                grid-template-columns: 100%;
+                grid-template-rows: 55% 40%;
+                grid-template-areas:
+                    "slider"
+                    "content";
+                place-items: center;
+                gap: 64px;
+                padding: 60px;
+            }
+
+            .swiper {
+                grid-area: slider;
+            }
+
+            .content {
+                grid-area: content;
+                text-align: center;
+            }
+
+            .content h1 {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 470px) {
+            section {
+                padding: 40px 40px 60px;
+            }
+
+            .swiper {
+                width: 300px;
+                height: 400px;
+            }
+        }
     </style>
 
     <!--========================== Banner Section Start ==========================-->
-    <section class="banner-section">
+    {{-- <section class="banner-section">
         <div class="banner-thumb bg-img" style="height: 500px;"
             data-background="{{ asset($activeTemplateTrue . 'images/banner_bg.png') }}">
             <div class="shape1 d-xl-block d-none">
@@ -170,15 +362,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-lg-6 col-12">
-                    <div class="d-flex justify-content-md-center justify-content-lg-start">
-                        <div class="thumb">
-                            <div class="shape3">
-                            </div>
-                            <img src="{{getImage(getFilePath('frontend').'/theme_five_banner'.'/'.@$banner->data_values->banner_image)}}"  class="img-fluid" alt="@lang('image')">
-                        </div>
-                    </div>
-                </div> --}}
                     <div class="swiper col-lg-6 col-12">
                         <div class="swiper-wrapper d-flex justify-content-md-center justify-content-lg-start">
                             <div class="swiper-slide ">
@@ -202,7 +385,59 @@
                 </div>
             </div>
         </div>
+    </section> --}}
+
+
+    <section class="banner-section bckground" style="position: relative;">
+        <div id="tsparticles" style="position: absolute; width: 100%; height: 100%;"></div>
+        <div class="banner-thumb bg-img" style="height: 500px;">
+            <div class="container ">
+                <div class="row gy-4">
+                    <div class="col-lg-5 col-12 my-auto">
+                        <h1>{{ __(@$banner->data_values->top_heading) }}</h1>
+                        <p style="color: black;">
+                            {!! str_replace(
+                                __(@$highlightedText),
+                                "<span class='text--base'>$highlightedText</span>",
+                                __(@$banner->data_values->heading),
+                            ) !!}
+                        </p>
+                        <button class="btn--base">Explore Us</button>
+                        </<div class="banner-thumb bg-img" style="height: 500px;"div>
+                    </div>
+                    <div class="swiper col-lg-7 col-12">
+                        <div class="swiper-wrapper">
+                            @foreach (App\Models\Bannerslider::all() as $data)
+                                <div class="swiper-slide">
+                                    <img src="{{ asset('banner/' . $data->image) }}" />
+                                    <a class="overlay" href="http://localhost/identity/public/user/scholarship/view">
+                                        <div class="overlay">
+                                            <h1>{{ $data->title }}</h1>
+                                            <p>
+                                                {{ $data->description }}
+                                            </p>
+                                            <div class="ratings">
+                                                <div class="stars">
+                                                    <ion-icon class="star" name="star"></ion-icon>
+                                                    <ion-icon class="star" name="star"></ion-icon>
+                                                    <ion-icon class="star" name="star"></ion-icon>
+                                                    <ion-icon class="star" name="star"></ion-icon>
+                                                    <ion-icon class="star" name="star-half-outline"></ion-icon>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+
+
     <!--========================== Banner Section End ==========================-->
     @if ($sections->secs != null)
         @foreach (json_decode($sections->secs) as $sec)
@@ -212,6 +447,4 @@
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script>
-
-</script>
+<!-- tsParticles CDN -->
