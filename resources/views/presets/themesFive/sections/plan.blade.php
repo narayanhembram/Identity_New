@@ -4,7 +4,7 @@
 @endphp
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-<!--========================== Plan Start ==========================-->
+<!--========================== Career Plan Start ==========================-->
 {{-- <section class="plan py-100">
     <div class="container">
         <div class="title">
@@ -289,91 +289,25 @@
 </section> --}}
 <section class="plan py-100">
     <ul class="artist-list" id="artist-list">
-        <li class="artist-item active" style="background-image: url('https://assets.codepen.io/152347/dom-dolla.jpg');"
-            role="button">
-            <h3 style="color: #fff">Dom Dolla</h3>
-            <div class="section-content">
-                <div class="inner">
-                    <div class="bio">
-                        <h2 style="color: #fff">Dom Dolla</h2>
-                        <p>Dom Dolla is one of the latest Australian DJ/Producers to break globally...</p>
-                        <a href="https://open.spotify.com/artist/205i7E8fNVfojowcQSfK9m?si=HidnJ9jEQ5aK-dKZEZWdLw"
-                            target="_blank" class="artist-profile-link">
-                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
-                                width="176"  loading="lazy" />
-                        </a>
+        @foreach (App\Models\Careerplan::all() as $data)
+            <li class="artist-item active"
+                style="background-image: url('{{ asset('careerplan/' . $data->image) }}');" role="button">
+                <h3 style="color: #fff"> {{ $data->title }} </h3>
+                <div class="section-content">
+                    <div class="inner">
+                        <div class="bio">
+                            <h2 style="color: #fff">{{ $data->title }}</h2>
+                            <p>{{ $data->description }}</p>
+                            <a href="{{ $data->link }}"
+                                target="_blank" class="artist-profile-link">
+                                <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Explore Us"
+                                    width="176" loading="lazy" />
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
-        <li class="artist-item" style="background-image: url('https://assets.codepen.io/152347/crooked-colours.jpg');"
-            role="button">
-            <h3 style="color: #fff">Crooked Colours</h3>
-            <div class="section-content">
-                <div class="inner">
-                    <div class="bio">
-                        <h2 style="color: #fff">Crooked Colours</h2>
-                        <p>Crooked Colours are a three-piece band formed in Perth, Western Australia...</p>
-                        <a href="https://open.spotify.com/artist/0aA1GTrIMutjIh4GlPPUVN?si=N6CkDtcYQx-O4Zehl6CPag"
-                            target="_blank" class="artist-profile-link">
-                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
-                                width="176" height="64" loading="lazy" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="artist-item" style="background-image: url('https://assets.codepen.io/152347/crooked-colours.jpg');"
-            role="button">
-            <h3 style="color: #fff">Crooked Colours</h3>
-            <div class="section-content">
-                <div class="inner">
-                    <div class="bio">
-                        <h2 style="color: #fff">Crooked Colours</h2>
-                        <p>Crooked Colours are a three-piece band formed in Perth, Western Australia...</p>
-                        <a href="https://open.spotify.com/artist/0aA1GTrIMutjIh4GlPPUVN?si=N6CkDtcYQx-O4Zehl6CPag"
-                            target="_blank" class="artist-profile-link">
-                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
-                                width="176" height="64" loading="lazy" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="artist-item" style="background-image: url('https://assets.codepen.io/152347/crooked-colours.jpg');"
-            role="button">
-            <h3 style="color: #fff">Crooked Colours</h3>
-            <div class="section-content">
-                <div class="inner">
-                    <div class="bio">
-                        <h2 style="color: #fff">Crooked Colours</h2>
-                        <p>Crooked Colours are a three-piece band formed in Perth, Western Australia...</p>
-                        <a href="https://open.spotify.com/artist/0aA1GTrIMutjIh4GlPPUVN?si=N6CkDtcYQx-O4Zehl6CPag"
-                            target="_blank" class="artist-profile-link">
-                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
-                                width="176" height="64" loading="lazy" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="artist-item" style="background-image: url('https://assets.codepen.io/152347/crooked-colours.jpg');"
-            role="button">
-            <h3 style="color: #fff">Crooked Colours</h3>
-            <div class="section-content">
-                <div class="inner">
-                    <div class="bio">
-                        <h2 style="color: #fff">Crooked Colours</h2>
-                        <p>Crooked Colours are a three-piece band formed in Perth, Western Australia...</p>
-                        <a href="https://open.spotify.com/artist/0aA1GTrIMutjIh4GlPPUVN?si=N6CkDtcYQx-O4Zehl6CPag"
-                            target="_blank" class="artist-profile-link">
-                            <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Listen on Spotify"
-                                width="176" height="64" loading="lazy" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </li>
+            </li>
+        @endforeach
     </ul>
 </section>
 

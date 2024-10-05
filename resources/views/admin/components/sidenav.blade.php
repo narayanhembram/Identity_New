@@ -106,6 +106,12 @@
                         <span class="menu-title">@lang('Banner Slider')</span>
                     </a>
                 </li>
+                <li class="sidebar-menu-item {{ menuActive('admin.careerplan.*') }}">
+                    <a href="{{ route('admin.careerplan.list') }}" class="nav-link ">
+                        <i class="menu-icon las la-graduation-cap"></i>
+                        <span class="menu-title">@lang('Career Plan')</span>
+                    </a>
+                </li>
                 <li class="sidebar-menu-item  {{ menuActive('admin.subscriber.*') }}">
                     <a href="{{ route('admin.subscriber.index') }}" class="nav-link"
                         data-default-url="{{ route('admin.subscriber.index') }}">
