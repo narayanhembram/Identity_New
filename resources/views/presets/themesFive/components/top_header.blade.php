@@ -5,7 +5,7 @@
 <nav class="navbar-wrapper">
     <div class="navbar-wrapper-area" style="justify-content: unset;">
         <div class="col-md-2">
-            <a href="{{ route('home') }}" class="sidebar__main-logo">
+            <a href="{{ route('home') }}" class="sidebar__main-logo" style="margin-left: 40px;">
                 <img src="{{ getImage(getFilePath('logoIcon') . '/logo.png', '?' . time()) }}"
                     alt="{{ config('app.name') }}" style="width: 120px;">
             </a>
@@ -60,11 +60,15 @@
             </ul> --}}
             <ul class="navbar__action-list">
                 {{-- <li><a class="" href="index.html">Dashboard</a></li> --}}
-
-                @foreach (App\Models\Module::orderBy('position', 'asc')->take(5)->get() as $module)
+                <li class="sidebar-menu-item ">
+                    <a href="{{ route('user.home') }}">
+                        <p class="menu-title" >@lang('My Dashboard')</p>
+                    </a>
+                </li>
+                @foreach (App\Models\Module::orderBy('position', 'asc')->take(4)->get() as $module)
                     <li class="sidebar-menu-item {{ Request::is($module->route) ? 'active' : '' }}">
                         <a href="{{ url('user/' . $module->url) }}">
-                            <span class="menu-title">@lang($module->title)</span>
+                            <p class="menu-title" >@lang($module->title)</p>
                         </a>
                     </li>
                 @endforeach
@@ -112,6 +116,11 @@
                             <span class="dropdown-menu__caption">@lang('Logout')</span>
                         </a>
                     </div>
+                </li>
+                <li class="sidebar-menu-item btn btn-warning ">
+                    <a href="">
+                        <span class="menu-title">@lang('Upgrade')</span>
+                    </a>
                 </li>
             </ul>
         </div>

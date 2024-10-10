@@ -39,4 +39,9 @@ class MysessionController extends Controller
         $get_team = Team::where('name', $request->name)->get();
         return response()->json($get_team);
     }
+    public function viewTeam($id){
+        $pageTitle = 'View Team';
+        $view_team = Team::find($id);
+        return view('presets.themesFive.user.my-sessions.view_team', compact('view_team','pageTitle'));
+    }
 }

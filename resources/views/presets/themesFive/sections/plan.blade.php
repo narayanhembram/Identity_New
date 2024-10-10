@@ -181,6 +181,30 @@
     .artist-item.active .artist-profile-link {
         pointer-events: all;
     }
+
+    .artist-item {
+    position: relative; /* To position the pseudo-element */
+    overflow: hidden; /* Ensure the pseudo-element doesn't overflow */
+}
+
+.artist-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit; /* Inherit the background image */
+    background-size: cover;
+    filter: blur(8px); /* Adjust the blur level */
+    z-index: 1; /* Position it below the text */
+}
+
+.inner {
+    position: relative; /* Ensure content is above the blurred background */
+    z-index: 2; /* Position it above the pseudo-element */
+}
+
 </style>
 {{-- <section class="plan py-3">
     <div class="container">

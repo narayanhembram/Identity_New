@@ -122,6 +122,7 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('/get_team_by_category','get_team_by_category')->name('get_team_by_category');
                 Route::post('/get_team_by_subcategory','get_team_by_subcategory')->name('get_team_by_subcategory');
                 Route::post('/get_team','get_team')->name('get_team');
+                Route::get('/view_team/{id}','viewTeam')->name('viewTeam');
 
             });
 
