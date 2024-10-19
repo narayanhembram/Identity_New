@@ -36,6 +36,7 @@
     </div>
 </div>
 
+@include('presets.themesFive.components.footer')
 @include($activeTemplate.'components.cookie')
 
 <!-- Optional JavaScript -->

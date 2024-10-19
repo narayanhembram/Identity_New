@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Mysession;
 use App\Models\Subcategory;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MysessionController extends Controller
 {
@@ -42,6 +44,21 @@ class MysessionController extends Controller
     public function viewTeam($id){
         $pageTitle = 'View Team';
         $view_team = Team::find($id);
-        return view('presets.themesFive.user.my-sessions.view_team', compact('view_team','pageTitle'));
+        $bookings = Booking::where('team_id', $id)->where('user_id', Auth::user()->id)->with('team')->get();
+        // dd($booking);
+        return view('presets.themesFive.user.my-sessions.view_team', compact('view_team','pageTitle','bookings'));
+    }
+
+    public function storeBooking(Request $request)
+    {
+        $storeBooking = New Booking();
+        $storeBooking->user_id = Auth::id();
+        $storeBooking->team_id = $request->team_id;
+        $storeBooking->date = $request->date;
+        $storeBooking->time = $request->time;
+        $storeBooking->save();
+
+        $notify[] = ['success', 'Booking Succesfully Done'];
+        return back()->withNotify($notify);
     }
 }

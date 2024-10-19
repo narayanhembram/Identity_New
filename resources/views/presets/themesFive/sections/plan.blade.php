@@ -91,8 +91,8 @@
 
     @media only screen and (min-width: 1280px) {
         h2 {
-            font-size: 64px;
-            line-height: 64px;
+            font-size: 30px;
+            line-height: 70px;
         }
     }
 
@@ -311,7 +311,7 @@
         </div>
     </div>
 </section> --}}
-<section class="plan py-100">
+<section class="plan py_25">
     <ul class="artist-list" id="artist-list">
         @foreach (App\Models\Careerplan::all() as $data)
             <li class="artist-item active"

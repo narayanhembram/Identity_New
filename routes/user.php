@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\RazorpayController;
 
 Route::namespace('User\Auth')->name('user.')->group(function () {
 
@@ -104,26 +105,25 @@ Route::middleware('auth')->name('user.')->group(function () {
 
             //Institute Controller
             Route::controller('InstituteController')->name('institute.')->prefix('institute')->group(function () {
-                Route::get('/view','index')->name('view');
-                Route::post('/country','country')->name('country');
-                Route::post('/state','state')->name('state');
-                Route::post('/inst_type','inst_type')->name('inst_type');
+                Route::get('/view', 'index')->name('view');
+                Route::post('/country', 'country')->name('country');
+                Route::post('/state', 'state')->name('state');
+                Route::post('/inst_type', 'inst_type')->name('inst_type');
             });
             //Scholarship Controller
             Route::controller('ScholarshipControler')->name('scholarship.')->prefix('scholarship')->group(function () {
-                Route::get('/view','index')->name('view');
-                Route::post('/get_type','getType')->name('getType');
-                Route::post('/get_class','getClass')->name('getClass');
-
+                Route::get('/view', 'index')->name('view');
+                Route::post('/get_type', 'getType')->name('getType');
+                Route::post('/get_class', 'getClass')->name('getClass');
             });
             //Mysession Controller
             Route::controller('MysessionController')->name('mysession.')->prefix('mysession')->group(function () {
-                Route::get('/team','index')->name('view');
-                Route::post('/get_team_by_category','get_team_by_category')->name('get_team_by_category');
-                Route::post('/get_team_by_subcategory','get_team_by_subcategory')->name('get_team_by_subcategory');
-                Route::post('/get_team','get_team')->name('get_team');
-                Route::get('/view_team/{id}','viewTeam')->name('viewTeam');
-
+                Route::get('/team', 'index')->name('view');
+                Route::post('/get_team_by_category', 'get_team_by_category')->name('get_team_by_category');
+                Route::post('/get_team_by_subcategory', 'get_team_by_subcategory')->name('get_team_by_subcategory');
+                Route::post('/get_team', 'get_team')->name('get_team');
+                Route::get('/view_team/{id}', 'viewTeam')->name('viewTeam');
+                Route::post('/insert_booking', 'storeBooking')->name('storeBooking');
             });
 
             //Profile setting
@@ -148,5 +148,9 @@ Route::middleware('auth')->name('user.')->group(function () {
             Route::get('deposit/manual', 'manualDepositConfirm')->name('deposit.manual.confirm');
             Route::post('deposit/manual', 'manualDepositUpdate')->name('deposit.manual.update');
         });
+
+        //Razorpay
+        Route::post('payment', [RazorpayController::class, 'store'])->name('razorpay.store');
+        // Route::get('razorpay/index', [RazorpayController::class, 'index'])->name('razorpay.index');
     });
 });

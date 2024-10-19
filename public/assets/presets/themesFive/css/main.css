@@ -783,6 +783,10 @@ body .navbar-wrapper{
     padding-top: 100px;
     padding-bottom: 100px;
 }
+.py_25 {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
 
 @media (max-width: 576px) {
     .py-100 {
@@ -2039,7 +2043,7 @@ input[type=number] {
 
 .table tbody {
     border: 0 !important;
-    background-color: hsl(var(--black));
+    background-color: hsl(var(--#fff));
 }
 
 .table tbody tr:nth-child(even) {
@@ -2062,7 +2066,7 @@ input[type=number] {
     border-width: 1px;
     border: 0;
     font-family: var(--heading-font);
-    color: hsl(var(--white));
+    /* color: hsl(var(--white)); */
     max-width: 170px;
 }
 

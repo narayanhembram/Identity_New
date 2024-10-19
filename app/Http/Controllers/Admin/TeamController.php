@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeamController extends Controller
 {
@@ -46,6 +48,11 @@ class TeamController extends Controller
             'joining_date' => 'required',
             'emergency_contact' => 'required',
             'status' => 'boolean',
+            'designation' => 'required',
+            'age' => 'required',
+            'my_services' => 'required',
+            'college' => 'required',
+            'university' => 'required',
         ]);
 
         if ($request->hasFile('image')) {
@@ -76,6 +83,17 @@ class TeamController extends Controller
         $store->gender = $request->gender;
         $store->nationality = $request->nationality;
         $store->religion = $request->religion;
+        $store->designation = $request->designation;
+        $store->linkedin = $request->linkedin;
+        $store->facebook = $request->facebook;
+        $store->twiter = $request->twiter;
+        $store->age = $request->age;
+        $store->my_services = $request->my_services;
+        $store->college = $request->college;
+        $store->university = $request->university;
+        $store->master_degree = $request->master_degree;
+        $store->courses = $request->courses;
+        $store->my_skills = $request->my_skills;
         $store->joining_date = $request->joining_date;
         $store->emergency_contact = $request->emergency_contact;
         $store->status = $request->input('status', 0);
@@ -117,6 +135,11 @@ class TeamController extends Controller
             'religion' => 'required',
             'joining_date' => 'required',
             'emergency_contact' => 'required',
+            'designation' => 'required',
+            'age' => 'required',
+            'my_services' => 'required',
+            'college' => 'required',
+            'university' => 'required',
         ]);
         if ($request->hasFile('image')) {
             $photo = $request->file('image');
@@ -148,6 +171,17 @@ class TeamController extends Controller
         $update->religion = $request->religion;
         $update->joining_date = $request->joining_date;
         $update->emergency_contact = $request->emergency_contact;
+        $update->designation = $request->designation;
+        $update->linkedin = $request->linkedin;
+        $update->facebook = $request->facebook;
+        $update->twiter = $request->twiter;
+        $update->age = $request->age;
+        $update->my_services = $request->my_services;
+        $update->college = $request->college;
+        $update->university = $request->university;
+        $update->master_degree = $request->master_degree;
+        $update->courses = $request->courses;
+        $update->my_skills = $request->my_skills;
         $update->status = $request->status;
         $update->description = $request->description;
         $update->save();
@@ -166,5 +200,25 @@ class TeamController extends Controller
         }
         $notify[] = ['error', 'Something wents wrong.'];
             return back()->withNotify($notify);
+    }
+
+    public function bookings()
+    {
+        $pageTitle = 'Bookings';
+        $bookings = Booking::all();
+        return view('admin.booking.list' , compact('pageTitle','bookings'));
+    }
+    public function editbooking($id)
+    {
+        $pageTitle = 'Edit Booking';
+        $edit_booking = Booking::find($id);
+        return view('admin.booking.edit' , compact('pageTitle','edit_booking'));
+    }
+    public function updatebookings(Request $request){
+        $update_booking =Booking::find($request->id);
+        $update_booking->status = $request->status;
+        $update_booking->save();
+        $notify[] = ['success', 'Booking Status Updated successfully'];
+        return to_route('admin.team.bookings')->withNotify($notify);
     }
 }

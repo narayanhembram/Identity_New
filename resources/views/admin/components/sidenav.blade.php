@@ -82,7 +82,7 @@
                         <span class="menu-title">@lang('Scholarship')</span>
                     </a>
                 </li>
-                <li class="sidebar-menu-item {{ menuActive('admin.team.*') }}">
+                <li class="sidebar-menu-item {{ menuActive('admin.team.list') }}">
                     <a href="{{ route('admin.team.list') }}" class="nav-link ">
                         <i class="menu-icon las la-graduation-cap"></i>
                         <span class="menu-title">@lang('Teams')</span>
@@ -127,6 +127,21 @@
                         <span class="menu-title">@lang('Plans') </span>
                     </a>
                 </li>
+
+                <li class="sidebar-menu-item {{ menuActive('admin.team.bookings') }}">
+                    <a href="{{ route('admin.team.bookings') }}" class="nav-link ">
+                        <i class="menu-icon las la-graduation-cap"></i>
+                        <span class="menu-title">@lang('Bookings')</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-menu-item {{ menuActive('admin.quiz.*') }}">
+                    <a href="{{ route('admin.quiz.list') }}" class="nav-link ">
+                        <i class="menu-icon las la-graduation-cap"></i>
+                        <span class="menu-title">@lang('Quiz')</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-menu-item  {{ menuActive('admin.plan.*') }}">
                     <a href="{{ route('admin.plan.subscription') }}" class="nav-link"
                         data-default-url="{{ route('admin.plan.subscription') }}">

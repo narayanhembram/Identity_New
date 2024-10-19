@@ -110,8 +110,6 @@
             </div>
         </div>
     </section>
-
-    @include('presets.themesFive.components.footer')
 @endsection
 
 @push('script')

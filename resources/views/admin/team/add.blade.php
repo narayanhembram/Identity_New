@@ -113,6 +113,43 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label for="price" class="font-weight-bold">@lang('Designation')</label>
+                                    <input type="text" name="designation" value="{{ old('designation') }}" class="form-control"
+                                        placeholder="@lang('Designation')">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="price" class="font-weight-bold">@lang('Linkedin')</label>
+                                    <input type="text" name="linkedin" value="{{ old('linkedin') }}" class="form-control"
+                                        placeholder="@lang('Linkedin')">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="price" class="font-weight-bold">@lang('Twiter')</label>
+                                    <input type="text" name="twiter" value="{{ old('twiter') }}" class="form-control"
+                                        placeholder="@lang('Twiter')">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="price" class="font-weight-bold">@lang('Facebook')</label>
+                                    <input type="text" name="facebook" value="{{ old('facebook') }}" class="form-control"
+                                        placeholder="@lang('Facebook')">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="price" class="font-weight-bold">@lang('Age')</label>
+                                    <input type="text" name="age" value="{{ old('age') }}" class="form-control"
+                                        placeholder="@lang('Age')">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
                                     <label for="type" class="font-weight-bold">@lang('email')</label>
                                     <input type="email" name="email" value="{{ old('email') }}" class="form-control"
                                         placeholder="@lang('email')">
@@ -126,6 +163,15 @@
                                         placeholder="@lang('Phone Number')">
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="type" class="font-weight-bold">@lang('My Services')</label>
+                                    <input type="text" name="my_services" value="{{ old('my_services') }}"
+                                        class="form-control" placeholder="@lang('My Services')">
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="type" class="font-weight-bold">@lang('Education')</label>
@@ -133,6 +179,42 @@
                                         class="form-control" placeholder="@lang('Education')">
                                 </div>
                             </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="type" class="font-weight-bold">@lang('College')</label>
+                                    <input type="text" name="college" value="{{ old('college') }}"
+                                        class="form-control" placeholder="@lang('College')">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="type" class="font-weight-bold">@lang('University')</label>
+                                    <input type="text" name="university" value="{{ old('university') }}"
+                                        class="form-control" placeholder="@lang('University')">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="type" class="font-weight-bold">@lang('Master Degree')</label>
+                                    <input type="text" name="master_degree" value="{{ old('master_degree') }}"
+                                        class="form-control" placeholder="@lang('Master Degree')">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="type" class="font-weight-bold">@lang('Course')</label>
+                                    <input type="text" name="course" value="{{ old('course') }}"
+                                        class="form-control" placeholder="@lang('Course')">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="type" class="font-weight-bold">@lang('My Skills')</label>
+                                    <input type="text" name="my_skills" value="{{ old('my_skills') }}"
+                                        class="form-control" placeholder="@lang('My Skills')">
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="type" class="font-weight-bold">@lang('Experience')</label>

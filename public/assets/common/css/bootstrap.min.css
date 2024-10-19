@@ -6302,7 +6302,7 @@ fieldset:disabled .btn {
     outline: 0
 }
 
-.modal-backdrop {
+/* .modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
@@ -6310,14 +6310,14 @@ fieldset:disabled .btn {
     width: 100vw;
     height: 100vh;
     background-color: #000
-}
+} */
 
 .modal-backdrop.fade {
     opacity: 0
 }
 
 .modal-backdrop.show {
-    opacity: .5
+    opacity: 0
 }
 
 .modal-header {

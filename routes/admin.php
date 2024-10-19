@@ -13,40 +13,40 @@ Route::namespace('Auth')->group(function () {
     });
 
     // Admin Password Reset
-    Route::controller('ForgotPasswordController')->group(function(){
+    Route::controller('ForgotPasswordController')->group(function () {
         Route::get('password/reset', 'showLinkRequestForm')->name('password.reset');
         Route::post('password/reset', 'sendResetCodeEmail');
         Route::get('password/code-verify', 'codeVerify')->name('password.code.verify');
         Route::post('password/verify-code', 'verifyCode')->name('password.verify.code');
     });
 
-    Route::controller('ResetPasswordController')->group(function(){
+    Route::controller('ResetPasswordController')->group(function () {
         Route::get('password/reset/{token}', 'showResetForm')->name('password.reset.form');
         Route::post('password/reset/change', 'reset')->name('password.change');
     });
 });
 
 Route::middleware('admin')->group(function () {
-    Route::controller('AdminController')->group(function(){
+    Route::controller('AdminController')->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
         Route::get('profile', 'profile')->name('profile');
         Route::post('profile', 'profileUpdate')->name('profile.update');
         Route::post('password', 'passwordUpdate')->name('password.update');
 
         //Notification
-        Route::get('notifications','notifications')->name('notifications');
-        Route::get('notification/read/{id}','notificationRead')->name('notification.read');
-        Route::get('notifications/read-all','readAll')->name('notifications.readAll');
+        Route::get('notifications', 'notifications')->name('notifications');
+        Route::get('notification/read/{id}', 'notificationRead')->name('notification.read');
+        Route::get('notifications/read-all', 'readAll')->name('notifications.readAll');
 
         //Report Bugs
-        Route::get('request/report','requestReport')->name('request.report');
-        Route::post('request/report','reportSubmit');
+        Route::get('request/report', 'requestReport')->name('request.report');
+        Route::post('request/report', 'reportSubmit');
 
         Route::get('download/attachments/{file_hash}', 'downloadAttachment')->name('download.attachment');
     });
 
     // Users Manager
-    Route::controller('ManageUsersController')->name('users.')->prefix('manage/users')->group(function(){
+    Route::controller('ManageUsersController')->name('users.')->prefix('manage/users')->group(function () {
         Route::get('/', 'allUsers')->name('all');
         Route::get('active', 'activeUsers')->name('active');
         Route::get('banned', 'bannedUsers')->name('banned');
@@ -71,210 +71,218 @@ Route::middleware('admin')->group(function () {
     });
 
     //Modules
-    Route::controller('ModuleController')->name('module.')->prefix('module')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::get('add','add')->name('add');
-        Route::post('store','store')->name('store');
-        Route::get('edit/{id}','edit')->name('edit');
-        Route::post('update','update')->name('update');
-        Route::post('delete','delete')->name('delete');
+    Route::controller('ModuleController')->name('module.')->prefix('module')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('add', 'add')->name('add');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
     //Category
-    Route::controller('CategoryController')->name('category.')->prefix('category')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::get('add','add')->name('add');
-        Route::post('store','store')->name('store');
-        Route::get('edit/{id}','edit')->name('edit');
-        Route::post('update','update')->name('update');
-        Route::post('delete','delete')->name('delete');
+    Route::controller('CategoryController')->name('category.')->prefix('category')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('add', 'add')->name('add');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
     //Subcategory
-    Route::controller('SubcategoryController')->name('subcategory.')->prefix('subcategory')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::get('add','add')->name('add');
-        Route::post('store','store')->name('store');
-        Route::get('edit/{id}','edit')->name('edit');
-        Route::post('update','update')->name('update');
-        Route::post('delete','delete')->name('delete');
-        Route::post('/get_subcategory','getSubcategory')->name('getSubcategory');
+    Route::controller('SubcategoryController')->name('subcategory.')->prefix('subcategory')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('add', 'add')->name('add');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
+        Route::post('/get_subcategory', 'getSubcategory')->name('getSubcategory');
     });
 
     //Path Type
-    Route::controller('PathtypeController')->name('pathtype.')->prefix('pathtype')->group(function(){
-        Route::get('/','index')->name('index');
-        Route::post('store','store')->name('store');
-        Route::post('update/{id}','update')->name('update');
-        Route::post('delete','delete')->name('delete');
+    Route::controller('PathtypeController')->name('pathtype.')->prefix('pathtype')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('store', 'store')->name('store');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
-     //Career Path
-     Route::controller('PathController')->name('path.')->prefix('path')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::get('add','add')->name('add');
-        Route::post('store','store')->name('store');
-        Route::get('edit/{id}','edit')->name('edit');
-        Route::post('update','update')->name('update');
-        Route::post('delete','delete')->name('delete');
+    //Career Path
+    Route::controller('PathController')->name('path.')->prefix('path')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('add', 'add')->name('add');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
     //Entrance Exam
-    Route::controller('EntranceController')->name('entrance.')->prefix('entrance')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::get('add','add')->name('add');
-        Route::post('store','store')->name('store');
-        Route::get('edit/{id}','edit')->name('edit');
-        Route::post('update','update')->name('update');
-        Route::post('delete','delete')->name('delete');
+    Route::controller('EntranceController')->name('entrance.')->prefix('entrance')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('add', 'add')->name('add');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
     //Institution
-    Route::controller('InstitutionController')->name('institution.')->prefix('institution')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::get('add','add')->name('add');
-        Route::post('store','store')->name('store');
-        Route::get('edit/{id}','edit')->name('edit');
-        Route::post('update','update')->name('update');
-        Route::post('delete','delete')->name('delete');
+    Route::controller('InstitutionController')->name('institution.')->prefix('institution')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('add', 'add')->name('add');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
     //MasterClass
-    Route::controller('MasterClassController')->name('Masterclass.')->prefix('Masterclass')->group(function(){
-        Route::get('/','index')->name('index');
-        Route::get('/add','Add')->name('add');
-        Route::post('/store','Store')->name('Store');
-        Route::get('/edit/{id}','edit')->name('edit');
-        Route::post('/update/{id}','update')->name('update');
-        Route::post('/delete','delete')->name('delete');
+    Route::controller('MasterClassController')->name('Masterclass.')->prefix('Masterclass')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/add', 'Add')->name('add');
+        Route::post('/store', 'Store')->name('Store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update/{id}', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
     });
 
     //Scholarship
-    Route::controller('ScholarshipController')->name('scholarship.')->prefix('scholarship')->group(function(){
-        Route::get('/','index')->name('index');
-        Route::get('/add','Add')->name('add');
-        Route::post('/store','Store')->name('Store');
-        Route::get('/edit/{id}','edit')->name('edit');
-        Route::post('/update','update')->name('update');
-        Route::post('/delete','delete')->name('delete');
+    Route::controller('ScholarshipController')->name('scholarship.')->prefix('scholarship')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/add', 'Add')->name('add');
+        Route::post('/store', 'Store')->name('Store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
     });
     //Teams
-    Route::controller('TeamController')->name('team.')->prefix('team')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::get('/add','Add')->name('add');
-        Route::post('/store','Store')->name('Store');
-        Route::get('/edit/{id}','edit')->name('edit');
-        Route::post('/update','update')->name('update');
-        Route::post('/delete','delete')->name('delete');
+    Route::controller('TeamController')->name('team.')->prefix('team')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('/add', 'Add')->name('add');
+        Route::post('/store', 'Store')->name('Store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+
+        //Bookings
+
+        Route::get('/bookings', 'bookings')->name('bookings');
+        Route::get('/editbookings{id}', 'editbooking')->name('editbooking');
+        Route::post('/updatebookings', 'updatebookings')->name('updatebookings');
     });
 
     //Brand Logo
-    Route::controller('BrandController')->name('brand.')->prefix('brand')->group(function(){
-        Route::get('/','index')->name('index');
-        Route::post('/store','Store')->name('Store');
-        Route::post('/update','update')->name('update');
-        Route::post('/delete','delete')->name('delete');
+    Route::controller('BrandController')->name('brand.')->prefix('brand')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'Store')->name('Store');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
     });
 
     //I Button Controller
-    Route::controller('IButtonController')->name('ibutton.')->prefix('ibutton')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::post('/delete','delete')->name('delete');
+    Route::controller('IButtonController')->name('ibutton.')->prefix('ibutton')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::post('/delete', 'delete')->name('delete');
     });
 
     //Banner Slider Controller
-    Route::controller('BannersliderController')->name('bannerslider.')->prefix('bannerslider')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::get('/add','Add')->name('add');
-        Route::post('/store','Store')->name('Store');
-        Route::get('/edit/{id}','edit')->name('edit');
-        Route::post('/update/{id}','update')->name('update');
-        Route::post('/delete','delete')->name('delete');
-
+    Route::controller('BannersliderController')->name('bannerslider.')->prefix('bannerslider')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('/add', 'Add')->name('add');
+        Route::post('/store', 'Store')->name('Store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update/{id}', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
     });
 
     //CareerPlan Controller
-    Route::controller('CareerplanController')->name('careerplan.')->prefix('careerplan')->group(function(){
-        Route::get('/','list')->name('list');
-        Route::get('/add','Add')->name('add');
-        Route::post('/store','Store')->name('Store');
-        Route::get('/edit/{id}','edit')->name('edit');
-        Route::post('/update/{id}','update')->name('update');
-        Route::post('/delete','delete')->name('delete');
-
+    Route::controller('CareerplanController')->name('careerplan.')->prefix('careerplan')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('/add', 'Add')->name('add');
+        Route::post('/store', 'Store')->name('Store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update/{id}', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
     });
 
+    //Quiz Controller
+    Route::controller('QuizController')->name('quiz.')->prefix('quiz')->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('/add', 'Add')->name('add');
+        Route::post('/store', 'Store')->name('Store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
 
     //Countries
-    Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function(){
-        Route::get('/','index')->name('index');
-        Route::post('store','store')->name('store');
-        Route::post('update/{id}','update')->name('update');
-        Route::post('delete','delete')->name('delete');
+    Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('store', 'store')->name('store');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
     //States
-    Route::controller('StateController')->name('states.')->prefix('states')->group(function(){
-        Route::get('/','index')->name('index');
-        Route::post('store','store')->name('store');
-        Route::post('update/{id}','update')->name('update');
-        Route::post('delete','delete')->name('delete');
+    Route::controller('StateController')->name('states.')->prefix('states')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('store', 'store')->name('store');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
     //Districts
-    Route::controller('DistrictController')->name('districts.')->prefix('districts')->group(function(){
-        Route::get('/','index')->name('index');
-        Route::post('store','store')->name('store');
-        Route::post('update/{id}','update')->name('update');
-        Route::post('delete','delete')->name('delete');
-
+    Route::controller('DistrictController')->name('districts.')->prefix('districts')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('store', 'store')->name('store');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
     // plan
-    Route::controller('PlanController')->name('plan.')->prefix('plan')->group(function(){
+    Route::controller('PlanController')->name('plan.')->prefix('plan')->group(function () {
 
-        Route::get('/','index')->name('index');
-        Route::get('create','create')->name('create');
-        Route::post('store','store')->name('store');
-        Route::post('update/{id}','update')->name('update');
-        Route::post('delete','delete')->name('delete');
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
 
-        Route::get('subscriptions','subscriptions')->name('subscription');
-
+        Route::get('subscriptions', 'subscriptions')->name('subscription');
     });
 
 
     // service
-    Route::controller('ServiceController')->name('service.')->prefix('service')->group(function(){
+    Route::controller('ServiceController')->name('service.')->prefix('service')->group(function () {
 
-        Route::get('/','index')->name('index');
-        Route::get('create','create')->name('create');
-        Route::get('edit/{id}','edit')->name('edit');
-        Route::post('store','store')->name('store');
-        Route::post('update','update')->name('update');
-        Route::get('delete','delete')->name('delete');
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('store', 'store')->name('store');
+        Route::post('update', 'update')->name('update');
+        Route::get('delete', 'delete')->name('delete');
 
-        Route::get('approved/orders','getApprovedorders')->name('approved.orders');
-        Route::get('pending/orders','getPendingdorders')->name('pending.orders');
-
-
+        Route::get('approved/orders', 'getApprovedorders')->name('approved.orders');
+        Route::get('pending/orders', 'getPendingdorders')->name('pending.orders');
     });
 
 
     // portfolio
-    Route::controller('PortfolioController')->name('portfolio.')->prefix('portfolio')->group(function(){
+    Route::controller('PortfolioController')->name('portfolio.')->prefix('portfolio')->group(function () {
 
-        Route::get('/','index')->name('index');
-        Route::get('create','create')->name('create');
-        Route::get('edit/{id}','edit')->name('edit');
-        Route::post('store','store')->name('store');
-        Route::post('update/{id}','update')->name('update');
-        Route::post('delete','delete')->name('delete');
-
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('store', 'store')->name('store');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::post('delete', 'delete')->name('delete');
     });
 
     // Subscriber
-    Route::controller('SubscriberController')->group(function(){
+    Route::controller('SubscriberController')->group(function () {
         Route::get('subscriber', 'index')->name('subscriber.index');
         Route::get('subscriber/send/email', 'sendEmailForm')->name('subscriber.send.email');
         Route::post('subscriber/remove/{id}', 'remove')->name('subscriber.remove');
@@ -283,10 +291,10 @@ Route::middleware('admin')->group(function () {
 
 
     // Deposit Gateway
-    Route::name('gateway.')->prefix('payment/gateways')->group(function(){
+    Route::name('gateway.')->prefix('payment/gateways')->group(function () {
 
         // Automatic Gateway
-        Route::controller('AutomaticGatewayController')->group(function(){
+        Route::controller('AutomaticGatewayController')->group(function () {
             Route::get('automatic', 'index')->name('automatic.index');
             Route::get('automatic/edit/{alias}', 'edit')->name('automatic.edit');
             Route::post('automatic/update/{code}', 'update')->name('automatic.update');
@@ -297,7 +305,7 @@ Route::middleware('admin')->group(function () {
 
 
         // Manual Methods
-        Route::controller('ManualGatewayController')->group(function(){
+        Route::controller('ManualGatewayController')->group(function () {
             Route::get('manual', 'index')->name('manual.index');
             Route::get('manual/new', 'create')->name('manual.create');
             Route::post('manual/new', 'store')->name('manual.store');
@@ -310,7 +318,7 @@ Route::middleware('admin')->group(function () {
 
 
     // DEPOSIT SYSTEM
-    Route::name('deposit.')->controller('DepositController')->prefix('manage/deposits')->group(function(){
+    Route::name('deposit.')->controller('DepositController')->prefix('manage/deposits')->group(function () {
         Route::get('/', 'deposit')->name('list');
         Route::get('pending', 'pending')->name('pending');
         Route::get('rejected', 'rejected')->name('rejected');
@@ -321,13 +329,12 @@ Route::middleware('admin')->group(function () {
 
         Route::post('reject', 'reject')->name('reject');
         Route::post('approve/{id}', 'approve')->name('approve');
-
     });
 
 
 
     // Report
-    Route::controller('ReportController')->group(function(){
+    Route::controller('ReportController')->group(function () {
         Route::get('report/transaction', 'transaction')->name('report.transaction');
         Route::get('report/login/history', 'loginHistory')->name('report.login.history');
         Route::get('report/login/ipHistory/{ip}', 'loginIpHistory')->name('report.login.ipHistory');
@@ -337,7 +344,7 @@ Route::middleware('admin')->group(function () {
 
 
     // Admin Support
-    Route::controller('SupportTicketController')->prefix('support')->group(function(){
+    Route::controller('SupportTicketController')->prefix('support')->group(function () {
         Route::get('tickets', 'tickets')->name('ticket');
         Route::get('tickets/pending', 'pendingTicket')->name('ticket.pending');
         Route::get('tickets/closed', 'closedTicket')->name('ticket.closed');
@@ -351,7 +358,7 @@ Route::middleware('admin')->group(function () {
 
 
     // Language Manager
-    Route::controller('LanguageController')->prefix('manage')->group(function(){
+    Route::controller('LanguageController')->prefix('manage')->group(function () {
         Route::get('languages', 'langManage')->name('language.manage');
         Route::post('language', 'langStore')->name('language.manage.store');
         Route::post('language/delete/{id}', 'langDelete')->name('language.manage.delete');
@@ -363,51 +370,50 @@ Route::middleware('admin')->group(function () {
         Route::post('language/update/key/{id}', 'updateLanguageJson')->name('language.update.key');
     });
 
-    Route::controller('GeneralSettingController')->group(function(){
+    Route::controller('GeneralSettingController')->group(function () {
         // General Setting
         Route::get('global/settings', 'index')->name('setting.index');
         Route::post('global/settings', 'update')->name('setting.update');
 
         //configuration
-        Route::post('setting/system-configuration','systemConfigurationSubmit');
+        Route::post('setting/system-configuration', 'systemConfigurationSubmit');
 
         // Logo-Icon
         Route::get('setting/logo', 'logoIcon')->name('setting.logo.icon');
         Route::post('setting/logo', 'logoIconUpdate')->name('setting.logo.icon');
 
         //Cookie
-        Route::get('cookie','cookie')->name('setting.cookie');
-        Route::post('cookie','cookieSubmit');
+        Route::get('cookie', 'cookie')->name('setting.cookie');
+        Route::post('cookie', 'cookieSubmit');
 
         //socialite credentials
         Route::get('setting/social/credentials', 'socialiteCredentials')->name('setting.socialite.credentials');
         Route::post('setting/social/credentials/update/{key}', 'updateSocialiteCredential')->name('setting.socialite.credentials.update');
         Route::post('setting/social/credentials/status/{key}', 'updateSocialiteCredentialStatus')->name('setting.socialite.credentials.status.update');
-
     });
 
     //Notification Setting
-    Route::name('setting.notification.')->controller('NotificationController')->prefix('notifications')->group(function(){
+    Route::name('setting.notification.')->controller('NotificationController')->prefix('notifications')->group(function () {
         //Template Setting
-        Route::get('global','global')->name('global');
-        Route::post('global/update','globalUpdate')->name('global.update');
-        Route::get('templates','templates')->name('templates');
-        Route::get('template/edit/{id}','templateEdit')->name('template.edit');
-        Route::post('template/update/{id}','templateUpdate')->name('template.update');
+        Route::get('global', 'global')->name('global');
+        Route::post('global/update', 'globalUpdate')->name('global.update');
+        Route::get('templates', 'templates')->name('templates');
+        Route::get('template/edit/{id}', 'templateEdit')->name('template.edit');
+        Route::post('template/update/{id}', 'templateUpdate')->name('template.update');
 
         //Email Setting
-        Route::get('email/setting','emailSetting')->name('email');
-        Route::post('email/setting','emailSettingUpdate');
-        Route::post('email/test','emailTest')->name('email.test');
+        Route::get('email/setting', 'emailSetting')->name('email');
+        Route::post('email/setting', 'emailSettingUpdate');
+        Route::post('email/test', 'emailTest')->name('email.test');
 
         //SMS Setting
-        Route::get('sms/setting','smsSetting')->name('sms');
-        Route::post('sms/setting','smsSettingUpdate');
-        Route::post('sms/test','smsTest')->name('sms.test');
+        Route::get('sms/setting', 'smsSetting')->name('sms');
+        Route::post('sms/setting', 'smsSettingUpdate');
+        Route::post('sms/test', 'smsTest')->name('sms.test');
     });
 
     // Plugin
-    Route::controller('ExtensionController')->group(function(){
+    Route::controller('ExtensionController')->group(function () {
         Route::get('extensions', 'index')->name('extensions.index');
         Route::post('extensions/update/{id}', 'update')->name('extensions.update');
         Route::post('extensions/status/{id}', 'status')->name('extensions.status');
@@ -420,7 +426,7 @@ Route::middleware('admin')->group(function () {
     // Frontend
     Route::name('frontend.')->prefix('frontend')->group(function () {
 
-        Route::controller('FrontendController')->group(function(){
+        Route::controller('FrontendController')->group(function () {
             Route::get('themes', 'templates')->name('templates');
             Route::post('themes', 'templatesActive')->name('templates.active');
             Route::get('frontend-sections/{key}', 'frontendSections')->name('sections');
@@ -430,7 +436,7 @@ Route::middleware('admin')->group(function () {
         });
 
         // Page Builder
-        Route::controller('PageBuilderController')->prefix('manage')->group(function(){
+        Route::controller('PageBuilderController')->prefix('manage')->group(function () {
             Route::get('pages', 'managePages')->name('manage.pages');
             Route::post('pages', 'managePagesSave')->name('manage.pages.save');
             Route::post('pages/update', 'managePagesUpdate')->name('manage.pages.update');
@@ -438,11 +444,10 @@ Route::middleware('admin')->group(function () {
             Route::get('section/{id}', 'manageSection')->name('manage.section');
             Route::post('section/{id}', 'manageSectionUpdate')->name('manage.section.update');
         });
-
     });
 });
 
-Route::post('/get_state',[StateController::class,'getState'])->name('getState');
-Route::post('/get_district',[DistrictController::class,'getDistrict'])->name('getDistrict');
-Route::post('/ibutton/store',[IButtonController::class,'store'])->name('ibutton.store');
+Route::post('/get_state', [StateController::class, 'getState'])->name('getState');
+Route::post('/get_district', [DistrictController::class, 'getDistrict'])->name('getDistrict');
+Route::post('/ibutton/store', [IButtonController::class, 'store'])->name('ibutton.store');
 // Route::post('/get_district','getDistrict')->name('getDistrict');
