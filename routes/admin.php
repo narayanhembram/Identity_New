@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\IButtonController;
+use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\QuizController;
 
 Route::namespace('Auth')->group(function () {
     Route::controller('LoginController')->group(function () {
@@ -208,15 +210,6 @@ Route::middleware('admin')->group(function () {
         Route::post('/delete', 'delete')->name('delete');
     });
 
-    //Quiz Controller
-    Route::controller('QuizController')->name('quiz.')->prefix('quiz')->group(function () {
-        Route::get('/', 'list')->name('list');
-        Route::get('/add', 'Add')->name('add');
-        Route::post('/store', 'Store')->name('Store');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update', 'update')->name('update');
-        Route::post('/delete', 'delete')->name('delete');
-    });
 
     //Countries
     Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {
@@ -445,6 +438,23 @@ Route::middleware('admin')->group(function () {
             Route::post('section/{id}', 'manageSectionUpdate')->name('manage.section.update');
         });
     });
+
+    //Quiz
+    Route::get('/add-quiz', [QuizController::class, 'addQuiz'])->name('add.quiz');
+
+    Route::get('/add-question/{id}', [QuestionController::class, 'addQuestion'])->name('add.question');
+
+    Route::post('/store-quiz', [QuizController::class, 'storeQuiz'])->name('store.quiz');
+    Route::get('/edit-quiz/{id}', [QuizController::class, 'editQuiz'])->name('edit.quiz');
+    Route::post('/update-quiz', [QuizController::class, 'updateQuiz'])->name('update.quiz');
+    Route::get('/delete-quiz/{id}', [QuizController::class, 'deleteQuiz'])->name('delete.quiz');
+
+    Route::post('/store-question', [QuestionController::class, 'storeQuestion'])->name('store.question');
+    Route::get('/edit-question/{id}', [QuestionController::class, 'editQuestion'])->name('edit.question');
+    Route::post('/update-question', [QuestionController::class, 'updateQuestion'])->name('update.question');
+    Route::get('/delete-question/{id}', [QuestionController::class, 'deleteQuestion'])->name('delete.question');
+    //  Route::get('/results', [ResultController::class, 'index'])->name('results');
+
 });
 
 Route::post('/get_state', [StateController::class, 'getState'])->name('getState');

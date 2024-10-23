@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\User\AnswerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\RazorpayController;
+use App\Http\Controllers\User\ResultController;
 
 Route::namespace('User\Auth')->name('user.')->group(function () {
 
@@ -116,6 +119,24 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('/get_type', 'getType')->name('getType');
                 Route::post('/get_class', 'getClass')->name('getClass');
             });
+
+            //Quiz Controller
+            // Route::controller('QuizController')->name('quiz.')->prefix('quiz')->group(function () {
+            //     Route::get('/view_quiztype', 'index_quiztype')->name('view_quiztype');
+            //     Route::get('/view', 'index')->name('view');
+            //     Route::get('/join/{quiz_id}', 'joinQuiz')->name('join');
+            //     Route::post('/store-answer', 'store')->name('store.answer');
+            // });
+
+            //Quiz
+            Route::get('/quiz-list', [QuizController::class, 'index'])->name('list.quiz');
+            Route::get('/give-quiz/{id}', [QuizController::class, 'joinQuiz'])->name('join.quiz');
+            Route::post('/store-answer', [AnswerController::class, 'store'])->name('store.answer');
+            Route::get('/results', [ResultController::class, 'index'])->name('results');
+            Route::get('/mock-results', [ResultController::class, 'mockResults'])->name('mock-results');
+
+            Route::post('/get_question', [QuizController::class, 'getQuestion'])->name('getQuestion');
+
             //Mysession Controller
             Route::controller('MysessionController')->name('mysession.')->prefix('mysession')->group(function () {
                 Route::get('/team', 'index')->name('view');

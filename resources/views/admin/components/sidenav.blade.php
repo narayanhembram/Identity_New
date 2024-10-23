@@ -135,8 +135,8 @@
                     </a>
                 </li>
 
-                <li class="sidebar-menu-item {{ menuActive('admin.quiz.*') }}">
-                    <a href="{{ route('admin.quiz.list') }}" class="nav-link ">
+                <li class="sidebar-menu-item {{ menuActive('admin.add.quiz') }}">
+                    <a href="{{ route('admin.add.quiz') }}" class="nav-link ">
                         <i class="menu-icon las la-graduation-cap"></i>
                         <span class="menu-title">@lang('Quiz')</span>
                     </a>
