@@ -98,7 +98,7 @@ class QuizController extends Controller
         $userQuiz->save();
 
         // Optionally, redirect or return response
-        return redirect()->back(['quiz_id' => $quiz->id])->with('success', 'Quiz submitted successfully!');
+        return redirect()->route('mock-results', ['quiz_id' => $quiz->id])->with('success', 'Quiz submitted successfully!');
     }
 }
 

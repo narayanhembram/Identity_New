@@ -19,17 +19,20 @@ class AnswerController extends Controller
         if (Carbon::now() > Carbon::parse($request->start_time)->addMinute(Quiz::where('id', $request->quiz_id)->value('duration'))) {
             return redirect()->back()->with('error', 'Time is Over');
         }
+
         $i = 1;
         $db_answers = Question::where('quiz_id', $request->quiz_id)->get();
         $correct = 0;
-        $total = 0;
+        $total = $db_answers->count(); // Total questions in the quiz
+
         foreach ($db_answers as $db_answer) {
-            if ($db_answer->correct_option == $request->answer[$i]) {
-                $correct++;
-            } else {
+            // Check if the answer for the current question exists in the request
+            if (isset($request->answer[$i])) {
+                if ($db_answer->correct_option == $request->answer[$i]) {
+                    $correct++;
+                }
             }
             $i++;
-            $total++;
         }
         $quiz = Quiz::where('id', $request->quiz_id)->first();
         // dd($request->all());
@@ -51,6 +54,6 @@ class AnswerController extends Controller
 
         // toastr()->success('Quiz done and result published');
         // return redirect()->route('prospect.list.quiz');
-        return redirect()->back();
+        return redirect()->route('user.mock-results');
     }
 }

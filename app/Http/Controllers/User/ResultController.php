@@ -13,46 +13,27 @@ use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
-    public function store(Request $request)
-    {
+    public function index(){
+        if (Auth::user()->role->name == 'Admin'){
+            return view('admin.quiz.result-page')->with('results',Result::join('quizzes','results.quiz_id','quizzes.id')
+                ->join('users','results.user_id','=','users.id')
+                ->get());
+        }else{
+        return view('presets.themesFive.user.quiz.result-page')
+                        ->with('results',Result::join('quizzes','results.quiz_id','quizzes.id')
+                        ->where('user_id',Auth::user()->id)
+                        ->get());
+        }
+    }
+    public function mockResults(){
+        $pageTitle = 'Mock Results';
+        $mockResults = MockResult::join('quizzes', 'mock_results.quiz_id', '=', 'quizzes.id')
+                        ->where('user_id', Auth::user()->id)
+                        ->orderBy('mock_results.id', 'desc')
+                        ->select('mock_results.*', 'quizzes.title')  // Specify the fields you want from each table
+                        ->get();
 
-        if (Carbon::now() > Carbon::parse($request->start_time)->addMinute(Quiz::where('id', $request->quiz_id)->value('duration'))) {
-            return redirect()->back()->with('error', 'Time is Over');
-        }
-        $i = 1;
-        $db_answers = Question::where('quiz_id', $request->quiz_id)->get();
-        $correct = 0;
-        $total = 0;
-        foreach ($db_answers as $db_answer) {
-            if ($db_answer->correct_option == $request->answer[$i]) {
-                $correct++;
-            } else {
-            }
-            $i++;
-            $total++;
-        }
-        $quiz = Quiz::where('id', $request->quiz_id)->first();
-        // dd($request->all());
-        if ($quiz->quiz_type == 'mock') {
-            MockResult::create([
-                'user_id' => Auth::user()->id,
-                'quiz_id' => $request->quiz_id,
-                'quiz_score' => $total,
-                'achieved_score' => $correct
-            ]);
-        } else {
-            Result::create([
-                'user_id' => Auth::user()->id,
-                'quiz_id' => $request->quiz_id,
-                'quiz_score' => $total,
-                'achieved_score' => $correct
-            ]);
-        }
-
-        // // toastr()->success('Quiz done and result published');
-        // return redirect()->route('prospect.list.quiz');
-        $notify[] = ['success', 'Quiz done and result published'];
-        return redirect()->route('user.list.quiz')->withNotify($notify);
-        // return redirect()->back();
+        return view('presets.themesFive.user.quiz.mock-results', compact('pageTitle'))
+               ->with('mock_results', $mockResults);
     }
 }
