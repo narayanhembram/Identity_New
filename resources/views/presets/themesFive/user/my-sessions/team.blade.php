@@ -132,7 +132,7 @@
             </div>
         </div> --}}
         <div class="container">
-            <div class="row space-rows" id="animated-cards">
+            <div class="row space-rows" id="animated-cards" >
                 @foreach ($mysession as $team)
                     <div class="col col-lg-3">
                         {{-- <div class="card cards-shadown cards-hover">
@@ -172,7 +172,7 @@
                             {{-- <p>Placeholder Two</p>
                             <p>Placeholder : 10-7</p> --}}
                             <div class="card__button">
-                                <a href="{{ route('user.mysession.viewTeam',$team->id) }}"><p>View Profile</p></a>
+                                <a href="{{ route('user.mysession.viewTeam',$team->id) }}"><p style="color: #fff">View Profile</p></a>
                             </div>
                         </div>
                     </div>

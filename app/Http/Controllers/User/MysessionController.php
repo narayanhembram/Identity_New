@@ -44,9 +44,10 @@ class MysessionController extends Controller
     public function viewTeam($id){
         $pageTitle = 'View Team';
         $view_team = Team::find($id);
-        $bookings = Booking::where('team_id', $id)->where('user_id', Auth::user()->id)->with('team')->get();
-        // dd($booking);
-        return view('presets.themesFive.user.my-sessions.view_team', compact('view_team','pageTitle','bookings'));
+        $bookings = Booking::where('team_id', $id)->where('user_id', Auth::user()->id)->with('team')->orderBy('id','DESC')->get();
+        $booking = Booking::where('team_id', $id)->where('user_id', Auth::user()->id)->first();
+        // dd($bookings);
+        return view('presets.themesFive.user.my-sessions.view_team', compact('view_team','pageTitle','bookings','booking'));
     }
 
     public function storeBooking(Request $request)
@@ -59,6 +60,19 @@ class MysessionController extends Controller
         $storeBooking->save();
 
         $notify[] = ['success', 'Booking Succesfully Done'];
-        return back()->withNotify($notify);
+        return redirect()->route('user.mysession.team_pay',$request->team_id)->withNotify($notify);
+    }
+
+    public function team_pay($id)
+    {
+        $pageTitle = 'Payment';
+        $bookings = Booking::where('team_id', $id)->where('user_id', Auth::user()->id)->with('team')->orderBy('id','DESC')->get();
+        $booking = Booking::where('team_id', $id)->where('user_id', Auth::user()->id)->first();
+        return view('presets.themesFive.user.my-sessions.team_pay', compact('pageTitle','bookings','booking'));
+    }
+    public function thankyou($id)
+    {
+        $pageTitle = 'ThankYou';
+        return view('presets.themesFive.user.my-sessions.thankyou', compact('pageTitle','id'));
     }
 }

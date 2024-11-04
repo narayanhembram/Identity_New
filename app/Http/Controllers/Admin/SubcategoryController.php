@@ -15,7 +15,7 @@ class SubcategoryController extends Controller
     public function list()
     {
         $pageTitle = 'Subcategory';
-        $subcategories = Subcategory::orderBy('id', 'desc')->paginate(getPaginate());
+        $subcategories = Subcategory::orderBy('id', 'desc')->with('getCategory')->paginate(getPaginate());
         return view('admin.subcategory.list', compact('pageTitle', 'subcategories'));
     }
     public function add()

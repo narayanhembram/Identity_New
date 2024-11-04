@@ -15,6 +15,7 @@ class RazorpayController extends Controller
 {
     public function store(Request $request)
     {
+
         $input = $request->all();
         $booking = Booking::where('id', $request->booking_id)->first();
         $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
@@ -39,7 +40,7 @@ class RazorpayController extends Controller
                 $booking->save();
 
                 Session::put('success', 'Payment successful');
-                return redirect()->back();
+                return redirect()->route('user.mysession.thankyou',$booking->team_id);
             } catch (Exception $e) {
 
                 dd($e);

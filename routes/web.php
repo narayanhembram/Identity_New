@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BotManController;
+use App\Http\Controllers\ChatBotController;
 use App\Lib\Router;
+use App\Models\Module;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/clear', function () {
@@ -55,4 +58,10 @@ Route::controller('SiteController')->group(function () {
 
     Route::get('/{slug}', 'pages')->name('pages');
     Route::get('/', 'index')->name('home');
+
+    //Chatbot
+    Route::post('get_module', [ChatBotController::class, 'getModule'])->name('getModule');
+    Route::post('get_category', [ChatBotController::class, 'get_category'])->name('get_category');
+    Route::post('get_subcategory', [ChatBotController::class, 'get_subcategory'])->name('get_subcategory');
 });
+// Route::match(['get', 'post'], '/botman/web', [BotManController::class,'handle']);

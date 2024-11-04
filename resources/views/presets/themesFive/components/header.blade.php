@@ -178,7 +178,6 @@
         font-size: 20px;
         padding-right: 5px;
     }
-
 </style>
 
 <!-- ==================== Header End Here ==================== -->
@@ -234,7 +233,8 @@
 
 <div class="side-icon-bar">
     <a href="tel:+91-9108510058" class="side-icon-bar-call"><i class="fa fa-phone-alt"></i></a>
-    <a id="whatsappLink" href="https://wa.me/8249753459?text=Your%20predefined%20message" target="blank" class="side-icon-bar-whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+    <a id="whatsappLink" href="https://wa.me/8249753459?text=Your%20predefined%20message" target="blank"
+        class="side-icon-bar-whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
     <a id="contactForm" class="side-icon-bar-inquiry"><i class="fa fa-info"></i></a>
 </div>
 
@@ -252,7 +252,8 @@
             {{-- <script src="https://www.google.com/recaptcha/api.js?render=6Lckir0mAAAAABcq7fsKxtLiCBPb58DXEHNqJR7p" async defer></script> --}}
 
             <!-- Form -->
-            <form id="enquiry" method="Post" enctype="multipart/form-data" action=" {{ Route('admin.ibutton.store') }} " >
+            <form id="enquiry" method="Post" enctype="multipart/form-data"
+                action=" {{ Route('admin.ibutton.store') }} ">
                 @csrf
                 <div class="field-control-group">
                     <input type="text" placeholder="Full Name" name="name" maxlength="100" required>
@@ -424,7 +425,8 @@
             </ul>
             &nbsp; &nbsp; &nbsp;&nbsp;
             <div class="auth-buttons">
-                <a class="btn btn-primary mt-2 mt-lg-0 login-btn" style="color: #fff" href="{{ route('user.login') }}" onclick="toggleLightbox(event)">Log
+                <a class="btn btn-primary mt-2 mt-lg-0 login-btn" style="color: #fff"
+                    href="{{ route('user.login') }}" onclick="toggleLightbox(event)">Log
                     In</a>
                 {{-- @auth
                     <a class="btn--base mt-2 mt-lg-0" href="{{ route('user.home') }}"
@@ -453,12 +455,14 @@
                 <h5 style="margin-top: 15px; margin-bottom:15px; color:#ab2931">Welcome To SetMyCareer</h5>
                 <div class="row">
                     <div class="col-lg-6">
-                        <a href="{{ route('admin.login') }}" class="btn btn-primary custom-btn" style="background-color: #ab2931; color: white; padding: 10px 20px; text-align: center; border-radius: 5px; border: 1px solid #ab2931;">
+                        <a href="{{ route('admin.login') }}" class="btn btn-primary custom-btn"
+                            style="background-color: #ab2931; color: white; padding: 10px 20px; text-align: center; border-radius: 5px; border: 1px solid #ab2931;">
                             <h5 style="margin: 0; color:#fff">Institute Login</h5>
                         </a>
                     </div>
                     <div class="col-lg-6">
-                        <a href="{{ route('user.login') }}" class="btn btn-secondary custom-btn" style="background-color: #ab2931; color: white; padding: 10px 20px; text-align: center; border-radius: 5px; border: 1px solid #ab2931;">
+                        <a href="{{ route('user.login') }}" class="btn btn-secondary custom-btn"
+                            style="background-color: #ab2931; color: white; padding: 10px 20px; text-align: center; border-radius: 5px; border: 1px solid #ab2931;">
                             <h5 style="margin: 0; color:#fff">Student Login</h5>
                         </a>
                     </div>
@@ -502,7 +506,7 @@
     <!-- End Google Tag Manager -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             // Show the form when the icon is clicked
             $("#contactForm").click(function() {
                 $("#side-icon-bar-lightbox").fadeIn();
@@ -516,5 +520,6 @@
     </script>
 
 </header>
+{{-- @include('presets.themesFive.components.botman') --}}
 
 <!-- ==================== Header End Here ==================== -->

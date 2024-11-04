@@ -5,7 +5,7 @@
         $highlightedText = $banner->data_values->highlighted_heading_text;
     @endphp
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.8.0/tsparticles.bundle.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.8.0/tsparticles.bundle.min.js"></script> --}}
 
     {{-- <style>
         .swiper {
@@ -101,42 +101,42 @@
 
     <style>
         /* .content h1 {
-                        font-family: "Comfortaa", sans-serif;
-                        font-size: clamp(2rem, 4vw, 3.5rem) !important;
-                        font-weight: 700 !important;
-                        line-height: 1.2 !important;
-                        letter-spacing: 1px !important;
-                        margin-bottom: 36px !important;
-                        color: #fff !important;
-                    } */
+                                font-family: "Comfortaa", sans-serif;
+                                font-size: clamp(2rem, 4vw, 3.5rem) !important;
+                                font-weight: 700 !important;
+                                line-height: 1.2 !important;
+                                letter-spacing: 1px !important;
+                                margin-bottom: 36px !important;
+                                color: #fff !important;
+                            } */
 
         /* .content p {
-                        font-size: clamp(0.9rem, 3vw, 1.25rem);
-                        font-weight: 300;
-                        line-height: 1.5;
-                        margin-bottom: 30px;
-                        color: #fff;
-                    } */
+                                font-size: clamp(0.9rem, 3vw, 1.25rem);
+                                font-weight: 300;
+                                line-height: 1.5;
+                                margin-bottom: 30px;
+                                color: #fff;
+                            } */
 
         /* .content button {
-                        background: #eaeaea;
-                        color: #202134;
-                        font-size: clamp(0.9rem, 4vw, 1rem);
-                        font-weight: 600;
-                        border: 0;
-                        outline: 0;
-                        padding: 8px 14px;
-                        border-radius: 7px;
-                        transform: scale(1);
-                        transition: all 0.4s ease-in;
-                        cursor: pointer;
-                    } */
+                                background: #eaeaea;
+                                color: #202134;
+                                font-size: clamp(0.9rem, 4vw, 1rem);
+                                font-weight: 600;
+                                border: 0;
+                                outline: 0;
+                                padding: 8px 14px;
+                                border-radius: 7px;
+                                transform: scale(1);
+                                transition: all 0.4s ease-in;
+                                cursor: pointer;
+                            } */
         /*
-                    .content button:is(:hover, :focus) {
-                        transform: scale(0.98);
-                        background-color: #6f7aa6;
-                        color: #eaeaea;
-                    } */
+                            .content button:is(:hover, :focus) {
+                                transform: scale(0.98);
+                                background-color: #6f7aa6;
+                                color: #eaeaea;
+                            } */
 
         /* SLIDER */
 
@@ -223,15 +223,15 @@
         }
 
         /* .logo {
-                    position: fixed;
-                    right: -20px;
-                    bottom: -30px;
-                    z-index: 10;
-                }
+                            position: fixed;
+                            right: -20px;
+                            bottom: -30px;
+                            z-index: 10;
+                        }
 
-                .logo img {
-                    width: 120px;
-                } */
+                        .logo img {
+                            width: 120px;
+                        } */
 
         @media (max-width: 890px) {
             .logo {
@@ -389,8 +389,8 @@
 
 
     <section class="banner-section bckground" style="position: relative;">
-        <div id="tsparticles" style="position: absolute; width: 100%; height: 100%;"></div>
-        <div class="banner-thumb bg-img" style="height: 500px;">
+        {{-- <div id="tsparticles" style="position: absolute; width: 100%; height: 100%;"></div> --}}
+        <div class="banner-thumb bg-img" style="height: 500px; background-color: hsl(var(--base) / 0.05);">
             <div class="container ">
                 <div class="row gy-4">
                     <div class="col-lg-5 col-12 my-auto">
@@ -447,4 +447,3 @@
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<!-- tsParticles CDN -->

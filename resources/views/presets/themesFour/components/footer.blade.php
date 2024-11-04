@@ -2,8 +2,8 @@
     $links = getContent('policy_pages.element');
     $importantLinks = getContent('footer_important_links.element', false, null, true);
     $companyLinks = getContent('footer_company_links.element', false, null, true);
-    $contact = getContent('contact_us.content',true);
-    $socialIcons = getContent('social_icon.element',false);
+    $contact = getContent('contact_us.content', true);
+    $socialIcons = getContent('social_icon.element', false);
 @endphp
 
 <!-- ==================== Footer Start ==================== -->
@@ -13,20 +13,22 @@
             <div class="col-xl-3 col-sm-6">
                 <div class="footer-item">
                     <div class="footer-item__logo">
-                        <a href="{{route('home')}}">
-                            <img src="{{ getImage(getFilePath('logoIcon').'/logo.png', '?'.time()) }}" alt="{{config('app.name')}}" alt="@lang('image')">
+                        <a href="{{ route('home') }}">
+                            <img src="{{ getImage(getFilePath('logoIcon') . '/logo.png', '?' . time()) }}"
+                                alt="{{ config('app.name') }}" alt="@lang('image')">
                         </a>
                     </div>
                     <p class="footer-item__desc">
                         @if (strlen(__(strip_tags(@$contact->data_values->short_description))) > 60)
                             {{ substr(__(strip_tags(@$contact->data_values->short_description)), 0, 60) . '...' }}
                         @else
-                            {{__(strip_tags(@$contact->data_values->short_description)) }}
+                            {{ __(strip_tags(@$contact->data_values->short_description)) }}
                         @endif
                     </p>
                     <ul class="social-list mt-3">
-                        @foreach($socialIcons as $item)
-                        <li class="social-list__item"><a href="{{$item->data_values->url}}" class="social-list__link">@php echo $item->data_values->social_icon; @endphp</a> </li>
+                        @foreach ($socialIcons as $item)
+                            <li class="social-list__item"><a href="{{ $item->data_values->url }}"
+                                    class="social-list__link">@php echo $item->data_values->social_icon; @endphp</a> </li>
                         @endforeach
                     </ul>
                 </div>
@@ -36,8 +38,9 @@
                 <div class="footer-item">
                     <h5 class="footer-item__title">@lang('Important Links')</h5>
                     <ul class="footer-menu">
-                        @foreach($importantLinks as $key=>$item)
-                            <li class="footer-menu__item"><a href="{{url('/').$item->data_values->url}}" class="footer-menu__link">{{__(@$item->data_values->title)}} </a></li>
+                        @foreach ($importantLinks as $key => $item)
+                            <li class="footer-menu__item"><a href="{{ url('/') . $item->data_values->url }}"
+                                    class="footer-menu__link">{{ __(@$item->data_values->title) }} </a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -47,11 +50,14 @@
                 <div class="footer-item">
                     <h5 class="footer-item__title">@lang('Company Links')</h5>
                     <ul class="footer-menu">
-                        @foreach($companyLinks as $key=>$item)
-                        <li class="footer-menu__item"><a href="{{url('/').$item->data_values->url}}" class="footer-menu__link">{{__(@$item->data_values->title)}} </a></li>
+                        @foreach ($companyLinks as $key => $item)
+                            <li class="footer-menu__item"><a href="{{ url('/') . $item->data_values->url }}"
+                                    class="footer-menu__link">{{ __(@$item->data_values->title) }} </a></li>
                         @endforeach
-                        @foreach($links as $link)
-                        <li class="footer-menu__item"><a href="{{ route('policy.pages', [slug($link->data_values->title), $link->id]) }}" class="footer-menu__link">{{__(@$link->data_values->title)}}</a></li>
+                        @foreach ($links as $link)
+                            <li class="footer-menu__item"><a
+                                    href="{{ route('policy.pages', [slug($link->data_values->title), $link->id]) }}"
+                                    class="footer-menu__link">{{ __(@$link->data_values->title) }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -61,10 +67,14 @@
                 <div class="footer-item">
                     <h5 class="footer-item__title">@lang('Address')</h5>
                     <ul class="footer-menu">
-                        <li class="footer-menu__item"><a href="tel:{{$contact->data_values->contact_number}}">{{$contact->data_values->contact_number}}</a></li>
-                        <li class="footer-menu__item"><a href="mailto:{{$contact->data_values->email_address}}">{{$contact->data_values->email_address}}</a></li>
+                        <li class="footer-menu__item"><a
+                                href="tel:{{ $contact->data_values->contact_number }}">{{ $contact->data_values->contact_number }}</a>
+                        </li>
+                        <li class="footer-menu__item"><a
+                                href="mailto:{{ $contact->data_values->email_address }}">{{ $contact->data_values->email_address }}</a>
+                        </li>
                         <li class="footer-menu__item">
-                            {{__(@$contact->data_values->contact_details)}}
+                            {{ __(@$contact->data_values->contact_details) }}
                         </li>
                     </ul>
                 </div>
@@ -74,7 +84,7 @@
                 <div class="footer-item">
                     <h5 class="footer-item__title">@lang('Newsletter')</h5>
                     <p class="mb-2">@lang('Subscribe our latest update')</p>
-                    <form action="{{route('subscribe')}}" method="POST">
+                    <form action="{{ route('subscribe') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <input type="text" class="form--control" name="email" placeholder="@lang('Email')">

@@ -5231,11 +5231,11 @@ select.form-control.form--control:has(option)~.form--label {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    /* background-color: hsl(var(--base)/0.05); */
+    background-color: hsl(var(--base)/0.05);
     background-color: #fff !important;
-    background-image:
+    /* background-image:
         radial-gradient(circle at 20% 100%, rgba(171, 41, 49, 0.1) 0%, rgba(171, 41, 49, 0.1) 33%, rgba(150, 30, 36, 0.1) 33%, rgba(150, 30, 36, 0.1) 66%, rgba(100, 20, 24, 0.1) 66%, rgba(100, 20, 24, 0.1) 99%),
-        linear-gradient(40deg, #ab2931, #d8ccce, #9c3337, #c5b3b5) !important;
+        linear-gradient(40deg, #ab2931, #d8ccce, #9c3337, #c5b3b5) !important; */
 }
 
 @media only screen and (max-width: 586px) {

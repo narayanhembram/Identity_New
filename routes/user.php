@@ -145,6 +145,8 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('/get_team', 'get_team')->name('get_team');
                 Route::get('/view_team/{id}', 'viewTeam')->name('viewTeam');
                 Route::post('/insert_booking', 'storeBooking')->name('storeBooking');
+                Route::get('/team_pay/{id}', 'team_pay')->name('team_pay');
+                Route::get('/thankyou/{id}', 'thankyou')->name('thankyou');
             });
 
             //Profile setting

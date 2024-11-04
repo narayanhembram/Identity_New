@@ -2,11 +2,11 @@
 
 <link rel="stylesheet" href="{{ asset('assets/presets/themesFive/nav/teams.css') }}">
 @section('content')
-<style>
-    #booking_table{
-    background-color:#9a221a !important;
-}
-</style>
+    <style>
+        #booking_table {
+            background-color: #9a221a !important;
+        }
+    </style>
     {{-- <section class="container"> --}}
     {{-- <div class="entire">
             <div class="in-entire">
@@ -78,6 +78,14 @@
                         <button type="button" class="btn btn-primary"
                             style="font-size: 13px; padding: 4px 9px; width: auto; height: auto;" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Book Now</button>
+                            <br>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a href="{{ route('user.mysession.team_pay', $booking->team_id) }}" class="btn btn-info"
+                                    style="font-size: 13px; padding: 4px 9px; width: auto; height: auto;">
+                                    Payment Details
+                                </a>
+                            </div>
+
 
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -227,9 +235,10 @@
                             <span>Specialization - </span> {{ $view_team->specialization }}
                         </div> --}}
                         <div class="col-md-12">
+
                             <div class="mt-3">
-                                <h2>Booking Details</h2>
-                                <table class="table table-bordered" id="">
+                                <h3>Booking Details</h3>
+                                <table class="table table-bordered data_table">
                                     <thead>
                                         <tr>
                                             <th>Teacher Name</th>
@@ -249,13 +258,14 @@
                                                         <span class="badge rounded-pill bg-success">Paid</span>
                                                     @else
                                                         <span class="badge rounded-pill bg-warning text-dark">Unpaid</span>
-                                                        <form action="{{ route('user.razorpay.store') }}" method="POST">
+                                                        <form action="{{ route('user.razorpay.store') }}" method="POST" class="razorpay-form">
                                                             @csrf
-                                                            <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-                                                        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="{{ env('RAZORPAY_KEY') }}" data-amount="150000"
-                                                            data-currency="INR" data-buttontext="Pay Now" data-name="SRDC Pvt. Ltd." data-description="Rozerpay"
-                                                            data-image="http://srdcindia.co.in/wp-content/uploads/2020/08/logo_srdc.png" data-prefill.name="name"
-                                                            data-prefill.email="email" data-theme.color="#F37254"></script>
+                                                            <input type="hidden" name="booking_id"
+                                                                value="{{ $booking->id }}">
+                                                            <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="{{ env('RAZORPAY_KEY') }}" data-amount="150000"
+                                                                data-currency="INR" data-buttontext="Pay Now" data-name="SRDC Pvt. Ltd." data-description="Rozerpay"
+                                                                data-image="http://srdcindia.co.in/wp-content/uploads/2020/08/logo_srdc.png" data-prefill.name="name"
+                                                                data-prefill.email="email" data-theme.color="#F37254"></script>
                                                         </form>
                                                     @endif
                                                 </td>
@@ -265,13 +275,87 @@
                                 </table>
                             </div>
                         </div>
+                        {{-- <div class="col-md-12">
+                            <div class="mt-3">
+                                <h3>Booking Details</h3>
+                                <table class="table table-bordered data_table">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($bookings as $booking)
+                                            <tr>
+                                                <td>{{ $booking->team->name }}</td>
+                                                <td>{{ $booking->date }}</td>
+                                                <td>{{ $booking->time }}</td>
+                                                <td>
+                                                    @if ($booking->status == 1)
+                                                        <span class="badge rounded-pill bg-success">Paid</span>
+                                                    @else
+                                                        <span class="badge rounded-pill bg-warning text-dark">Unpaid</span>
+                                                        <form class="razorpay-form" data-booking-id="{{ $booking->id }}">
+                                                            @csrf
+                                                            <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                                                            <button type="button" class="btn btn-primary pay-now-button">Pay Now</button>
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> --}}
 
+                        <div id="loader" style="display:none;">
+                            <div class="spinner"></div>
+                        </div>
+
+                        <style>
+                            #loader {
+                                position: fixed;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                background: rgba(255, 255, 255, 0.8);
+                                z-index: 9999;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+
+                            .spinner {
+                                border: 8px solid #f3f3f3;
+                                /* Light grey */
+                                border-top: 8px solid #3498db;
+                                /* Blue */
+                                border-radius: 50%;
+                                width: 60px;
+                                height: 60px;
+                                animation: spin 1s linear infinite;
+                            }
+
+                            @keyframes spin {
+                                0% {
+                                    transform: rotate(0deg);
+                                }
+
+                                100% {
+                                    transform: rotate(360deg);
+                                }
+                            }
+                        </style>
                     </div>
                 </section>
             </main>
         </div>
     </div>
-    {{-- </section> --}}
 @endsection
 @push('script')
     <script>
@@ -321,5 +405,61 @@
                 getContact.classList.add('selected');
             }
         })
+    </script>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.querySelectorAll('.pay-now-button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var form = this.closest('.razorpay-form');
+                var bookingId = form.getAttribute('data-booking-id');
+
+                // Show the loader
+                document.getElementById('loader').style.display = 'flex';
+
+                var options = {
+                    key: '{{ env('RAZORPAY_KEY') }}', // Your Razorpay key
+                    amount: 150000, // Amount in paise (1500 INR)
+                    currency: 'INR',
+                    name: 'SRDC Pvt. Ltd.',
+                    description: 'Payment for booking',
+                    image: 'http://srdcindia.co.in/wp-content/uploads/2020/08/logo_srdc.png',
+                    handler: function(response) {
+                        // Handle successful payment response
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '{{ route('user.razorpay.store') }}', true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.onload = function() {
+                            document.getElementById('loader').style.display = 'none';
+                            if (xhr.status === 200) {
+                                alert('Payment successful!');
+                                window.location
+                                    .reload(); // Reload the page or redirect as needed
+                            } else {
+                                alert('Payment failed. Please try again.');
+                            }
+                        };
+                        xhr.onerror = function() {
+                            document.getElementById('loader').style.display = 'none';
+                            alert('Network error. Please try again.');
+                        };
+                        xhr.send(JSON.stringify({
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            booking_id: bookingId // Include booking ID for processing
+                        }));
+                    },
+                    prefill: {
+                        name: 'Your Name', // Replace with actual name
+                        email: 'your.email@example.com' // Replace with actual email
+                    },
+                    theme: {
+                        color: '#F37254'
+                    }
+                };
+
+                var rzp = new Razorpay(options);
+                rzp.open();
+            });
+        });
     </script>
 @endpush
