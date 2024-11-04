@@ -122,10 +122,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="profile-buttons">
-                        <a href="/myCV.txt" download>DOWNLOAD CV <i class="fas fa-download"></i></a>
-                        <a href="#contact">CONTACT ME <i class="fas fa-arrow-right"></i></a>
-                    </div> --}}
                 </section>
                 <section id="about" class="about view">
                     <article class="about-aboutMe">
@@ -222,18 +218,6 @@
                 </section>
                 <section id="contact" class="contact">
                     <div>
-                        {{-- <div>
-                            <span>Address - </span> {{ $view_team->current_address }}
-                        </div>
-                        <div>
-                            <span>email - </span> {{ $view_team->email }}
-                        </div>
-                        <div>
-                            <span>Phone - </span> {{ $view_team->phone }}
-                        </div>
-                        <div>
-                            <span>Specialization - </span> {{ $view_team->specialization }}
-                        </div> --}}
                         <div class="col-md-12">
 
                             <div class="mt-3">
@@ -275,42 +259,6 @@
                                 </table>
                             </div>
                         </div>
-                        {{-- <div class="col-md-12">
-                            <div class="mt-3">
-                                <h3>Booking Details</h3>
-                                <table class="table table-bordered data_table">
-                                    <thead>
-                                        <tr>
-                                            <th>Teacher Name</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($bookings as $booking)
-                                            <tr>
-                                                <td>{{ $booking->team->name }}</td>
-                                                <td>{{ $booking->date }}</td>
-                                                <td>{{ $booking->time }}</td>
-                                                <td>
-                                                    @if ($booking->status == 1)
-                                                        <span class="badge rounded-pill bg-success">Paid</span>
-                                                    @else
-                                                        <span class="badge rounded-pill bg-warning text-dark">Unpaid</span>
-                                                        <form class="razorpay-form" data-booking-id="{{ $booking->id }}">
-                                                            @csrf
-                                                            <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-                                                            <button type="button" class="btn btn-primary pay-now-button">Pay Now</button>
-                                                        </form>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div> --}}
 
                         <div id="loader" style="display:none;">
                             <div class="spinner"></div>

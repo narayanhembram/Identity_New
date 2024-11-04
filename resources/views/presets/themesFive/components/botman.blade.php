@@ -866,16 +866,6 @@
                      },
                      dataType: 'json',
                      success: function(response) {
-                         // Append the initial message first
-                         //  $('#chatbot_messages').append(
-                         //      '<li class="is-ai animation">' +
-                         //      '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
-                         //      '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
-                         //      '</div>' +
-                         //      '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
-                         //      '<p class="chatbot__message" style="font-size: 13px; margin-top: 10px;">Please Choose the Career Option from below.</p>' +
-                         //      '</li>'
-                         //  );
                          let gender = $(this).attr('name');
                          let image = gender === "boy" ?
                              "{{ asset('assets/presets/themesFive/boy.png') }}" :
@@ -904,7 +894,7 @@
                          // Loop through each category and create a row with 2 items per line
                          response.forEach(function(category, index) {
                              row +=
-                                 '<a class="btn btn-sm btn-primary " style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
+                                 '<a href="#" class="btn btn-sm btn-primary " style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
                                  category.title + '</a>';
 
                              // Check if two items are in the row or it's the last item

@@ -10,17 +10,17 @@
                     alt="{{ config('app.name') }}" style="width: 120px;">
             </a>
         </div>
-        <div class="col-md-10">
+        <div class="navbar__right col-md-10">
             <ul class="navbar__action-list">
                 <li class="sidebar-menu-item ">
                     <a href="{{ route('user.home') }}">
-                        <p class="menu-title" >@lang('My Dashboard')</p>
+                        <p class="menu-title">@lang('My Dashboard')</p>
                     </a>
                 </li>
                 @foreach (App\Models\Module::orderBy('position', 'asc')->take(4)->get() as $module)
                     <li class="sidebar-menu-item {{ Request::is($module->route) ? 'active' : '' }}">
                         <a href="{{ url('user/' . $module->url) }}">
-                            <p class="menu-title" >@lang($module->title)</p>
+                            <p class="menu-title">@lang($module->title)</p>
                         </a>
                     </li>
                 @endforeach
