@@ -941,7 +941,7 @@ body {
     background-image: url('../../../images/user/body.png');
     font-family: var(--heading-font);
     color: hsl(var(--dark)/0.8);
-    word-break: break-word;
+    /* word-break: break-word; */
     background-color: hsl(var(--white));
     min-height: 100vh;
     display: flex;

@@ -1,43 +1,12 @@
 @extends($activeTemplate . 'layouts.master')
 
-<link rel="stylesheet" href="{{ asset('assets/presets/themesFive/nav/teams.css') }}">
 @section('content')
+    <link rel="stylesheet" href="{{ asset('assets/presets/themesFive/nav/teams.css') }}">
     <style>
         #booking_table {
             background-color: #9a221a !important;
         }
     </style>
-    {{-- <section class="container"> --}}
-    {{-- <div class="entire">
-            <div class="in-entire">
-                <div class="left-cov">
-                    <div class="profile">
-                        <div class="human">
-                            <img src="{{ asset('teams/' . $view_team->photo) }}">
-                        </div>
-                    </div>
-                    <div class="basic mb-5 mt-3">{{ $view_team->name }}<span> </span><span class="ball"></span></div>
-                </div>
-                <div class="right-cov">
-                    <div class="detail">
-                        <h3>{{ $view_team->name }} Profile</h3>
-                    </div>
-                    <div class="full-detail">
-                        <h6>Details</h6>
-                        <p> {!! $view_team->description !!} </p>
-                        <h6>Email</h6>
-                        <p> <a href="mailto:{{ $view_team->email }}">{{ $view_team->email }}</a> </p>
-                        <h6>Phone</h6>
-                        <p> {{ $view_team->phone }}</p>
-                        <h6>Experience</h6>
-                        <p>{{ $view_team->experience }}</p>
-                        <h6>Connect</h6>
-                        <p><a href="https://codepen.io/mannyuiux">CODEPEN</a></p>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
     <div class="background gradient">
     </div>
     <div class="container">
@@ -78,13 +47,13 @@
                         <button type="button" class="btn btn-primary"
                             style="font-size: 13px; padding: 4px 9px; width: auto; height: auto;" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Book Now</button>
-                            <br>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a href="{{ route('user.mysession.team_pay', $booking->team_id) }}" class="btn btn-info"
-                                    style="font-size: 13px; padding: 4px 9px; width: auto; height: auto;">
-                                    Payment Details
-                                </a>
-                            </div>
+                        <br>
+                        <div class="d-flex justify-content-center mt-3">
+                            <a href="{{ route('user.mysession.team_pay', $booking->team_id) }}" class="btn btn-info"
+                                style="font-size: 13px; padding: 4px 9px; width: auto; height: auto;">
+                                Payment Details
+                            </a>
+                        </div>
 
 
                         <!-- Modal -->
@@ -242,7 +211,8 @@
                                                         <span class="badge rounded-pill bg-success">Paid</span>
                                                     @else
                                                         <span class="badge rounded-pill bg-warning text-dark">Unpaid</span>
-                                                        <form action="{{ route('user.razorpay.store') }}" method="POST" class="razorpay-form">
+                                                        <form action="{{ route('user.razorpay.store') }}" method="POST"
+                                                            class="razorpay-form">
                                                             @csrf
                                                             <input type="hidden" name="booking_id"
                                                                 value="{{ $booking->id }}">

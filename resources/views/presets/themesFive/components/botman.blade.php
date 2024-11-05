@@ -473,6 +473,27 @@
                  <span class="chatbot__arrow chatbot__arrow--left"></span>
                  <p class='chatbot__message' style="font-size: 13px;">Choose your Gender</p>
              </li>
+
+             {{-- <li class="is-ai animation">
+                <div class="is-ai__profile-picture" style="margin-top: 6px;">
+                    <i class="fa-solid fa-robot" style="font-size: 25px;"></i>
+                </div>
+                <span class="chatbot__arrow chatbot__arrow--left"></span>
+                <div class='chatbot__message' style="font-size: 13px;">
+                    <form action="#" method="post">
+                        <div>
+                            <label for="">Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Name">
+                        </div>
+                        <div>
+                            <label for="">Number</label>
+                            <input type="text" class="form-control" placeholder="Enter Number">
+                        </div>
+                        <button type="submit" style="margin-top: 8px; font-size: 10px; background-color:#ab2931;">Submit</button>
+                    </form>
+                </div>
+            </li> --}}
+
              <li class="is-ai animation getgender" id="get_gender">
                  <span class="chatbot__arrow chatbot__arrow--left"></span>
                  <img src="{{ asset('assets/presets/themesFive/boy.png') }}" alt="" width="80"
@@ -480,6 +501,8 @@
                  <img src="{{ asset('assets/presets/themesFive/girl.png') }}" alt="" width="80"
                      style="border-radius: 50%" class="gender" name="girl">
              </li>
+
+
 
              {{-- <li class="is-user animation">
                  <p class="chatbot__message" style="font-size: 13px; text-align: right;">This is a message from the user
@@ -758,42 +781,109 @@
                  '<img src="' + image + '" width="35">' +
                  '</div>' +
                  '</li>' +
-                 '<li class="is-ai animation">' +
+                 '<li class="is-ai animation" id="user_form">' +
                  '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
-                 '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
+                 '<i class="fa-solid fa-robot" style="font-size: 25px;"></i>' +
                  '</div>' +
                  '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
-                 '<p class="chatbot__message" style="font-size: 13px;">Choose your Career Path</p>' +
+                 '<div class="chatbot__message" style="font-size: 13px;">' +
+                 '<form id="userData" action="#" method="post">' +
+                 '<div>' +
+                 '<label for="">Name</label>' +
+                 '<input type="text" name="u_name" class="form-control" placeholder="Enter Name">' +
+                 '</div>' +
+                 '<div>' +
+                 '<label for="">Number</label>' +
+                 '<input type="text" name="number" class="form-control" placeholder="Enter Number">' +
+                 '</div>' +
+                 '<button type="submit" style="margin-top: 8px; font-size: 10px; background-color:#ab2931;">Submit</button>' +
+                 '</form>' +
+                 '</div>' +
                  '</li>'
              );
-             // AJAX call to fetch modules from the server
-             $.ajax({
-                 type: "POST",
-                 url: '{{ route('getModule') }}',
-                 data: {
-                     //'category_id': category_id,
-                     _token: "{{ csrf_token() }}"
-                 },
-                 dataType: 'json',
-                 success: function(response) {
-                     let row = '';
+             //User data store using AJAX
+             $("#userData").on("submit", function(e) {
+                 e.preventDefault();
 
-                     response.forEach(function(module, index) {
-                         row +=
-                             '<a class="btn btn-sm btn-primary getModule" id="category" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
-                             module.title + '</a>';
+                 let formData = {
+                     u_name: $("input[name='u_name']").val(),
+                     number: $("input[name='number']").val(),
+                     // gender: gender
+                 };
 
-                         if ((index + 1) % 2 === 0 || index === response.length -
-                             1) {
-                             $('#chatbot_messages').append(
-                                 '<div style="display: flex; margin-bottom: 5px;">' +
-                                 row + '</div>'
+                 $.ajax({
+                     type: "POST",
+                     url: '{{ route('storeUser') }}',
+                     data: {
+                         ...formData,
+                         _token: "{{ csrf_token() }}"
+                     },
+                     dataType: 'json',
+                     success: function(response) {
+                         console.log(response);
+                         $('#user_form').hide();
+                         $('#chatbot_messages').append(
+                             '<li class="is-ai animation">' +
+                             '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
+                             '<i class="fa-solid fa-robot" style="font-size: 25px;"></i>' +
+                             '</div>' +
+                             '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
+                             '<p class="chatbot__message" style="font-size: 13px;">Choose your Career Path</p>' +
+                             '</li>'
+                         );
+
+                         // AJAX call to fetch modules from the server
+                         $.ajax({
+                             type: "POST",
+                             url: '{{ route('getModule') }}',
+                             data: {
+                                 _token: "{{ csrf_token() }}"
+                             },
+                             dataType: 'json',
+                             success: function(response) {
+                                 let row = '';
+
+                                 response.forEach(function(module,
+                                     index) {
+                                     row +=
+                                         '<a class="btn btn-sm btn-primary getModule" id="category" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
+                                         module.title + '</a>';
+
+                                     if ((index + 1) % 2 === 0 ||
+                                         index === response
+                                         .length -
+                                         1) {
+                                         $('#chatbot_messages')
+                                             .append(
+                                                 '<div style="display: flex; margin-bottom: 5px;">' +
+                                                 row + '</div>'
+                                             );
+                                         row = '';
+                                     }
+                                 });
+                             },
+                         });
+                     },
+                     error: function(xhr) {
+                         console.log("Error:", xhr);
+                         if (xhr.status === 422) {
+                             let errors = xhr.responseJSON.errors;
+                             let errorMessage = '';
+
+                             $.each(errors, function(key, value) {
+                                 errorMessage += value.join(', ') +
+                                     '\n';
+                             });
+                             alert("There were validation errors:\n" + errorMessage);
+                         } else {
+                             alert(
+                                 "There was an error submitting your data. Please try again."
                              );
-                             row = '';
                          }
-                     });
-                 },
+                     }
+                 });
              });
+
              // AJAX call to fetch categories from the server
              $(document).on('click', '#category', function() {
                  var module = $(this).text();
@@ -840,7 +930,8 @@
                                  category.title + '</a>';
 
                              // Check if two items are in the row or it's the last item
-                             if ((index + 1) % 2 === 0 || index ===
+                             if ((index + 1) % 2 === 0 ||
+                                 index ===
                                  response
                                  .length - 1) {
                                  $('#chatbot_messages').append(
@@ -880,6 +971,7 @@
                              '<img src="' + image + '" width="35">' +
                              '</div>' +
                              '</li>' +
+
                              '<li class="is-ai animation">' +
                              '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
                              '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
@@ -898,7 +990,8 @@
                                  category.title + '</a>';
 
                              // Check if two items are in the row or it's the last item
-                             if ((index + 1) % 2 === 0 || index ===
+                             if ((index + 1) % 2 === 0 ||
+                                 index ===
                                  response
                                  .length - 1) {
                                  $('#chatbot_messages').append(

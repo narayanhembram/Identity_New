@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Chatbot;
 use App\Models\Module;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -22,4 +23,16 @@ class ChatBotController extends Controller
         $subcategories = Subcategory::where('category_id', $request->category_id)->get();
         return response()->json($subcategories);
     }
+    public function storeUser(Request $request){
+        $request->validate([
+            'u_name' => 'required|string|max:255',
+            'number' => 'required|digits_between:10,15',
+        ]);
+        $store =new Chatbot;
+        $store->u_name = $request->u_name;
+        $store->number = $request->number;
+        $store->save();
+        return response()->json($store);
+    }
+
 }
