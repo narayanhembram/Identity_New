@@ -466,12 +466,12 @@
                      today?</p>
 
              </li>
-             <li class="is-ai animation">
+             <li class="is-ai animation type">
                  <div class="is-ai__profile-picture" style="margin-top: 6px;">
                      <i class="fa-solid fa-robot" style="font-size:25px;"></i>
                  </div>
                  <span class="chatbot__arrow chatbot__arrow--left"></span>
-                 <p class='chatbot__message' style="font-size: 13px;">Choose your Gender</p>
+                 <p class="chatbot__message" style="font-size: 13px;">Choose your Gender</p>
              </li>
 
              {{-- <li class="is-ai animation">
@@ -775,6 +775,9 @@
 
              let image = gender === "boy" ? "{{ asset('assets/presets/themesFive/boy.png') }}" :
                  "{{ asset('assets/presets/themesFive/girl.png') }}";
+
+             $(".type, #get_gender").hide();
+
              $('#chatbot_messages').append(
                  '<li class="is-user animation">' +
                  '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
@@ -808,7 +811,6 @@
                  let formData = {
                      u_name: $("input[name='u_name']").val(),
                      number: $("input[name='number']").val(),
-                     // gender: gender
                  };
 
                  $.ajax({
@@ -885,67 +887,123 @@
              });
 
              // AJAX call to fetch categories from the server
-             $(document).on('click', '#category', function() {
+             $(document).one('click', '#category', function() {
                  var module = $(this).text();
+                 var isInstitute = module === 'Institute';
+                 var isEntranceExam = module === 'Entrance Exam';
+                 var isScholarship = module === 'Scholarship';
+
+                 if (isInstitute) {
+                     window.location.href =
+                         "{{ route('user.institute.view') }}";
+                     return;
+                 }
+                 if (isEntranceExam) {
+                     window.location.href =
+                         "{{ route('user.entrance.all') }}";
+                     return;
+                 }
+
                  $.ajax({
                      type: "POST",
-                     url: '{{ route('get_category') }}',
+                     url: isScholarship ? '{{ route('getScolarship') }}' :
+                         '{{ route('get_category') }}',
                      data: {
                          _token: "{{ csrf_token() }}"
                      },
                      dataType: 'json',
                      success: function(response) {
-                         $('.gender').click(function() {});
-                         let gender = $(this).attr('name');
-                         let image = gender === "boy" ?
-                             "{{ asset('assets/presets/themesFive/boy.png') }}" :
-                             "{{ asset('assets/presets/themesFive/girl.png') }}";
+                         if (isScholarship) {
+                             // Handle Scholarship-specific data rendering here
+                             $('#chatbot_messages').append(
+                                 '<li class="is-user animation">' +
+                                 '<p class="chatbot__message" style="font-size: 13px; text-align: right;">' +
+                                 module + '</p>' +
+                                 '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
+                                 '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
+                                 '<img src="' + image + '" width="35">' +
+                                 '</div>' +
+                                 '</li>'
+                             );
 
-                         $('#chatbot_messages').append(
-                             '<li class="is-user animation">' +
-                             '<p class="chatbot__message" style="font-size: 13px; text-align: right;">' +
-                             module + '</p>' +
-                             '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
-                             '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
-                             '<img src="' + image + '" width="35">' +
-                             '</div>' +
-                             '</li>' +
-                             '<li class="is-ai animation">' +
-                             '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
-                             '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
-                             '</div>' +
-                             '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
-                             '<p class="chatbot__message" style="font-size: 13px; margin-top: 10px;">Please Choose the Career Option from below.</p>' +
-                             '</li>'
-                         );
+                             let row = '';
+                             let uniqueTypes = new Set();
 
-                         let row = '';
+                             // Loop through Scholarship response data, adding only unique types
+                             response.forEach(function(scholarship, index) {
+                                 if (!uniqueTypes.has(scholarship.type)) {
+                                     uniqueTypes.add(scholarship
+                                         .type);
 
-                         // Loop through each category and create a row with 2 items per line
-                         response.forEach(function(category, index) {
-                             row +=
-                                 '<a class="btn btn-sm btn-primary subcategory-btn" data-id="' +
-                                 category.id +
-                                 '" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
-                                 category.title + '</a>';
+                                     row +=
+                                         '<a class="btn btn-sm btn-primary scholarship-btn" target="blank" href="{{ route('user.scholarship.view') }}?redirect_to={{ urlencode(route('user.scholarship.view')) }}" data-id="' +
+                                         scholarship.id +
+                                         '" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
+                                         scholarship.type + '</a>';
 
-                             // Check if two items are in the row or it's the last item
-                             if ((index + 1) % 2 === 0 ||
-                                 index ===
-                                 response
-                                 .length - 1) {
-                                 $('#chatbot_messages').append(
-                                     '<div style="display: flex; margin-bottom: 5px;">' +
-                                     row + '</div>'
-                                 );
-                                 row = '';
-                             }
-                         });
+                                     if ((index + 1) % 2 === 0 || index ===
+                                         response.length - 1) {
+                                         $('#chatbot_messages').append(
+                                             '<div style="display: flex; margin-bottom: 5px;">' +
+                                             row + '</div>'
+                                         );
+                                         row = '';
+                                     }
+                                 }
+                             });
+                         } else {
+                             $('.gender').click(function() {});
+                             let gender = $(this).attr('name');
+                             let image = gender === "boy" ?
+                                 "{{ asset('assets/presets/themesFive/boy.png') }}" :
+                                 "{{ asset('assets/presets/themesFive/girl.png') }}";
+
+                             $('#chatbot_messages').append(
+                                 '<li class="is-user animation">' +
+                                 '<p class="chatbot__message" style="font-size: 13px; text-align: right;">' +
+                                 module + '</p>' +
+                                 '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
+                                 '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
+                                 '<img src="' + image + '" width="35">' +
+                                 '</div>' +
+                                 '</li>' +
+                                 '<li class="is-ai animation">' +
+                                 '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
+                                 '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
+                                 '</div>' +
+                                 '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
+                                 '<p class="chatbot__message" style="font-size: 13px; margin-top: 10px;">Please Choose the Career Option from below.</p>' +
+                                 '</li>'
+                             );
+
+                             let row = '';
+
+                             // Loop through each category and create a row with 2 items per line
+                             response.forEach(function(category, index) {
+                                 row +=
+                                     '<a class="btn btn-sm btn-primary subcategory-btn" data-id="' +
+                                     category.id +
+                                     '" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
+                                     category.title + '</a>';
+
+                                 // Check if two items are in the row or it's the last item
+                                 if ((index + 1) % 2 === 0 ||
+                                     index ===
+                                     response
+                                     .length - 1) {
+                                     $('#chatbot_messages').append(
+                                         '<div style="display: flex; margin-bottom: 5px;">' +
+                                         row + '</div>'
+                                     );
+                                     row = '';
+                                 }
+                             });
+                         }
                      },
                  });
              });
              // AJAX call to fetch sucategories from the server
-             $(document).on('click', '.subcategory-btn', function() {
+             $(document).one('click', '.subcategory-btn', function() {
                  var category_id = $(this).data('id');
                  var category = $(this).text();
                  $.ajax({
@@ -984,15 +1042,22 @@
                          let row = '';
 
                          // Loop through each category and create a row with 2 items per line
-                         response.forEach(function(category, index) {
+                         response.forEach(function(subcategory, index) {
+                             // Create the URL for each subcategory
+                             let subcategoryUrl =
+                                 "{{ route('user.viewSubcategory', ':id') }}"
+                                 .replace(':id', subcategory.id);
+                             let redirectUrl = encodeURIComponent(
+                                 "{{ route('user.scholarship.view') }}");
+
                              row +=
-                                 '<a href="#" class="btn btn-sm btn-primary " style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
-                                 category.title + '</a>';
+                                 '<a href="' + subcategoryUrl +
+                                 '?redirect_to=' + redirectUrl + '" ' +
+                                 'class="btn btn-sm btn-primary" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
+                                 subcategory.title + '</a>';
 
                              // Check if two items are in the row or it's the last item
-                             if ((index + 1) % 2 === 0 ||
-                                 index ===
-                                 response
+                             if ((index + 1) % 2 === 0 || index === response
                                  .length - 1) {
                                  $('#chatbot_messages').append(
                                      '<div style="display: flex; margin-bottom: 5px;">' +

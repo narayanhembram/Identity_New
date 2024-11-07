@@ -12,7 +12,7 @@
     <div class="container">
         <div class="page">
             <header>
-                <nav>
+                <nav style="padding: 10px;">
                     <a href="#about" class="selected" id='getAbout'>
                         <span class="fas fa-user"></span>
                         <span class="link">About</span>
@@ -27,7 +27,7 @@
                     </a>
                 </nav>
             </header>
-            <main>
+            <main style="padding-bottom: 50px;">
                 <section id="presentation" class="profile">
                     <div class="profile-background"></div>
                     <div>
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                 </section>
-                <section id="about" class="about view">
+                <section id="about" class="about view" style="max-height: 540px; overflow-y: auto;">
                     <article class="about-aboutMe">
                         <h3 class="title">About Me</h3>
                         <div class="line-left">
@@ -130,7 +130,7 @@
                         </div>
                     </article>
                 </section>
-                <section id="resume" class="resume">
+                <section id="resume" class="resume" style="max-height: 540px; overflow-y: auto;">
                     <h3 class="title">Resume</h3>
                     <article class="resume-lines">
                         <section class="resume-line line-left">
@@ -185,7 +185,7 @@
                         </div>
                     </article>
                 </section>
-                <section id="contact" class="contact">
+                <section id="contact" class="contact" style="max-height: 540px; overflow-y: auto;">
                     <div>
                         <div class="col-md-12">
 
@@ -230,7 +230,7 @@
                             </div>
                         </div>
 
-                        <div id="loader" style="display:none;">
+                        {{-- <div id="loader" style="display:none;">
                             <div class="spinner"></div>
                         </div>
 
@@ -268,7 +268,7 @@
                                     transform: rotate(360deg);
                                 }
                             }
-                        </style>
+                        </style> --}}
                     </div>
                 </section>
             </main>

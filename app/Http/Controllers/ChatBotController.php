@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Chatbot;
 use App\Models\Module;
+use App\Models\Scholarship;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,10 @@ class ChatBotController extends Controller
     public function get_subcategory(Request $request){
         $subcategories = Subcategory::where('category_id', $request->category_id)->get();
         return response()->json($subcategories);
+    }
+    public function getScolarship(Request $request){
+        $scoholarships = Scholarship::all();
+        return response()->json($scoholarships);
     }
     public function storeUser(Request $request){
         $request->validate([

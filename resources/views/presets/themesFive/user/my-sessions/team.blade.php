@@ -1,6 +1,6 @@
 @extends($activeTemplate . 'layouts.master')
 
-<style>
+{{-- <style>
     .card {
         border: 1px solid #ddd;
         border-radius: 10px;
@@ -18,20 +18,14 @@
 
     .card__image {
         width: 100%;
-        /* Full width of the card */
         height: 200px;
-        /* Fixed height for the image */
         overflow: hidden;
-        /* Ensures overflow is hidden */
     }
 
     .card__image img {
         width: 100%;
-        /* Full width to cover the card__image */
         height: 100%;
-        /* Full height to cover the card__image */
         object-fit: cover;
-        /* Ensures the image covers the area */
     }
 
     .card__name {
@@ -66,6 +60,113 @@
         margin: 0;
         font-size: 1rem;
         font-weight: bold;
+    }
+</style> --}}
+<style>
+    /* Basic Card Styles */
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 300px;
+        font-family: Arial, sans-serif;
+        margin: 20px auto;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+    .card__image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .card__name {
+        background-color: #f4f4f4;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .card__name p {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card p {
+        padding: 5px;
+        color: #555;
+        text-align: center;
+    }
+
+    .card__button {
+        background-color: rgba(33, 113, 138, .89);
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        /* padding: 10px 0; */
+    }
+
+    .card__button:hover {
+        background-color: #0056b3;
+    }
+
+    .card__button p {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    /* Responsive Design */
+    @media (min-width: 768px) {
+        .col-sm-6 {
+            max-width: 50%;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .col-md-4 {
+            max-width: 33.33%;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .col-lg-3 {
+            max-width: 25%;
+        }
+    }
+
+    .card {
+        background-color: #fafafa;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card__name p {
+        font-size: 1.4rem;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+    }
+
+    .card__button {
+        transition: background-color 0.3s ease;
     }
 </style>
 
@@ -131,36 +232,10 @@
                 @endforeach
             </div>
         </div> --}}
-        <div class="container">
-            <div class="row space-rows" id="animated-cards" >
+        {{-- <div class="container">
+            <div class="row space-rows" id="animated-cards">
                 @foreach ($mysession as $team)
                     <div class="col col-lg-3">
-                        {{-- <div class="card cards-shadown cards-hover">
-                            <div class="card-header">
-                                <div class="cardheader-text">
-                                    <img src="{{ asset('teams/' . $team->photo) }}" alt="">
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <p class="card-text sub-text-color" style="font-size: 14px; text-align:center;">
-                                    {{ $team->name }}</p>
-                                <div class="card-text cardbody-sub-text" style="font-size: 10px !important;">
-                                    {!! Str::limit($team->description, 100) !!}
-                                </div>
-                                <ul class="profile-options list-unstyled d-flex justify-content-around">
-                                    <li><a class="comments" href="#40">
-                                            <i class="fab fa-facebook" style="font-size: 20px;"></i>
-                                        </a></li>
-                                    <li><a class="views" href="#41">
-                                            <i class="fab fa-twitter" style="font-size: 20px;"></i>
-                                        </a></li>
-                                    <li><a class="likes" href="#42">
-                                            <i class="fab fa-linkedin" style="font-size: 20px;"></i>
-                                        </a></li>
-                                </ul>
-                            </div>
-                        </div> --}}
                         <div class="card">
                             <div class="card__image">
                                 <img src="{{ asset('teams/' . $team->photo) }}" />
@@ -169,17 +244,38 @@
                                 <p>{{ $team->name }}</p>
                             </div>
                             <p>{!! Str::limit($team->description, 100) !!}</p>
-                            {{-- <p>Placeholder Two</p>
-                            <p>Placeholder : 10-7</p> --}}
                             <div class="card__button">
-                                <a href="{{ route('user.mysession.viewTeam',$team->id) }}"><p style="color: #fff">View Profile</p></a>
+                                <a href="{{ route('user.mysession.viewTeam', $team->id) }}">
+                                    <p style="color: #fff">View Profile</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div> --}}
+        <div class="container">
+            <div class="row space-rows" id="animated-cards">
+                @foreach ($mysession as $team)
+                    <div class="col col-lg-3 col-md-4 col-sm-6">
+                        <div class="card">
+                            <div class="card__image">
+                                <img src="{{ asset('teams/' . $team->photo) }}" alt="{{ $team->name }}'s photo" />
+                            </div>
+                            <div class="card__name">
+                                <p>{{ $team->name }}</p>
+                            </div>
+                            <p>{!! Str::limit($team->description, 100) !!}</p>
+                            <div class="card__button">
+                                <a href="{{ route('user.mysession.viewTeam',$team->id) }}">
+                                    <p style="color: #fff">View Profile</p>
+                                </a>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
-
 
     </div>
 @endsection

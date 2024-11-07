@@ -58,14 +58,11 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        if(!verifyCaptcha()){
-            $notify[] = ['error','Invalid captcha provided'];
+        if (!verifyCaptcha()) {
+            $notify[] = ['error', 'Invalid captcha provided'];
             return back()->withNotify($notify);
         }
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
@@ -76,9 +73,6 @@ class LoginController extends Controller
             return $this->sendLoginResponse($request);
         }
 
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
 
 
@@ -106,7 +100,6 @@ class LoginController extends Controller
             $this->username() => 'required|string',
             'password' => 'required|string',
         ]);
-
     }
 
     public function logout()
@@ -128,7 +121,7 @@ class LoginController extends Controller
         $user->tv = $user->ts == 1 ? 0 : 1;
         $user->save();
         $ip = getRealIP();
-        $exist = UserLogin::where('user_ip',$ip)->first();
+        $exist = UserLogin::where('user_ip', $ip)->first();
         $userLogin = new UserLogin();
         if ($exist) {
             $userLogin->longitude =  $exist->longitude;
@@ -136,12 +129,12 @@ class LoginController extends Controller
             $userLogin->city =  $exist->city;
             $userLogin->country_code = $exist->country_code;
             $userLogin->country =  $exist->country;
-        }else{
+        } else {
             $info = json_decode(json_encode(getIpInfo()), true);
-            $userLogin->longitude =  @implode(',',$info['long']);
-            $userLogin->latitude =  @implode(',',$info['lat']);
-            $userLogin->city =  @implode(',',$info['city']);
-            $userLogin->country_code = @implode(',',$info['code']);
+            $userLogin->longitude =  @implode(',', $info['long']);
+            $userLogin->latitude =  @implode(',', $info['lat']);
+            $userLogin->city =  @implode(',', $info['city']);
+            $userLogin->country_code = @implode(',', $info['code']);
             $userLogin->country =  @implode(',', $info['country']);
         }
 
@@ -153,8 +146,7 @@ class LoginController extends Controller
         $userLogin->os = @$userAgent['os_platform'];
         $userLogin->save();
 
-        return to_route('user.home');
+        $redirectTo = $request->input('redirect_to', route('user.home'));
+        return redirect()->intended($redirectTo);
     }
-
-
 }
