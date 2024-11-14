@@ -64,6 +64,11 @@ Route::controller('SiteController')->group(function () {
     Route::post('get_category', [ChatBotController::class, 'get_category'])->name('get_category');
     Route::post('get_subcategory', [ChatBotController::class, 'get_subcategory'])->name('get_subcategory');
     Route::post('get_scolarship', [ChatBotController::class, 'getScolarship'])->name('getScolarship');
+    Route::post('get_entranceexam', [ChatBotController::class, 'getEntranceexam'])->name('getEntranceexam');
+    Route::post('get_institute', [ChatBotController::class, 'getInstitute'])->name('getInstitute');
+    Route::post('get_country', [ChatBotController::class, 'getCountry'])->name('getCountry');
+    Route::post('get_state', [ChatBotController::class, 'getState'])->name('getState');
+    Route::post('institute_type', [ChatBotController::class, 'Institute_type'])->name('Institute_type');
     Route::post('store', [ChatBotController::class, 'storeUser'])->name('storeUser');
 });
 // Route::match(['get', 'post'], '/botman/web', [BotManController::class,'handle']);

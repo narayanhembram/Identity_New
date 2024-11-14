@@ -449,7 +449,7 @@
      }
  </style>
 
- <div class="chatbot chatbot--closed">
+ <div class="chatbot chatbot--closed" id="botman">
      <div class="chatbot__header">
          <img src="{{ asset('assets/presets/themesFive/botmen-unscreen (1).gif') }}" alt=""
              style="height: 70px; border-radius: 50%;">
@@ -464,7 +464,6 @@
                  <span class="chatbot__arrow chatbot__arrow--left"></span>
                  <p class='chatbot__message' style="font-size: 13px;">Hi! 🖐. I’m Narayan bot. How can I assist you
                      today?</p>
-
              </li>
              <li class="is-ai animation type">
                  <div class="is-ai__profile-picture" style="margin-top: 6px;">
@@ -474,26 +473,6 @@
                  <p class="chatbot__message" style="font-size: 13px;">Choose your Gender</p>
              </li>
 
-             {{-- <li class="is-ai animation">
-                <div class="is-ai__profile-picture" style="margin-top: 6px;">
-                    <i class="fa-solid fa-robot" style="font-size: 25px;"></i>
-                </div>
-                <span class="chatbot__arrow chatbot__arrow--left"></span>
-                <div class='chatbot__message' style="font-size: 13px;">
-                    <form action="#" method="post">
-                        <div>
-                            <label for="">Name</label>
-                            <input type="text" class="form-control" placeholder="Enter Name">
-                        </div>
-                        <div>
-                            <label for="">Number</label>
-                            <input type="text" class="form-control" placeholder="Enter Number">
-                        </div>
-                        <button type="submit" style="margin-top: 8px; font-size: 10px; background-color:#ab2931;">Submit</button>
-                    </form>
-                </div>
-            </li> --}}
-
              <li class="is-ai animation getgender" id="get_gender">
                  <span class="chatbot__arrow chatbot__arrow--left"></span>
                  <img src="{{ asset('assets/presets/themesFive/boy.png') }}" alt="" width="80"
@@ -501,23 +480,14 @@
                  <img src="{{ asset('assets/presets/themesFive/girl.png') }}" alt="" width="80"
                      style="border-radius: 50%" class="gender" name="girl">
              </li>
-
-
-
-             {{-- <li class="is-user animation">
-                 <p class="chatbot__message" style="font-size: 13px; text-align: right;">This is a message from the user
-                     side.</p>
-                 <span class="chatbot__arrow chatbot__arrow--right"></span>
-                 <div class="is-user__profile-picture" style="margin-top: 6px;">
-                     <i class="fa-solid fa-circle-user" style="font-size:25px;"></i>
-                 </div>
-             </li> --}}
          </ul>
      </div>
      <div class="chatbot__entry chatbot--closed">
          <svg class="chatbot__submit" viewBox="0 0 32 32">
              <use xlink:href="#icon-send" />
          </svg>
+         {{-- <a href="" class="btn btn-primary">Refresh</a> --}}
+         <button class="btn btn-primary" id="refreshChatbot" style="margin-left: 10px; color:#ffffff">Refresh</button>
      </div>
  </div>
 
@@ -769,7 +739,7 @@
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <script>
      $(document).ready(function() {
-         $(".gender").click(function() {
+         $(document).on('click', '.gender', function() {
              let gender = $(this).attr('name');
              console.log(gender);
 
@@ -885,35 +855,98 @@
                      }
                  });
              });
+             $(document).on('click', '#refreshChatbot', function() {
+                 // Clear all appended data from #chatbot_messages
+                 $('#chatbot_messages').empty();
+                 $('#chatbot_messages').append('<li class="is-ai animation">' +
+                     '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
+                     '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
+                     '</div>' +
+                     '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
+                     '<p class="chatbot__message" style="font-size: 13px;">Hi! 🖐. I’m Narayan bot. How can I assist you today?</p>' +
+                     '</li>' +
+                     '<li class="is-ai animation type">' +
+                     '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
+                     '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
+                     '</div>' +
+                     '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
+                     '<p class="chatbot__message" style="font-size: 13px;">Choose your Gender</p>' +
+                     '</li>' +
+
+                     '<li class="is-ai animation getgender" id="get_gender">' +
+                     '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
+                     '<img src="{{ asset('assets/presets/themesFive/boy.png') }}" alt="" width="80"' +
+                     'style="border-radius: 50%" class="gender" name="boy">' +
+                     '<img src="{{ asset('assets/presets/themesFive/girl.png') }}" alt="" width="80"' +
+                     'style="border-radius: 50%" class="gender" name="girl">' +
+                     '</li>');
+             });
+
 
              // AJAX call to fetch categories from the server
-             $(document).one('click', '#category', function() {
+             $(document).on('click', '#category', function() {
                  var module = $(this).text();
                  var isInstitute = module === 'Institute';
                  var isEntranceExam = module === 'Entrance Exam';
                  var isScholarship = module === 'Scholarship';
+                 var isCareerLibrary = module === 'Career Library';
 
                  if (isInstitute) {
-                     window.location.href =
-                         "{{ route('user.institute.view') }}";
-                     return;
-                 }
-                 if (isEntranceExam) {
-                     window.location.href =
-                         "{{ route('user.entrance.all') }}";
-                     return;
-                 }
+                     $.ajax({
+                         type: "POST",
+                         url: '{{ route('getCountry') }}',
+                         data: {
+                             _token: "{{ csrf_token() }}"
+                         },
+                         dataType: 'json',
+                         success: function(response) {
+                             if (isInstitute) {
+                                 $('#chatbot_messages').append(
+                                     '<li class="is-user animation">' +
+                                     '<p class="chatbot__message" style="font-size: 13px; text-align: right;">' +
+                                     module + '</p>' +
+                                     '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
+                                     '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
+                                     '<img src="' + image + '" width="35">' +
+                                     '</div>' +
+                                     '</li>'
+                                 );
 
-                 $.ajax({
-                     type: "POST",
-                     url: isScholarship ? '{{ route('getScolarship') }}' :
-                         '{{ route('get_category') }}',
-                     data: {
-                         _token: "{{ csrf_token() }}"
-                     },
-                     dataType: 'json',
-                     success: function(response) {
-                         if (isScholarship) {
+                                 let row = '';
+                                 // Loop through country data, adding only unique country names
+                                 response.forEach(function(country, index) {
+                                     row +=
+                                         '<a class="btn btn-sm btn-primary country-btn" target="blank" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;" data-id="' +
+                                         country.id + '">' +
+                                         country.name + '</a>';
+
+                                     // Group the buttons in rows of two or end row if last item
+                                     if ((index + 1) % 2 === 0 ||
+                                         index === response.length - 1) {
+                                         $('#chatbot_messages').append(
+                                             '<div style="display: flex; margin-bottom: 5px;">' +
+                                             row + '</div>'
+                                         );
+                                         row = '';
+                                     }
+                                 });
+                             }
+                         },
+                         error: function(xhr, status, error) {
+                             console.error('Error:', error);
+                         }
+                     });
+                 }
+                 if (isScholarship) {
+                     $.ajax({
+                         type: "POST",
+                         url: "{{ route('getScolarship') }}",
+                         data: {
+                             _token: "{{ csrf_token() }}"
+                         },
+                         dataType: 'json',
+                         success: function(response) {
+
                              // Handle Scholarship-specific data rendering here
                              $('#chatbot_messages').append(
                                  '<li class="is-user animation">' +
@@ -921,7 +954,8 @@
                                  module + '</p>' +
                                  '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
                                  '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
-                                 '<img src="' + image + '" width="35">' +
+                                 '<img src="' + image +
+                                 '" width="35">' +
                                  '</div>' +
                                  '</li>'
                              );
@@ -930,28 +964,48 @@
                              let uniqueTypes = new Set();
 
                              // Loop through Scholarship response data, adding only unique types
-                             response.forEach(function(scholarship, index) {
-                                 if (!uniqueTypes.has(scholarship.type)) {
-                                     uniqueTypes.add(scholarship
+                             response.forEach(function(scholarship,
+                                 index) {
+                                 if (!uniqueTypes.has(
+                                         scholarship.type)) {
+                                     uniqueTypes.add(
+                                         scholarship
                                          .type);
 
                                      row +=
                                          '<a class="btn btn-sm btn-primary scholarship-btn" target="blank" href="{{ route('user.scholarship.view') }}?redirect_to={{ urlencode(route('user.scholarship.view')) }}" data-id="' +
                                          scholarship.id +
                                          '" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
-                                         scholarship.type + '</a>';
+                                         scholarship.type +
+                                         '</a>';
 
-                                     if ((index + 1) % 2 === 0 || index ===
-                                         response.length - 1) {
-                                         $('#chatbot_messages').append(
-                                             '<div style="display: flex; margin-bottom: 5px;">' +
-                                             row + '</div>'
-                                         );
+                                     if ((index + 1) % 2 ===
+                                         0 || index ===
+                                         response.length - 1
+                                     ) {
+                                         $('#chatbot_messages')
+                                             .append(
+                                                 '<div style="display: flex; margin-bottom: 5px;">' +
+                                                 row +
+                                                 '</div>'
+                                             );
                                          row = '';
                                      }
                                  }
                              });
-                         } else {
+
+                         },
+                     });
+                 }
+                 if (isCareerLibrary || isEntranceExam) {
+                     $.ajax({
+                         type: "POST",
+                         url: "{{ route('get_category') }}",
+                         data: {
+                             _token: "{{ csrf_token() }}"
+                         },
+                         dataType: 'json',
+                         success: function(response) {
                              $('.gender').click(function() {});
                              let gender = $(this).attr('name');
                              let image = gender === "boy" ?
@@ -964,7 +1018,8 @@
                                  module + '</p>' +
                                  '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
                                  '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
-                                 '<img src="' + image + '" width="35">' +
+                                 '<img src="' + image +
+                                 '" width="35">' +
                                  '</div>' +
                                  '</li>' +
                                  '<li class="is-ai animation">' +
@@ -979,7 +1034,8 @@
                              let row = '';
 
                              // Loop through each category and create a row with 2 items per line
-                             response.forEach(function(category, index) {
+                             response.forEach(function(category,
+                                 index) {
                                  row +=
                                      '<a class="btn btn-sm btn-primary subcategory-btn" data-id="' +
                                      category.id +
@@ -991,83 +1047,373 @@
                                      index ===
                                      response
                                      .length - 1) {
-                                     $('#chatbot_messages').append(
-                                         '<div style="display: flex; margin-bottom: 5px;">' +
-                                         row + '</div>'
-                                     );
+                                     $('#chatbot_messages')
+                                         .append(
+                                             '<div style="display: flex; margin-bottom: 5px;">' +
+                                             row + '</div>'
+                                         );
                                      row = '';
                                  }
                              });
-                         }
-                     },
-                 });
+                             // AJAX call to fetch sucategories from the server
+                             $('.subcategory-btn').on('click', function() {
+                                 var category_id = $(this).data('id');
+                                 var category = $(this).text();
+                                 $.ajax({
+                                     type: "POST",
+                                     url: '{{ route('get_subcategory') }}',
+                                     data: {
+                                         'category_id': category_id,
+                                         _token: "{{ csrf_token() }}"
+                                     },
+                                     dataType: 'json',
+                                     success: function(response) {
+                                         let gender = $(this)
+                                             .attr('name');
+                                         let image = gender ===
+                                             "boy" ?
+                                             "{{ asset('assets/presets/themesFive/boy.png') }}" :
+                                             "{{ asset('assets/presets/themesFive/girl.png') }}";
+
+                                         $('#chatbot_messages')
+                                             .append(
+                                                 '<li class="is-user animation">' +
+                                                 '<p class="chatbot__message" style="font-size: 13px; text-align: right;">' +
+                                                 category +
+                                                 '</p>' +
+                                                 '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
+                                                 '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
+                                                 '<img src="' +
+                                                 image +
+                                                 '" width="35">' +
+                                                 '</div>' +
+                                                 '</li>' +
+
+                                                 '<li class="is-ai animation">' +
+                                                 '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
+                                                 '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
+                                                 '</div>' +
+                                                 '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
+                                                 '<p class="chatbot__message" style="font-size: 13px; margin-top: 10px;">Please Choose the Career Option from below.</p>' +
+                                                 '</li>'
+                                             );
+
+                                         let row = '';
+
+                                         // Loop through each category and create a row with 2 items per line
+                                         response.forEach(
+                                             function(
+                                                 subcategory,
+                                                 index) {
+                                                 // Create the URL for each subcategory
+                                                 if (
+                                                     isCareerLibrary
+                                                 ) {
+                                                     let subcategoryUrl =
+                                                         "{{ route('user.viewSubcategory', ':id') }}"
+                                                         .replace(
+                                                             ':id',
+                                                             subcategory
+                                                             .id
+                                                         );
+                                                     let redirectUrl =
+                                                         encodeURIComponent(
+                                                             "{{ route('user.scholarship.view') }}"
+                                                         );
+
+                                                     row +=
+                                                         '<a href="' +
+                                                         subcategoryUrl +
+                                                         '?redirect_to=' +
+                                                         redirectUrl +
+                                                         '" ' +
+                                                         'class="btn btn-sm btn-primary" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
+                                                         subcategory
+                                                         .title +
+                                                         '</a>';
+                                                 } else if (
+                                                     isEntranceExam
+                                                 ) {
+                                                     row +=
+                                                         '<a class="btn btn-sm btn-primary entrance_subcat" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;" data-id="' +
+                                                         subcategory
+                                                         .id +
+                                                         '">' +
+                                                         subcategory
+                                                         .title +
+                                                         '</a>';
+                                                 }
+
+                                                 // Check if two items are in the row or it's the last item
+                                                 if ((index +
+                                                         1) %
+                                                     2 ===
+                                                     0 ||
+                                                     index ===
+                                                     response
+                                                     .length -
+                                                     1) {
+                                                     $('#chatbot_messages')
+                                                         .append(
+                                                             '<div style="display: flex; margin-bottom: 5px;">' +
+                                                             row +
+                                                             '</div>'
+                                                         );
+                                                     row =
+                                                         '';
+                                                 }
+                                             });
+                                         $('.entrance_subcat')
+                                             .on('click',
+                                                 function() {
+                                                     var subcat_id =
+                                                         $(this)
+                                                         .data(
+                                                             'id'
+                                                         );
+                                                     var module =
+                                                         $(this)
+                                                         .text();
+                                                     $.ajax({
+                                                         type: "POST",
+                                                         url: "{{ route('getEntranceexam') }}",
+                                                         data: {
+                                                             _token: "{{ csrf_token() }}",
+                                                             subcat_id: subcat_id
+                                                         },
+                                                         dataType: 'json',
+                                                         success: function(
+                                                             response
+                                                         ) {
+                                                             if (response
+                                                                 .length >
+                                                                 0
+                                                             ) {
+                                                                 $('#chatbot_messages')
+                                                                     .append(
+                                                                         '<li class="is-user animation">' +
+                                                                         '<p class="chatbot__message" style="font-size: 13px; text-align: right;">' +
+                                                                         module +
+                                                                         '</p>' +
+                                                                         '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
+                                                                         '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
+                                                                         '<img src="' +
+                                                                         image +
+                                                                         '" width="35">' +
+                                                                         '</div>' +
+                                                                         '</li>'
+                                                                     );
+
+                                                                 let row =
+                                                                     '';
+
+                                                                 // Loop through each entranceexam and create a row with 2 items per line
+                                                                 response
+                                                                     .forEach(
+                                                                         function(
+                                                                             entranceexam,
+                                                                             index
+                                                                         ) {
+                                                                             row +=
+                                                                                 '<a href="' +
+                                                                                 entranceexam
+                                                                                 .url +
+                                                                                 '" target="_blank" class="btn btn-sm btn-primary subcategory-btn" data-id="' +
+                                                                                 entranceexam
+                                                                                 .id +
+                                                                                 '" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10pcx;">' +
+                                                                                 entranceexam
+                                                                                 .exam_name +
+                                                                                 '</a>';
+
+                                                                             // Check if two items are in the row or it's the last item
+                                                                             if ((index +
+                                                                                     1
+                                                                                 ) %
+                                                                                 2 ===
+                                                                                 0 ||
+                                                                                 index ===
+                                                                                 response
+                                                                                 .length -
+                                                                                 1
+                                                                             ) {
+                                                                                 $('#chatbot_messages')
+                                                                                     .append(
+                                                                                         '<div style="display: flex; margin-bottom: 5px;">' +
+                                                                                         row +
+                                                                                         '</div>'
+                                                                                     );
+                                                                             }
+                                                                         }
+                                                                     );
+                                                             } else {
+                                                                 $('#chatbot_messages')
+                                                                     .append(
+                                                                         '<li class="is-user animation">' +
+                                                                         '<p class="chatbot__message" style="font-size: 13px; text-align: right;">' +
+                                                                         module +
+                                                                         '</p>' +
+                                                                         '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
+                                                                         '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
+                                                                         '<img src="' +
+                                                                         image +
+                                                                         '" width="35">' +
+                                                                         '</div>' +
+                                                                         '</li>' +
+                                                                         '<li class="is-ai animation">' +
+                                                                         '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
+                                                                         '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
+                                                                         '</div>' +
+                                                                         '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
+                                                                         '<p class="chatbot__message" style="font-size: 13px; margin-top: 10px;">No Entrance Exam Available</p>' +
+                                                                         '</li>'
+                                                                     );
+                                                             }
+                                                         },
+                                                     });
+                                                 })
+                                     },
+                                 });
+                             });
+                         },
+                     });
+                 }
              });
-             // AJAX call to fetch sucategories from the server
-             $(document).one('click', '.subcategory-btn', function() {
-                 var category_id = $(this).data('id');
-                 var category = $(this).text();
+
+
+             $(document).on('click', '.country-btn', function() {
+                 var country_id = $(this).data('id');
+                 var module = $(this).text();
+
                  $.ajax({
                      type: "POST",
-                     url: '{{ route('get_subcategory') }}',
+                     url: '{{ route('getState') }}',
                      data: {
-                         'category_id': category_id,
-                         _token: "{{ csrf_token() }}"
+                         _token: "{{ csrf_token() }}",
+                         country_id: country_id
                      },
                      dataType: 'json',
                      success: function(response) {
-                         let gender = $(this).attr('name');
-                         let image = gender === "boy" ?
-                             "{{ asset('assets/presets/themesFive/boy.png') }}" :
-                             "{{ asset('assets/presets/themesFive/girl.png') }}";
+                         console.log(response);
 
                          $('#chatbot_messages').append(
                              '<li class="is-user animation">' +
                              '<p class="chatbot__message" style="font-size: 13px; text-align: right;">' +
-                             category + '</p>' +
+                             module + '</p>' +
                              '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
                              '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
-                             '<img src="' + image + '" width="35">' +
+                             '<img src="' + image +
+                             '" width="35">' +
                              '</div>' +
-                             '</li>' +
+                             '</li>'
+                         );
 
+                         let row = '';
+                         // Loop through country data, adding only unique country names
+
+                         row +=
                              '<li class="is-ai animation">' +
                              '<div class="is-ai__profile-picture" style="margin-top: 6px;">' +
                              '<i class="fa-solid fa-robot" style="font-size:25px;"></i>' +
                              '</div>' +
                              '<span class="chatbot__arrow chatbot__arrow--left"></span>' +
-                             '<p class="chatbot__message" style="font-size: 13px; margin-top: 10px;">Please Choose the Career Option from below.</p>' +
-                             '</li>'
+                             '<p class="chatbot__message">' +
+                             '<select class="get_type" style="font-size: 13px; width: 100%; margin-top: 5px;">' +
+                             '<option value="">-- Select an State --</option>';
+                         response.forEach(function(state) {
+                             row += '<option value="' + state
+                                 .id + '">' +
+                                 state.name + '</option>';
+                         });
+
+                         row += '</select>' +
+                             '</p>' +
+                             '</li>';
+
+                         $('#chatbot_messages').append(
+                             '<div style="display: flex; margin-bottom: 5px;">' +
+                             row + '</div>'
                          );
 
-                         let row = '';
+                     },
+                     error: function(xhr, status, error) {
+                         console.error('Error:', error);
+                     }
+                 });
+             });
 
-                         // Loop through each category and create a row with 2 items per line
-                         response.forEach(function(subcategory, index) {
-                             // Create the URL for each subcategory
-                             let subcategoryUrl =
-                                 "{{ route('user.viewSubcategory', ':id') }}"
-                                 .replace(':id', subcategory.id);
-                             let redirectUrl = encodeURIComponent(
-                                 "{{ route('user.scholarship.view') }}");
+             $(document).on('change', '.get_type', function() {
+                 var state_id = $(this).val();
 
-                             row +=
-                                 '<a href="' + subcategoryUrl +
-                                 '?redirect_to=' + redirectUrl + '" ' +
-                                 'class="btn btn-sm btn-primary" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;">' +
-                                 subcategory.title + '</a>';
+                 $('#chatbot_messages').append(
+                     '<div id="chatbot_messages">' +
+                     '<div style="display: flex; margin-bottom: 5px;">' +
+                     '<a class="btn btn-sm btn-primary type-btn" target="blank" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px;" data-id="0">Government</a>' +
+                     '<a class="btn btn-sm btn-primary type-btn" target="blank" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none;" data-id="1">Private</a>' +
+                     '</div>' +
+                     '</div>'
+                 );
 
-                             // Check if two items are in the row or it's the last item
-                             if ((index + 1) % 2 === 0 || index === response
-                                 .length - 1) {
+                 $('.type-btn').on('click',
+                     function() {
+                         var module = $(this).text();
+                         var type_id = $(this).data('id');
+
+                         $.ajax({
+                             type: "POST",
+                             url: '{{ route('Institute_type') }}',
+                             data: {
+                                 _token: "{{ csrf_token() }}",
+                                 state_id: state_id,
+                                 type_id: type_id
+                             },
+                             dataType: 'json',
+                             success: function(response) {
+                                 console.log(response);
+
+                                 let instituteType = response
+                                     .institute_type ||
+                                     'Unknown Institute Type';
+
+                                 $('#chatbot_messages').append(
+                                     '<li class="is-user animation">' +
+                                     '<p class="chatbot__message" style="font-size: 13px; text-align: right;">' +
+                                     module + '</p>' +
+                                     '<span class="chatbot__arrow chatbot__arrow--right"></span>' +
+                                     '<div class="is-user__profile-picture" style="margin-top: 6px;">' +
+                                     '<img src="' + image +
+                                     '" width="35">' +
+                                     '</div>' +
+                                     '</li>'
+                                 );
+
+                                 let row = '';
+                                 row += '<div class="row">';
+                                 response.forEach(function(
+                                     institute_type) {
+                                     row +=
+                                         '<div class="col-md-12" style="display: flex; flex-wrap: wrap;">' +
+                                         '<a href="' +
+                                         institute_type
+                                         .url +
+                                         ' " target="_blank" class="btn btn-sm btn-primary" target="blank" style="flex: 1; color: #fff; font-size: 13px; text-decoration: none; margin-right: 10px; margin-bottom: 5px; ">' +
+                                         institute_type
+                                         .name + '</a>' +
+                                         '</div>';
+                                 });
+                                 row += '</div>';
+
+
                                  $('#chatbot_messages').append(
                                      '<div style="display: flex; margin-bottom: 5px;">' +
                                      row + '</div>'
                                  );
-                                 row = '';
+                             },
+                             error: function(xhr, status, error) {
+                                 console.error('Error:', error);
                              }
                          });
-                     },
-                 });
+                     });
              });
          });
      });
