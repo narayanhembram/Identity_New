@@ -21,6 +21,7 @@
         grid-auto-flow: row;
         grid-template-rows: min-content;
         grid-gap: 24px;
+        width: 100vh;
     }
 
     .artist-list {
@@ -205,6 +206,11 @@
     z-index: 2; /* Position it above the pseudo-element */
 }
 
+.view_more{
+    margin-left: 40px;
+    margin-bottom: 15px;
+}
+
 </style>
 {{-- <section class="plan py-3">
     <div class="container">
@@ -321,14 +327,14 @@
                     <div class="inner">
                         <div class="bio">
                             <h2 style="color: #fff">{{ $data->title }}</h2>
-                            <p>{{ $data->description }}</p>
-                            <a href="{{ $data->link }}"
-                                target="_blank" class="artist-profile-link">
-                                <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Explore Us"
-                                    width="176" loading="lazy" />
-                            </a>
+                            <p style="color: #fff">{{ $data->description }}</p>
                         </div>
                     </div>
+                    <a href="{{ $data->link }}"
+                        target="_blank" class="btn btn-info view_more">
+                        {{-- <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Explore Us"
+                            width="176" loading="lazy" /> --}} View More
+                    </a>
                 </div>
             </li>
         @endforeach

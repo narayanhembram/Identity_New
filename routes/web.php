@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\ChatBotController;
+use App\Http\Controllers\User\GoogleCalenderController;
 use App\Lib\Router;
 use App\Models\Module;
 use Illuminate\Support\Facades\Route;
@@ -70,5 +71,11 @@ Route::controller('SiteController')->group(function () {
     Route::post('get_state', [ChatBotController::class, 'getState'])->name('getState');
     Route::post('institute_type', [ChatBotController::class, 'Institute_type'])->name('Institute_type');
     Route::post('store', [ChatBotController::class, 'storeUser'])->name('storeUser');
+
+    //Google Calender
+    Route::get('google/redirect', [GoogleCalenderController::class, 'redirectToGoogle']);
+    Route::get('google/callback', [GoogleCalenderController::class, 'handleGoogleCallback']);
+    Route::get('calendar/events', [GoogleCalenderController::class, 'listEvents']);
+    Route::post('calendar/event/create', [GoogleCalenderController::class, 'createEvent']);
 });
 // Route::match(['get', 'post'], '/botman/web', [BotManController::class,'handle']);
