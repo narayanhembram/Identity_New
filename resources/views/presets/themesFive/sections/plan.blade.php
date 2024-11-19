@@ -207,8 +207,9 @@
 }
 
 .view_more{
-    margin-left: 40px;
-    margin-bottom: 15px;
+    /* margin-left: 40px;
+    margin-bottom: 15px; */
+    width: 150px;
 }
 
 </style>
@@ -317,6 +318,7 @@
         </div>
     </div>
 </section> --}}
+
 <section class="plan py_25">
     <ul class="artist-list" id="artist-list">
         @foreach (App\Models\Careerplan::all() as $data)
@@ -328,13 +330,13 @@
                         <div class="bio">
                             <h2 style="color: #fff">{{ $data->title }}</h2>
                             <p style="color: #fff">{{ $data->description }}</p>
+                            <a href="{{ $data->link }}"
+                                target="_blank" class="btn btn-info view_more">
+                                    View More
+                            </a>
                         </div>
                     </div>
-                    <a href="{{ $data->link }}"
-                        target="_blank" class="btn btn-info view_more">
-                        {{-- <img src="https://assets.codepen.io/152347/spotify-badge.svg" alt="Explore Us"
-                            width="176" loading="lazy" /> --}} View More
-                    </a>
+
                 </div>
             </li>
         @endforeach
