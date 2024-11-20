@@ -221,4 +221,16 @@ class TeamController extends Controller
         $notify[] = ['success', 'Booking Status Updated successfully'];
         return to_route('admin.team.bookings')->withNotify($notify);
     }
+    public function updatetime(Request $request)
+    {
+        $updatetime = Booking::find($request->id);
+        // $updatetime->user_id = Auth::id();
+        // $updatetime->team_id = $request->team_id;
+        $updatetime->date = $request->date;
+        $updatetime->time = $request->time;
+        $updatetime->save();
+
+        $notify[] = ['success', 'Booking Reschedule Succesfully Done'];
+        return redirect()->back()->withNotify($notify);
+    }
 }

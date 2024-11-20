@@ -174,6 +174,7 @@ Route::middleware('admin')->group(function () {
         Route::get('/bookings', 'bookings')->name('bookings');
         Route::get('/editbookings{id}', 'editbooking')->name('editbooking');
         Route::post('/updatebookings', 'updatebookings')->name('updatebookings');
+        Route::post('/updatetime', 'updatetime')->name('updatetime');
     });
 
     //Brand Logo

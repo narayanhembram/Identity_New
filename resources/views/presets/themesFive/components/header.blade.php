@@ -256,13 +256,13 @@
                 action=" {{ Route('admin.ibutton.store') }} ">
                 @csrf
                 <div class="field-control-group">
-                    <input type="text" placeholder="Full Name" name="name" maxlength="100" required>
+                    <input type="text" class="form-control" placeholder="Full Name" name="name" maxlength="100" required>
                 </div>
                 <div class="field-control-group">
-                    <input type="email" placeholder="Email ID" name="email" maxlength="100" required>
+                    <input type="email" class="form-control" placeholder="Email ID" name="email" maxlength="100" required>
                 </div>
                 <div class="field-control-group">
-                    <input type="text" placeholder="Phone No." name="phone" maxlength="10" required>
+                    <input type="text" class="form-control" placeholder="Phone No." name="phone" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);"  required>
                 </div>
                 <div class="field-control-group">
                     <textarea placeholder="Anything we need to know?" name="note" maxlength="2000" style="height: 100px;"></textarea>

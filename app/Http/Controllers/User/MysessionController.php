@@ -63,6 +63,8 @@ class MysessionController extends Controller
         return redirect()->route('user.mysession.team_pay',$request->team_id)->withNotify($notify);
     }
 
+    
+
     public function team_pay($id)
     {
         $pageTitle = 'Payment';

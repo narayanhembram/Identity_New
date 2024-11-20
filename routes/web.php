@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\ChatBotController;
+use App\Http\Controllers\User\GoogleAuthController;
 use App\Http\Controllers\User\GoogleCalenderController;
 use App\Lib\Router;
 use App\Models\Module;
@@ -77,5 +78,10 @@ Route::controller('SiteController')->group(function () {
     Route::get('google/callback', [GoogleCalenderController::class, 'handleGoogleCallback']);
     Route::get('calendar/events', [GoogleCalenderController::class, 'listEvents']);
     Route::post('calendar/event/create', [GoogleCalenderController::class, 'createEvent']);
+
+    //Google Zoom Meeting
+    // routes/web.php
+    Route::get('oauth2/redirect', [GoogleAuthController::class, 'redirect']);
+    Route::get('oauth2/callback', [GoogleAuthController::class, 'callback']);
 });
 // Route::match(['get', 'post'], '/botman/web', [BotManController::class,'handle']);
