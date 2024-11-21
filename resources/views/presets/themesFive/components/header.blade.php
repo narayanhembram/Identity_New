@@ -178,6 +178,14 @@
         font-size: 20px;
         padding-right: 5px;
     }
+
+    .team-btn{
+        margin-right: 10px;
+    }
+
+    .team-btn a {
+        border-radius: 5%;
+    }
 </style>
 
 <!-- ==================== Header End Here ==================== -->
@@ -299,6 +307,8 @@
         </div>
     </div>
 </div>
+
+
 
 <header id="header" class="header d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
@@ -424,6 +434,17 @@
                             9108510058</button> </a></li> --}}
             </ul>
             &nbsp; &nbsp; &nbsp;&nbsp;
+            <div class="team-btn">
+                <a class="btn btn-info mt-2 mt-lg-0" style="color: #fff"
+                    href="{{ route('member_registration') }}"> Team Register </a>
+                {{-- @auth
+                    <a class="btn--base mt-2 mt-lg-0" href="{{ route('user.home') }}"
+                        onclick="toggleLightbox(event)">Dashboard</a>
+                @else
+                    <a class="btn--base mt-2 mt-lg-0" href="{{ route('user.login') }}" onclick="toggleLightbox(event)">Sign
+                        In</a>
+                @endauth --}}
+            </div>
             <div class="auth-buttons">
                 <a class="btn btn-primary mt-2 mt-lg-0 login-btn" style="color: #fff"
                     href="{{ route('user.login') }}" onclick="toggleLightbox(event)">Log

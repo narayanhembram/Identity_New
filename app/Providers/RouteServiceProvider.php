@@ -26,39 +26,45 @@ class RouteServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        $this->configureRateLimiting();
+{
+    $this->configureRateLimiting();
 
-        $this->routes(function () {
-            Route::namespace($this->namespace)->group(function(){
-                Route::prefix('api')
-                    ->middleware('api')
-                    ->group(base_path('routes/api.php'));
+    $this->routes(function () {
+        Route::namespace($this->namespace)->group(function(){
+            // API Routes
+            Route::prefix('api')
+                ->middleware('api')
+                ->group(base_path('routes/api.php'));
 
-                Route::middleware('web')
-                    ->namespace('Gateway')
-                    ->prefix('ipn')
-                    ->name('ipn.')
-                    ->group(base_path('routes/ipn.php'));
+            // IPN Routes
+            Route::middleware('web')
+                ->namespace('Gateway')
+                ->prefix('ipn')
+                ->name('ipn.')
+                ->group(base_path('routes/ipn.php'));
 
-                Route::middleware('web')
-                    ->namespace('Admin')
-                    ->prefix('admin')
-                    ->name('admin.')
-                    ->group(base_path('routes/admin.php'));
+            // Admin Routes
+            Route::middleware('web')
+                ->namespace('Admin')
+                ->prefix('admin')
+                ->name('admin.')
+                ->group(base_path('routes/admin.php'));
 
-                Route::middleware('web')
-                    ->prefix('user')
-                    ->group(base_path('routes/user.php'));
+            // User Routes
+            Route::middleware('web')
+                ->prefix('user')
+                ->group(base_path('routes/user.php'));
 
-                Route::middleware('web')
-                    ->group(base_path('routes/web.php'));
+            // Member Routes
+            Route::middleware('web') // Add a prefix for member routes
+                ->group(base_path('routes/member.php')); // Add the member routes file
 
-            });
-
+            // Web Routes
+            Route::middleware('web')
+                ->group(base_path('routes/web.php'));
         });
-    }
-
+    });
+}
     /**
      * Configure the rate limiters for the application.
      *

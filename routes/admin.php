@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\IButtonController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\Admin\SubcategoryController;
 
 Route::namespace('Auth')->group(function () {
     Route::controller('LoginController')->group(function () {

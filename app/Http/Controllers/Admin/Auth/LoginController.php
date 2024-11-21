@@ -77,6 +77,9 @@ class LoginController extends Controller
 
 
 
+        // $admin = Auth::guard('admin')->user();
+        // if ($admin && $admin->user_type === 0) {
+
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
