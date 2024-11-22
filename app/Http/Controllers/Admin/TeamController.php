@@ -205,7 +205,13 @@ class TeamController extends Controller
     public function bookings()
     {
         $pageTitle = 'Bookings';
-        $bookings = Booking::all();
+        if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->user_type === 0){
+            $bookings = Booking::with('team')->with('getUser')->orderBy('id','desc')->get();
+        } else {
+            // dd(Auth::guard('admin')->user()->id);
+            $bookings = Booking::where('team_id',Auth::guard('admin')->user()->id)->where('approve_status',1)->with('team')->with('getUser')->orderBy('id','desc')->get();
+
+        }
         return view('admin.booking.list' , compact('pageTitle','bookings'));
     }
     public function editbooking($id)
