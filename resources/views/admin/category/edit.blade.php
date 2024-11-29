@@ -49,6 +49,20 @@
                                 </div>
                             </div>
 
+                            <div class="form-group col-lg-6">
+                                <label for="is_upgrade" class="form-label">Category Access</label>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="default" name="is_upgrade" value="0" {{ ($edit->is_upgrade === 0) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="default">Free</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="is_upgrade" name="is_upgrade" value="1" {{ ($edit->is_upgrade === 1) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="is_upgrade">Premium</label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-lg-12 ">
                                 <div class="form-group float-end p-3">
                                     <button type="submit" class="btn btn--primary btn-block btn-lg">

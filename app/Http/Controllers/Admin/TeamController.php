@@ -22,7 +22,7 @@ class TeamController extends Controller
     {
         $pageTitle = 'Add new member';
         $categories = Category::all();
-        return view('admin.team.add', compact('pageTitle','categories'));
+        return view('admin.team.add', compact('pageTitle', 'categories'));
     }
 
     public function Store(Request $request)
@@ -110,7 +110,7 @@ class TeamController extends Controller
         $edit = Team::find($id);
         $categories = Category::all();
         $subcategories = Subcategory::all();
-        return view('admin.team.edit', compact('edit', 'pageTitle','categories','subcategories'));
+        return view('admin.team.edit', compact('edit', 'pageTitle', 'categories', 'subcategories'));
     }
 
     public function update(Request $request)
@@ -192,36 +192,37 @@ class TeamController extends Controller
 
     public function delete(Request $request)
     {
-        $delete= Team::find($request->id);
-        if($delete){
+        $delete = Team::find($request->id);
+        if ($delete) {
             $delete->delete();
             $notify[] = ['success', 'Member has been Deleted successfully'];
             return back()->withNotify($notify);
         }
         $notify[] = ['error', 'Something wents wrong.'];
-            return back()->withNotify($notify);
+        return back()->withNotify($notify);
     }
 
     public function bookings()
     {
         $pageTitle = 'Bookings';
-        if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->user_type === 0){
-            $bookings = Booking::with('team')->with('getUser')->orderBy('id','desc')->get();
+        if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->user_type === 0) {
+            $bookings = Booking::with('team')->with('getUser')->orderBy('id', 'desc')->get();
         } else {
             // dd(Auth::guard('admin')->user()->id);
-            $bookings = Booking::where('team_id',Auth::guard('admin')->user()->id)->where('approve_status',1)->with('team')->with('getUser')->orderBy('id','desc')->get();
-
+            $bookings = Booking::where('member_id', Auth::guard('admin')->user()->id)->where('status', 1)->orderBy('id', 'desc')->get();
+            // dd($bookings);
         }
-        return view('admin.booking.list' , compact('pageTitle','bookings'));
+        return view('admin.booking.list', compact('pageTitle', 'bookings'));
     }
     public function editbooking($id)
     {
         $pageTitle = 'Edit Booking';
         $edit_booking = Booking::find($id);
-        return view('admin.booking.edit' , compact('pageTitle','edit_booking'));
+        return view('admin.booking.edit', compact('pageTitle', 'edit_booking'));
     }
-    public function updatebookings(Request $request){
-        $update_booking =Booking::find($request->id);
+    public function updatebookings(Request $request)
+    {
+        $update_booking = Booking::find($request->id);
         $update_booking->status = $request->status;
         $update_booking->save();
         $notify[] = ['success', 'Booking Status Updated successfully'];
@@ -234,9 +235,20 @@ class TeamController extends Controller
         // $updatetime->team_id = $request->team_id;
         $updatetime->date = $request->date;
         $updatetime->time = $request->time;
+        $updatetime->approve_status = 1;
         $updatetime->save();
 
-        $notify[] = ['success', 'Booking Reschedule Succesfully Done'];
+        $notify[] = ['success', 'Booking Reschedule Succesfully'];
+        return redirect()->back()->withNotify($notify);
+    }
+
+    public function member_approve(Request $request)
+    {
+        $booking = Booking::find($request->id);
+        $booking -> approve_status = 1;
+        $booking->save();
+
+        $notify[] = ['success', 'Approved'];
         return redirect()->back()->withNotify($notify);
     }
 }

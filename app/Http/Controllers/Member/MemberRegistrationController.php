@@ -9,6 +9,7 @@ use App\Models\Subcategory;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class MemberRegistrationController extends Controller
@@ -22,6 +23,13 @@ class MemberRegistrationController extends Controller
 
     public function Store(Request $request)
     {
+        $user = new Admin();
+        $user->username = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->user_type = 1;
+        $user->save();
+
         $store = new Team();
         $request->validate([
             'category_id' => 'required',
@@ -94,14 +102,9 @@ class MemberRegistrationController extends Controller
         $store->emergency_contact = $request->emergency_contact;
         $store->status = $request->input('status', 0);
         $store->description = $request->description;
+        $store->member_id = $user->id;
         $store->save();
 
-        $user = new Admin();
-        $user->username = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->user_type = 1;
-        $user->save();
 
         $notify[] = ['success', 'Member has been created successfully'];
         return to_route('admin.team.list')->withNotify($notify);

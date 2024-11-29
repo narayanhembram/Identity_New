@@ -49,10 +49,10 @@
                             data-bs-target="#exampleModal">Book Now</button>
                         <br>
                         <div class="d-flex justify-content-center mt-3">
-                            <a href="{{ route('user.mysession.team_pay', $booking->team_id) }}" class="btn btn-info"
+                            {{-- <a href="{{ route('user.mysession.team_pay', $booking->team_id) }}" class="btn btn-info"
                                 style="font-size: 13px; padding: 4px 9px; width: auto; height: auto;">
                                 Payment Details
-                            </a>
+                            </a> --}}
                         </div>
 
 
@@ -73,6 +73,8 @@
                                             <div class="mb-3">
                                                 <input type="hidden" class="form-control" name="team_id"
                                                     value="{{ $view_team->id }}">
+                                                <input type="hidden" class="form-control" name="member_id"
+                                                    value="{{ $view_team->member_id }}">
                                                 <label for="name" class="form-label">Date</label>
                                                 <input type="date" class="form-control" name="date" required>
                                             </div>

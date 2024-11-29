@@ -12,6 +12,7 @@
                                     <th>@lang('Title')</th>
                                     <th>@lang('File')</th>
                                     <th>@lang('Description')</th>
+                                    <th>@lang('Is_Upgrade')</th>
                                     <th>@lang('Action')</th>
                                 </tr>
                             </thead>
@@ -21,13 +22,21 @@
                                         {{-- <td>{{ $category->getModule->title }}</td> --}}
                                         <td>{{ $category->title }}</td>
                                         <td>
-                                            <img src="{{ asset('Category/' . $category->file) }}" width="100" alt="">
+                                            <img src="{{ asset('Category/' . $category->file) }}" width="100"
+                                                alt="">
                                         </td>
                                         <td>{{ Str::limit($category->description, 50) }}</td>
-
                                         <td>
-                                            <a href="{{ route('admin.category.edit', $category->id) }}" title="@lang('Edit')"
-                                                data-id="{{ $category->id }}" class="btn btn-sm btn--primary ">
+                                            @if ($category->is_upgrade === 0)
+                                                <span>Free</span>
+                                            @else
+                                                <span>Upgrade</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.category.edit', $category->id) }}"
+                                                title="@lang('Edit')" data-id="{{ $category->id }}"
+                                                class="btn btn-sm btn--primary ">
                                                 <i class="las la-edit"></i>
                                             </a>
                                             <button title="@lang('Remove')" data-id="{{ $category->id }}"

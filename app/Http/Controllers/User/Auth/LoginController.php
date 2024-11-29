@@ -4,9 +4,10 @@ namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserLogin;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -68,11 +69,10 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-
+        // dd($this->attemptLogin($request));
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
-
         $this->incrementLoginAttempts($request);
 
 
