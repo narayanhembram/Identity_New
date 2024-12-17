@@ -23,7 +23,7 @@
                 @foreach ($subcategories as $subcategory)
                     <div class="col-lg-3 col-md-6 mt-5">
                         <div class="card category-card" style="text-align:center; overflow:hidden">
-                            <a href=" {{ route('user.viewSubcategory', $subcategory->id) }} ">
+                            <a href=" {{ route('user.masterclass.videos', $subcategory->id) }} ">
                                 <div class="mt-3">
                                     <img src="{{ asset('subcategory/' . $subcategory->file) }}" class="category-image"
                                         style="height: 150px; width:180px">

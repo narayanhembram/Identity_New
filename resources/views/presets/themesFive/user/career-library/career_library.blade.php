@@ -36,12 +36,12 @@
                         <div class="card category-card position-relative"
                             style="text-align:center; height:320px; overflow:hidden">
                             <a href="{{ route('user.subcategory', $category->id) }}">
-                                @if ($category->is_upgrade == 1)
+                                {{-- @if ($category->is_upgrade == 1) --}}
 
-                                <img src="{{ asset('assets/images/user/crown_12645036.png') }}" alt="Crown Icon"
+                                {{-- <img src="{{ asset('assets/images/user/crown_12645036.png') }}" alt="Crown Icon"
                                     class="crown-icon position-absolute"
-                                    style="top: 10px; right: 10px; width: 40px; height: auto; z-index: 2;">
-                                @endif
+                                    style="top: 10px; right: 10px; width: 40px; height: auto; z-index: 2;"> --}}
+                                {{-- @endif --}}
 
                                 <div class="mt-3">
                                     <img src="{{ asset('category/' . $category->file) }}" class="category-image"
@@ -56,7 +56,6 @@
                     </div>
                 @endforeach
             </div>
-
         </div>
     </div>
     @if (session('error'))

@@ -2,6 +2,55 @@
     $languages = App\Models\Language::all();
     $user = auth()->user();
 @endphp
+<style>
+    /* Button Styling */
+    .glowing-btn {
+        position: relative;
+        background: linear-gradient(90deg, #ffd700, #f9a602);
+        /* Yellow gradient */
+        color: #000;
+        /* Black text for contrast */
+        font-weight: bold;
+        padding: 12px 30px;
+        text-align: center;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    /* Glow Effect */
+    .glowing-btn::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(90deg, #fffacd, #ffeb3b, #ffdd00);
+        /* Light to vibrant yellow gradient */
+        z-index: -1;
+        filter: blur(4px);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Hover Effects */
+    .glowing-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .glowing-btn:hover::before {
+        opacity: 1;
+    }
+
+    /* Active State */
+    .glowing-btn:active {
+        transform: scale(0.95);
+    }
+</style>
 <nav class="navbar-wrapper">
     <div class="navbar-wrapper-area" style="justify-content: unset;">
         <div class="col-md-2">
@@ -61,10 +110,22 @@
                         </a>
                     </div>
                 </li>
-                <li class="sidebar-menu-item btn btn-warning ">
-                    <a href="">
+                {{-- <li class="sidebar-menu-item btn btn-warning ">
+                    <a href="{{ route('user.upgradeplanupgrade') }}">
                         <span class="menu-title">@lang('Upgrade')</span>
                     </a>
+                </li> --}}
+                <li
+                    class="sidebar-menu-item {{ Auth::check() && Auth::user()->is_upgrade ? 'btn btn-warning glowing-btn' : 'btn btn-warning' }}">
+                    @if (Auth::check() && Auth::user()->is_upgrade)
+                        <a href="{{ route('user.upgradeplanupgrade') }}">
+                            <span class="menu-title">{{ Auth::user()->getUpgrade->plan_name }}</span>
+                        </a>
+                    @else
+                        <a href="{{ route('user.upgradeplanupgrade') }}">
+                            <span class="menu-title">@lang('Upgrade')</span>
+                        </a>
+                    @endif
                 </li>
             </ul>
         </div>

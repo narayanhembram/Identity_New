@@ -49,6 +49,16 @@
                                 </div>
                             </div>
 
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="is_free" class="font-weight-bold">@lang('Is Free')</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="is_free" id="is_free" class="form-check-input">
+                                        <label class="form-check-label" for="is_free">@lang('Mark as Free')</label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="type" class="font-weight-bold">@lang('Long Description')</label>

@@ -37,6 +37,7 @@ class ModuleController extends Controller
         $store->btn_text = $request->btn_text;
         $store->url = $request->url;
         $store->position = $request->position;
+        $store->is_free = $request->has('is_free');
         $store->save();
 
         $notify[] = ['success', 'Module has been created successfully'];
@@ -65,6 +66,7 @@ class ModuleController extends Controller
         $update->btn_text = $request->btn_text;
         $update->url = $request->url;
         $update->position = $request->position;
+        $update->is_free = $request->has('is_free');
         $update->save();
 
         $notify[] = ['success', 'Module has been updated successfully'];

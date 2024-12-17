@@ -213,6 +213,16 @@ Route::middleware('admin')->group(function () {
         Route::post('/delete', 'delete')->name('delete');
     });
 
+    //UpgradePlan Controller
+    Route::controller('UpgradePlanController')->name('upgradeplan.')->prefix('upgradeplan')->group(function () {
+        Route::get('/list', 'list')->name('list');
+        Route::get('/add', 'Add')->name('add');
+        Route::post('/store', 'Store')->name('Store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+
 
     //Countries
     Route::controller('CountryController')->name('countries.')->prefix('countries')->group(function () {

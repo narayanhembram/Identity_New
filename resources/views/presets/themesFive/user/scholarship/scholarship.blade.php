@@ -205,6 +205,68 @@
     }
 </style>
 
+<style>
+    /* Card style for the scholarships */
+    .scholarship-item {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgb(128, 70, 70), #8b0000);
+        /* Gradient background */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        height: 100%;
+    }
+
+    .scholarship-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+        /* Title text color */
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .scholarship-description {
+        font-size: 1rem;
+        color: #ddd;
+        /* Adjusted for better visibility on the maroon gradient */
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .explore-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: white;
+        /* Text color */
+        background-color: #ffc107;
+        /* Bootstrap yellow */
+        border-radius: 5px;
+        font-weight: 600;
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .explore-btn:hover {
+        background-color: #e0a800;
+        /* Darker yellow for hover */
+        transform: scale(1.05);
+    }
+
+    .scholarship-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 767px) {
+        .scholarship-item {
+            margin-bottom: 20px;
+        }
+    }
+</style>
+
 @section('content')
     <div class="body-wrapper">
         <div class="container mt-3 mb-5">
@@ -242,15 +304,22 @@
 
                     <div class="mt-5">
                         <h5>Scholarships</h5>
-                        <div id="scholarshiplist">
+                        <div id="scholarshiplist" class="row">
                             @foreach ($scholarship as $data)
-                                <div class="scholarship-item">
-                                    <div class="scholarship-title">
-                                        {{ $data->name }}
-                                    </div>
-                                    <div class="mt-3">
-                                        Explore: <a href="{{ $data->url }}" target="_blank" class="explore-link">Visit
-                                            Now</a>
+                                <div class="col-md-4 mb-3">
+                                    <div class="scholarship-item card">
+                                        <div class="card-body">
+                                            <h6 class="scholarship-title">{{ $data->name }}</h6>
+                                            <div class="mt-3 text-center">
+                                                <span class="text-white">Explore:</span>
+                                                <a href="{{ $data->url }}" target="_blank"
+                                                    class="btn btn-warning fw-bold">
+                                                    Visit Now
+                                                </a>
+                                            </div>
+
+
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -258,101 +327,238 @@
                     </div>
                 </div>
             </div>
-        @endsection
+        </div>
+    </div>
+@endsection
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> --}}
-        <script>
-            $(document).ready(function() {
+{{-- <script>
+    $(document).ready(function() {
+        $('.get_class').hide();
+        $('#type-select').change(function() {
+            var selectedType = $(this).val();
+            if (selectedType === 'State') {
+                $('.get_class').show();
+            } else {
                 $('.get_class').hide();
-                $('#type-select').change(function() {
-                    var selectedType = $(this).val();
-                    if (selectedType === 'State') {
-                        $('.get_class').show();
+            }
+        });
+
+        $(document).on('change', '#type-select', function() {
+            var type = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "{{ route('user.scholarship.getType') }}",
+                data: {
+                    'type': type,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $('#scholarshiplist').empty();
+                    if (response.length === 0) {
+                        $('#scholarshiplist').append(
+                            '<div class="col-12 text-center mt-5"><h6>No scholarships are available in this selected type.</h6></div>'
+                        );
                     } else {
-                        $('.get_class').hide();
+                        $.each(response, function(key, scholarship) {
+                            var scholarshipCard =
+                                '<div class="scholarship-item">' +
+                                '<div class="scholarship-title">' +
+                                scholarship.name +
+                                '</div>' +
+                                '<div class="mt-3">' +
+                                'Explore: <a href="' + scholarship.url +
+                                '" target="_blank" class="explore-link">Visit Now</a>' +
+                                '</div>' +
+                                '</div>';
+                            $('#scholarshiplist').append(scholarshipCard);
+                        });
+                    }
+
+                    $('.pagination').hide();
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);
+                }
+            });
+        });
+
+        $(document).on('change', '#class-select', function() {
+            var classes = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "{{ route('user.scholarship.getClass') }}",
+                data: {
+                    'classes': classes,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $('#scholarshiplist').empty();
+                    if (response.length === 0) {
+                        $('#scholarshiplist').append(
+                            '<div class="col-12 text-center mt-5"><h6>No scholarships are available in this selected type.</h6></div>'
+                        );
+                    } else {
+                        $.each(response, function(key, scholarship) {
+                            var scholarshipCard =
+                                '<div class="scholarship-item">' +
+                                '<div class="scholarship-title">' +
+                                scholarship.name +
+                                '</div>' +
+                                '<div class="mt-3">' +
+                                'Explore: <a href="' + scholarship.url +
+                                '" target="_blank" class="explore-link">Visit Now</a>' +
+                                '</div>' +
+                                '</div>';
+                            $('#scholarshiplist').append(scholarshipCard);
+                        });
+                    }
+
+                    $('.pagination').hide();
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + status + error);
+                }
+            });
+        });
+    });
+</script> --}}
+
+<script>
+    $(document).ready(function() {
+        $('.get_class').hide();
+        $('#type-select').change(function() {
+            var selectedType = $(this).val();
+            if (selectedType === 'State') {
+                $('.get_class').show();
+            } else {
+                $('.get_class').hide();
+            }
+        });
+        $(document).ready(function() {
+            $(document).on('change', '#type-select', function() {
+                var type = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('user.scholarship.getType') }}",
+                    data: {
+                        'type': type,
+                        'is_upgrade': userUpgradeStatus,
+                        'plan': userPlan,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#scholarshiplist').empty();
+
+                        if (response.length === 0) {
+                            $('#scholarshiplist').append(
+                                '<div class="col-12 text-center mt-5"><h6>No scholarships are available for the selected type.</h6></div>'
+                            );
+                        } else {
+                            $.each(response, function(key, scholarship) {
+                                var badge = scholarship.is_free ?
+                                    '<span class="badge bg-success">Free</span>' :
+                                    '<span class="badge bg-danger">Restricted</span>';
+
+                                var scholarshipCard =
+                                    '<div class="col-md-4 mb-3">' +
+                                    '<div class="scholarship-item card">' +
+                                    '<div class="card-body">' +
+                                    '<h6 class="scholarship-title">' +
+                                    scholarship.name + ' ' + badge +
+                                    '</h6>' +
+                                    '<div class="mt-3 text-center">' +
+                                    '<span class="text-white">Explore:</span> ' +
+                                    (scholarship.is_free ||
+                                        userUpgradeStatus ?
+                                        '<a href="' + scholarship.url +
+                                        '" target="_blank" class="btn btn-warning fw-bold">Visit Now</a>' :
+                                        '<button class="btn btn-secondary" disabled>Restricted</button>'
+                                        ) +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
+                                $('#scholarshiplist').append(
+                                    scholarshipCard);
+                            });
+                        }
+
+                        $('.pagination').hide();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error: " + status + error);
                     }
                 });
+            });
+            $(document).on('change', '#class-select', function() {
+                var classes = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('user.scholarship.getClass') }}",
+                    data: {
+                        'classes': classes,
+                        'is_upgrade': userUpgradeStatus,
+                        'plan': userPlan,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#scholarshiplist').empty();
 
-                $(document).on('change', '#type-select', function() {
-                    var type = $(this).val();
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('user.scholarship.getType') }}",
-                        data: {
-                            'type': type,
-                            _token: "{{ csrf_token() }}"
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                            $('#scholarshiplist').empty();
-                            if (response.length === 0) {
+                        if (response.length === 0) {
+                            $('#scholarshiplist').append(
+                                '<div class="col-12 text-center mt-5"><h6>No scholarships are available for the selected class.</h6></div>'
+                            );
+                        } else {
+                            $.each(response, function(key, scholarship) {
+                                var badge = scholarship.is_free ?
+                                    '<span class="badge bg-success">Free</span>' :
+                                    '<span class="badge bg-danger">Restricted</span>';
+
+                                var scholarshipCard =
+                                    '<div class="col-md-4 mb-3">' +
+                                    '<div class="scholarship-item card">' +
+                                    '<div class="card-body">' +
+                                    '<h6 class="scholarship-title">' +
+                                    scholarship.name + ' ' + badge +
+                                    '</h6>' +
+                                    '<div class="mt-3 text-center">' +
+                                    '<span class="text-white">Explore:</span> ' +
+                                    (scholarship.is_free ||
+                                        userUpgradeStatus ?
+                                        '<a href="' + scholarship.url +
+                                        '" target="_blank" class="btn btn-warning fw-bold">Visit Now</a>' :
+                                        '<button class="btn btn-secondary" disabled>Restricted</button>'
+                                        ) +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>';
+
                                 $('#scholarshiplist').append(
-                                    '<div class="col-12 text-center mt-5"><h6>No scholarships are available in this selected type.</h6></div>'
-                                );
-                            } else {
-                                $.each(response, function(key, scholarship) {
-                                    var scholarshipCard =
-                                        '<div class="scholarship-item">' +
-                                        '<div class="scholarship-title">' +
-                                        scholarship.name +
-                                        '</div>' +
-                                        '<div class="mt-3">' +
-                                        'Explore: <a href="' + scholarship.url +
-                                        '" target="_blank" class="explore-link">Visit Now</a>' +
-                                        '</div>' +
-                                        '</div>';
-                                    $('#scholarshiplist').append(scholarshipCard);
-                                });
-                            }
-
-                            $('.pagination').hide();
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("AJAX Error: " + status + error);
+                                    scholarshipCard);
+                            });
                         }
-                    });
-                });
 
-                $(document).on('change', '#class-select', function() {
-                    var classes = $(this).val();
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('user.scholarship.getClass') }}",
-                        data: {
-                            'classes': classes,
-                            _token: "{{ csrf_token() }}"
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                            $('#scholarshiplist').empty();
-                            if (response.length === 0) {
-                                $('#scholarshiplist').append(
-                                    '<div class="col-12 text-center mt-5"><h6>No scholarships are available in this selected type.</h6></div>'
-                                );
-                            } else {
-                                $.each(response, function(key, scholarship) {
-                                    var scholarshipCard =
-                                        '<div class="scholarship-item">' +
-                                        '<div class="scholarship-title">' +
-                                        scholarship.name +
-                                        '</div>' +
-                                        '<div class="mt-3">' +
-                                        'Explore: <a href="' + scholarship.url +
-                                        '" target="_blank" class="explore-link">Visit Now</a>' +
-                                        '</div>' +
-                                        '</div>';
-                                    $('#scholarshiplist').append(scholarshipCard);
-                                });
-                            }
-
-                            $('.pagination').hide();
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("AJAX Error: " + status + error);
-                        }
-                    });
+                        $('.pagination').hide();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error: " + status + error);
+                    }
                 });
             });
-        </script>
+        });
+                                                                                                      
+    });
+</script>
+<script>
+    var userUpgradeStatus = {{ auth()->user()->is_upgrade }}; // 1 for upgraded, 0 for not upgraded
+    var userPlan = "{{ auth()->user()->plan_name }}";
+</script>

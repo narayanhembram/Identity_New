@@ -22,6 +22,7 @@ use App\Models\Path;
 use App\Models\State;
 use App\Models\Subcategory;
 use App\Models\Subscription;
+use App\Models\Upgradeplan;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -55,7 +56,6 @@ class UserController extends Controller
     public function category()
     {
         $pageTitle = 'Career Library';
-        // dd(Auth::user()->is_upgrade);
         $categories = Category::withCount('subcategories')->get();
         return view('presets.themesFive.user.career-library.career_library', compact('pageTitle', 'categories'));
     }
@@ -65,20 +65,9 @@ class UserController extends Controller
 
         $categories = Category::find($id);
         $pageTitle = $categories->title;
-        if (Auth::user()->is_upgrade === 1) {
-            $subcategories = Subcategory::where('category_id', $id)->get();
-            return view('presets.themesFive.user.career-library.career_library_subcat', compact('pageTitle', 'subcategories', 'categories'));
-        } else {
-            if ($categories && $categories->is_upgrade === Auth::user()->is_upgrade) {
-                $subcategories = Subcategory::where('category_id', $id)->get();
-                return view('presets.themesFive.user.career-library.career_library_subcat', compact('pageTitle', 'subcategories', 'categories'));
-            } else {
-                return redirect()->back()->with('error', 'You need to upgrade your account to access this feature.');
-            }
-        }
 
-        // $subcategories = Subcategory::where('category_id', $id)->where('is_upgrade',Auth::user()->is_upgrade)->get();
-        // return view('presets.themesFive.user.career-library.career_library_subcat', compact('pageTitle', 'subcategories', 'categories'));
+        $subcategories = Subcategory::where('category_id', $id)->get();
+        return view('presets.themesFive.user.career-library.career_library_subcat', compact('pageTitle', 'subcategories', 'categories'));
     }
 
     public function viewSubcategory($id)

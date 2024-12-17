@@ -179,12 +179,16 @@
         padding-right: 5px;
     }
 
-    .team-btn{
+    .team-btn {
         margin-right: 10px;
     }
 
     .team-btn a {
         border-radius: 5%;
+    }
+
+    .upgrade-btn{
+        margin-left: 10px;
     }
 </style>
 
@@ -264,13 +268,16 @@
                 action=" {{ Route('admin.ibutton.store') }} ">
                 @csrf
                 <div class="field-control-group">
-                    <input type="text" class="form-control" placeholder="Full Name" name="name" maxlength="100" required>
+                    <input type="text" class="form-control" placeholder="Full Name" name="name" maxlength="100"
+                        required>
                 </div>
                 <div class="field-control-group">
-                    <input type="email" class="form-control" placeholder="Email ID" name="email" maxlength="100" required>
+                    <input type="email" class="form-control" placeholder="Email ID" name="email" maxlength="100"
+                        required>
                 </div>
                 <div class="field-control-group">
-                    <input type="text" class="form-control" placeholder="Phone No." name="phone" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);"  required>
+                    <input type="text" class="form-control" placeholder="Phone No." name="phone" maxlength="10"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);" required>
                 </div>
                 <div class="field-control-group">
                     <textarea placeholder="Anything we need to know?" name="note" maxlength="2000" style="height: 100px;"></textarea>
@@ -435,8 +442,8 @@
             </ul>
             &nbsp; &nbsp; &nbsp;&nbsp;
             <div class="team-btn">
-                <a class="btn btn-info mt-2 mt-lg-0" style="color: #fff"
-                    href="{{ route('member_registration') }}"> Team Register </a>
+                <a class="btn btn-info mt-2 mt-lg-0" style="color: #fff" href="{{ route('member_registration') }}">
+                    Team Register </a>
                 {{-- @auth
                     <a class="btn--base mt-2 mt-lg-0" href="{{ route('user.home') }}"
                         onclick="toggleLightbox(event)">Dashboard</a>
@@ -456,6 +463,13 @@
                     <a class="btn--base mt-2 mt-lg-0" href="{{ route('user.login') }}" onclick="toggleLightbox(event)">Sign
                         In</a>
                 @endauth --}}
+            </div>
+            <div>
+                <li class="sidebar-menu-item btn btn-warning upgrade-btn">
+                    <a href="{{ route('user.upgradeplanupgrade') }}">
+                        <span class="menu-title">@lang('Upgrade')</span>
+                    </a>
+                </li>
             </div>
             {{-- <i class=" bi bi-list mobile-nav-toggle"></i>&nbsp; &nbsp; --}}
 

@@ -105,4 +105,7 @@ class User extends Authenticatable
     public function state(){
         return $this->belongsTo(State::class,'state_id');
     }
+    public function getUpgrade(){
+        return $this->belongsTo(Upgradeplan::class, 'is_upgrade');
+    }
 }

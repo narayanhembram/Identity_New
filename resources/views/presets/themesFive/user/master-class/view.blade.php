@@ -198,6 +198,58 @@
         font-size: 1.25rem;
         margin: 0;
     }
+
+    <style>.body-wrapper {
+        padding: 20px;
+    }
+
+    .search-bar {
+        background-color: rgba(33, 113, 138, .89);
+        border-radius: 8px;
+        color: #fff;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .search-bar p {
+        margin: 0;
+        font-size: 1.2rem;
+        flex: 1;
+    }
+
+    .search-bar select {
+        flex: 3;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .custom-card {
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .custom-card iframe {
+        border-radius: 8px;
+    }
+
+    .video-title h6 {
+        margin: 10px 0 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .category-card img {
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+</style>
+
 </style>
 
 @section('content')
@@ -222,7 +274,7 @@
             </div>
             <div class="mt-3">
                 <div class="row" id="videos">
-                    @foreach ($video as $index => $videos)
+                    @foreach ($masterclass as $index => $videos)
                         <div class="col-md-6 mb-3">
                             <div class="card custom-card">
                                 <div class="card-body">
@@ -237,12 +289,50 @@
                             </div>
                         </div>
                     @endforeach
+                    <div id="upgradeModal" class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Upgrade Required</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>You need to upgrade your plan to access this video.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="/upgrade" class="btn btn-primary">Upgrade Now</a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- @foreach ($masterclass as $category)
+                        <div class="col-lg-3 col-md-6 mt-3">
+                            <div class="card category-card position-relative"
+                                style="text-align:center; height:320px; overflow:hidden">
+                                <a href="{{ route('user.subcategory', $category->id) }}">
+
+                                    <div class="mt-3">
+                                        <img src="{{ asset('category/' . $category->file) }}" class="category-image"
+                                            style="height: 200px; width:190px">
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title"> {{ $category->title }} </h5>
+                                        <p>({{ $category->subcategories_count }} Career Options)</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach --}}
                 </div>
             </div>
         </div>
     </div>
 @endsection
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 <script>
     $(document).ready(function() {
@@ -256,7 +346,7 @@
             // console.log(Title);
             $.ajax({
                 type: "POST",
-                url: '{{ route('user.masterclass.get_videos') }}',
+                url: '{{ route('user.masterclass.videos') }}',
                 data: {
                     'Title': Title,
                     _token: "{{ csrf_token() }}"
@@ -293,6 +383,38 @@
                     }
                     $('.pagination').hide();
                 },
+            });
+        });
+    });
+</script> --}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const iframes = document.querySelectorAll('iframe[id^="frame"]');
+
+        iframes.forEach((iframe, index) => {
+            iframe.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent video from playing immediately
+
+                // Check user's upgrade status via AJAX
+                axios.get('/check-upgrade-status')
+                    .then(response => {
+                        if (response.data.is_upgrade) {
+                            // Allow video to play by reloading the iframe with autoplay
+                            iframe.src += "&autoplay=1";
+                        } else {
+                            // Show the upgrade modal
+                            const upgradeModal = new bootstrap.Modal(document
+                                .getElementById('upgradeModal'), {
+                                    keyboard: false
+                                });
+                            upgradeModal.show();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error checking upgrade status:', error);
+                        alert('An error occurred. Please try again.');
+                    });
             });
         });
     });

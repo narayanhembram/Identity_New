@@ -138,6 +138,13 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-menu-item {{ menuActive('admin.upgradeplan.list') }}">
+                        <a href="{{ route('admin.upgradeplan.list') }}" class="nav-link ">
+                            <i class="menu-icon las la-graduation-cap"></i>
+                            <span class="menu-title">@lang('Upgrade Plan')</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-menu-item {{ menuActive('admin.add.quiz') }}">
                         <a href="{{ route('admin.add.quiz') }}" class="nav-link ">
                             <i class="menu-icon las la-graduation-cap"></i>
