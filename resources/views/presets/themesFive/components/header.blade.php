@@ -340,6 +340,9 @@
                         </ul>
                     </li>
                 @endforeach
+                <li>
+                    <a class="mt-2 mt-lg-0" style="color: #000000" href="{{ route('member_registration') }}">Career</a>
+                </li>
                 {{-- <li><a class="nav-link scrollto " href="index.html">Home</a></li>
                 <li class="dropdown "><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
@@ -441,17 +444,16 @@
                             9108510058</button> </a></li> --}}
             </ul>
             &nbsp; &nbsp; &nbsp;&nbsp;
-            <div class="team-btn">
-                <a class="btn btn-info mt-2 mt-lg-0" style="color: #fff" href="{{ route('member_registration') }}">
-                    Team Register </a>
-                {{-- @auth
+            {{-- <div class="team-btn">
+
+                @auth
                     <a class="btn--base mt-2 mt-lg-0" href="{{ route('user.home') }}"
                         onclick="toggleLightbox(event)">Dashboard</a>
                 @else
                     <a class="btn--base mt-2 mt-lg-0" href="{{ route('user.login') }}" onclick="toggleLightbox(event)">Sign
                         In</a>
-                @endauth --}}
-            </div>
+                @endauth
+            </div> --}}
             <div class="auth-buttons">
                 <a class="btn btn-primary mt-2 mt-lg-0 login-btn" style="color: #fff"
                     href="{{ route('user.login') }}" onclick="toggleLightbox(event)">Log
@@ -464,13 +466,13 @@
                         In</a>
                 @endauth --}}
             </div>
-            <div>
+            {{-- <div>
                 <li class="sidebar-menu-item btn btn-warning upgrade-btn">
                     <a href="{{ route('user.upgradeplanupgrade') }}">
                         <span class="menu-title">@lang('Upgrade')</span>
                     </a>
                 </li>
-            </div>
+            </div> --}}
             {{-- <i class=" bi bi-list mobile-nav-toggle"></i>&nbsp; &nbsp; --}}
 
         </nav>

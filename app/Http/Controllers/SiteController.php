@@ -256,5 +256,21 @@ class SiteController extends Controller
 
 
     }
+    public function about(){
+        $pageTitle = 'About Us';
+        return view('web.about', compact('pageTitle'));
+    }
+    public function carrerLibrary(){
+        $pageTitle = 'Carrer Library';
+        return view('web.carrer_library', compact('pageTitle'));
+    }
+    public function psychometricTest(){
+        $pageTitle = 'Psychometric Test';
+        return view('web.psychometric', compact('pageTitle'));
+    }
+    public function events(){
+        $pageTitle = 'Our Events';
+        return view('web.events', compact('pageTitle'));
+    }
 
 }
