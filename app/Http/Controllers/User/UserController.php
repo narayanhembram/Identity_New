@@ -22,6 +22,7 @@ use App\Models\Path;
 use App\Models\State;
 use App\Models\Subcategory;
 use App\Models\Subscription;
+use App\Models\Upgradeplan;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -30,7 +31,7 @@ class UserController extends Controller
     {
         $pageTitle = 'Dashboard';
         $user = auth()->user();
-        $modules = Module::orderBy('position','asc')->get();
+        $modules = Module::orderBy('position', 'asc')->get();
         $categories = Category::all();
         $subscribe = isSubscribe($user->id);
         $totalOrders = Order::where('user_id', $user->id)->count();
@@ -64,6 +65,7 @@ class UserController extends Controller
 
         $categories = Category::find($id);
         $pageTitle = $categories->title;
+
         $subcategories = Subcategory::where('category_id', $id)->get();
         return view('presets.themesFive.user.career-library.career_library_subcat', compact('pageTitle', 'subcategories', 'categories'));
     }
@@ -80,7 +82,7 @@ class UserController extends Controller
         $states = State::all();
         $subcategory_id = $id;
 
-        return view('presets.themesFive.user.career-library.view_career_library', compact('viewSubcategory', 'pageTitle', 'paths', 'entrances', 'institutions', 'outside_institution', 'countries','states','subcategory_id'));
+        return view('presets.themesFive.user.career-library.view_career_library', compact('viewSubcategory', 'pageTitle', 'paths', 'entrances', 'institutions', 'outside_institution', 'countries', 'states', 'subcategory_id'));
     }
 
     public function viewInstitution(Request $request)
@@ -97,7 +99,8 @@ class UserController extends Controller
         return response()->json($institutions);
     }
 
-    public function viewState(Request $request){
+    public function viewState(Request $request)
+    {
         if ($request->state_id != '') {
             $states = Institution::where('state_id', $request->state_id)
                 ->where('subcategory_id', $request->subcategory_id)
@@ -110,7 +113,8 @@ class UserController extends Controller
         return response()->json($states);
     }
 
-    public function viewType(Request $request){
+    public function viewType(Request $request)
+    {
         if ($request->institute_type != '') {
             $states = Institution::where('institute_type', $request->institute_type)
                 ->where('subcategory_id', $request->subcategory_id)

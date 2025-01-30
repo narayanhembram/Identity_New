@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\ChatBotController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\User\GoogleAuthController;
 use App\Http\Controllers\User\GoogleCalenderController;
+use App\Http\Controllers\web\AboutController;
 use App\Lib\Router;
 use App\Models\Module;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +28,16 @@ Route::controller('TicketController')->prefix('ticket')->group(function () {
 Route::get('app/deposit/confirm/{hash}', 'Gateway\PaymentController@appDepositConfirm')->name('deposit.app.confirm');
 
 Route::controller('SiteController')->group(function () {
+    Route::get('/about', 'about')->name('about');
+    Route::get('/carrer-library', 'carrerLibrary')->name('carrer_library');
+    Route::get('/view-carrer-library/{id}', 'viewCarrerLibrary')->name('viewCarrerLibrary');
+    Route::get('/view-details/{id}', 'viewdetails')->name('viewdetails');
+    Route::get('/psychometric-test', 'psychometricTest')->name('psychometricTest');
+    Route::get('/events', 'events')->name('events');
+    Route::get('/view-events/{id}', 'viewEvents')->name('viewEvents');
+    Route::get('/services', 'services')->name('services');
+    Route::get('/clientele', 'clientele')->name('clientele');
+    Route::get('/csr', 'csr')->name('csr');
     Route::get('/contact', 'contact')->name('contact');
     Route::post('/contact', 'contactSubmit');
     Route::get('/change/{lang?}', 'changeLanguage')->name('lang');
@@ -43,6 +56,7 @@ Route::controller('SiteController')->group(function () {
     Route::get('/blog', 'blog')->name('blog');
     // plan
     Route::get('/plan', 'plan')->name('plans');
+    
 
     // services
     Route::get('/services', 'services')->name('services');
@@ -77,5 +91,11 @@ Route::controller('SiteController')->group(function () {
     Route::get('google/callback', [GoogleCalenderController::class, 'handleGoogleCallback']);
     Route::get('calendar/events', [GoogleCalenderController::class, 'listEvents']);
     Route::post('calendar/event/create', [GoogleCalenderController::class, 'createEvent']);
+
+    //Google Zoom Meeting
+    // routes/web.php
+    Route::get('oauth2/redirect', [GoogleAuthController::class, 'redirect']);
+    Route::get('oauth2/callback', [GoogleAuthController::class, 'callback']);
 });
+
 // Route::match(['get', 'post'], '/botman/web', [BotManController::class,'handle']);

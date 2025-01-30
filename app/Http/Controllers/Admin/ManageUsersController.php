@@ -113,19 +113,19 @@ class ManageUsersController extends Controller
         $countryArray   = (array)$countryData;
         $countries      = implode(',', array_keys($countryArray));
 
-        $countryCode    = $request->country;
-        $country        = $countryData->$countryCode->country;
-        $dialCode       = $countryData->$countryCode->dial_code;
+        // $countryCode    = $request->country;
+        // $country        = $countryData->countryCode->country;
+        // $dialCode       = $countryData->countryCode->dial_code;
 
         $request->validate([
             'firstname' => 'required|string|max:40',
             'lastname' => 'required|string|max:40',
             'email' => 'required|email|string|max:40|unique:users,email,' . $user->id,
             'mobile' => 'required|string|max:40|unique:users,mobile,' . $user->id,
-            'country' => 'required|in:'.$countries,
+            // 'country' => 'required|in:'.$countries,
         ]);
-        $user->mobile = $dialCode.$request->mobile;
-        $user->country_code = $countryCode;
+        // $user->mobile = $dialCode.$request->mobile;
+        // $user->country_code = $countryCode;
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $user->email = $request->email;
@@ -134,7 +134,7 @@ class ManageUsersController extends Controller
                             'city' => $request->city,
                             'state' => $request->state,
                             'zip' => $request->zip,
-                            'country' => @$country,
+                            // 'country' => @$country,
                         ];
         $user->ev = $request->ev ? 1 : 0;
         $user->sv = $request->sv ? 1 : 0;

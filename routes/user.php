@@ -94,8 +94,10 @@ Route::middleware('auth')->name('user.')->group(function () {
             });
             //master class
             Route::controller('MasterclassController')->name('masterclass.')->prefix('masterclass')->group(function () {
-                Route::get('/videos', 'list')->name('videos');
-                Route::post('/get_videos', 'get_videos')->name('get_videos');
+                Route::get('/categories', 'list')->name('categories');
+                Route::get('/subcategories/{id}', 'subcategories')->name('subcategories');
+                Route::get('/videos/{id}', 'videos')->name('videos');
+                Route::get('/check-upgrade-status', 'check-upgrade-status')->name('check-upgrade-status');
             });
 
             //Entrance Exam Controller
@@ -118,6 +120,11 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('/view', 'index')->name('view');
                 Route::post('/get_type', 'getType')->name('getType');
                 Route::post('/get_class', 'getClass')->name('getClass');
+            });
+            //Upgrade
+            Route::controller('UpgradePlanController')->name('upgradeplan')->group(function () {
+                Route::get('/upgrade', 'upgrade')->name('upgrade');
+                Route::get('/thankyou', 'thankyou')->name('thankyou');
             });
 
             //Quiz Controller
@@ -174,6 +181,10 @@ Route::middleware('auth')->name('user.')->group(function () {
 
         //Razorpay
         Route::post('payment', [RazorpayController::class, 'store'])->name('razorpay.store');
+        Route::post('/subscriberdata/upgrade', [RazorpayController::class, 'upgrade'])->name('razorpay.upgrade');
         // Route::get('razorpay/index', [RazorpayController::class, 'index'])->name('razorpay.index');
+
+
+
     });
 });

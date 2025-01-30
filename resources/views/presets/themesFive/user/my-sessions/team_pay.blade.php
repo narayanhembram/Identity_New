@@ -4,30 +4,25 @@
     <style>
         .container {
             max-width: 1000px;
-            /* Shrinks the width of the container */
         }
 
         .data_table {
             color: #000;
-            /* Sets table text color to black */
         }
 
         .data_table th,
         .data_table td {
             padding: 10px;
             font-size: 0.9rem;
-            /* Reduces font size */
         }
 
         .table-bordered {
             border-color: #ddd;
-            /* Lighter border color */
         }
 
         .table-dark th {
             background-color: #343a40;
             color: #fff;
-            /* Dark background with white text for header */
         }
     </style>
     {{-- <section>
@@ -124,3 +119,4 @@
         </div>
     </section>
 @endsection
+                                            

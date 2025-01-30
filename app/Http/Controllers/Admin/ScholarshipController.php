@@ -30,6 +30,7 @@ class ScholarshipController extends Controller
         $store->name = $request->name;
         $store->short_description = $request->short_description;
         $store->url = $request->url;
+        $store->is_free = $request->has('is_free');
         $store->save();
         $notify[] = ['success', 'Scholarship has been created successfully'];
         return to_route('admin.scholarship.index')->withNotify($notify);
@@ -50,6 +51,7 @@ class ScholarshipController extends Controller
         $update->name = $request->name;
         $update->short_description = $request->short_description;
         $update->url = $request->url;
+        $update->is_free = $request->has('is_free');
         $update->save();
         $notify[] = ['success', 'Scholarship has been updated successfully'];
         return to_route('admin.scholarship.index')->withNotify($notify);

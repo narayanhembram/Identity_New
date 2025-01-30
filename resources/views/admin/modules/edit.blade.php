@@ -50,6 +50,17 @@
                                 </div>
                             </div>
 
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="is_free" class="font-weight-bold">@lang('Is Free')</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="is_free" id="is_free" class="form-check-input"
+                                            {{ $edit->is_free ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="is_free">@lang('Mark as Free')</label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-lg-12 ">
                                 <div class="form-group float-end p-3">
                                     <button type="submit" class="btn btn--primary btn-block btn-lg">

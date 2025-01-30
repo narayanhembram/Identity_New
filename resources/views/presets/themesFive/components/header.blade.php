@@ -178,6 +178,18 @@
         font-size: 20px;
         padding-right: 5px;
     }
+
+    .team-btn {
+        margin-right: 10px;
+    }
+
+    .team-btn a {
+        border-radius: 5%;
+    }
+
+    .upgrade-btn{
+        margin-left: 10px;
+    }
 </style>
 
 <!-- ==================== Header End Here ==================== -->
@@ -256,13 +268,16 @@
                 action=" {{ Route('admin.ibutton.store') }} ">
                 @csrf
                 <div class="field-control-group">
-                    <input type="text" placeholder="Full Name" name="name" maxlength="100" required>
+                    <input type="text" class="form-control" placeholder="Full Name" name="name" maxlength="100"
+                        required>
                 </div>
                 <div class="field-control-group">
-                    <input type="email" placeholder="Email ID" name="email" maxlength="100" required>
+                    <input type="email" class="form-control" placeholder="Email ID" name="email" maxlength="100"
+                        required>
                 </div>
                 <div class="field-control-group">
-                    <input type="text" placeholder="Phone No." name="phone" maxlength="10" required>
+                    <input type="text" class="form-control" placeholder="Phone No." name="phone" maxlength="10"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);" required>
                 </div>
                 <div class="field-control-group">
                     <textarea placeholder="Anything we need to know?" name="note" maxlength="2000" style="height: 100px;"></textarea>
@@ -278,8 +293,8 @@
     <div class="row gx-0">
         <div class="col-lg-10 text-center text-lg-start mb-2 mb-lg-0">
             <div class="d-inline-flex align-items-center" style="height: 45px;">
-                <small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i> Koramangala, Bangalore </small>
-                <small class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>+91-9108510058</small>
+                <small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i> Bhubaneswar, Odisha</small>
+                <small class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>+91 97768 08179, +91 94372 08179</small>
                 <small class="text-light"><i class="fa fa-envelope-open me-2"></i>connect@careermap.in</small>
             </div>
         </div>
@@ -299,6 +314,8 @@
         </div>
     </div>
 </div>
+
+
 
 <header id="header" class="header d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
@@ -323,6 +340,9 @@
                         </ul>
                     </li>
                 @endforeach
+                <li>
+                    <a class="mt-2 mt-lg-0" style="color: #000000" href="{{ route('member_registration') }}">Career</a>
+                </li>
                 {{-- <li><a class="nav-link scrollto " href="index.html">Home</a></li>
                 <li class="dropdown "><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
@@ -424,6 +444,16 @@
                             9108510058</button> </a></li> --}}
             </ul>
             &nbsp; &nbsp; &nbsp;&nbsp;
+            {{-- <div class="team-btn">
+
+                @auth
+                    <a class="btn--base mt-2 mt-lg-0" href="{{ route('user.home') }}"
+                        onclick="toggleLightbox(event)">Dashboard</a>
+                @else
+                    <a class="btn--base mt-2 mt-lg-0" href="{{ route('user.login') }}" onclick="toggleLightbox(event)">Sign
+                        In</a>
+                @endauth
+            </div> --}}
             <div class="auth-buttons">
                 <a class="btn btn-primary mt-2 mt-lg-0 login-btn" style="color: #fff"
                     href="{{ route('user.login') }}" onclick="toggleLightbox(event)">Log
@@ -436,6 +466,13 @@
                         In</a>
                 @endauth --}}
             </div>
+            {{-- <div>
+                <li class="sidebar-menu-item btn btn-warning upgrade-btn">
+                    <a href="{{ route('user.upgradeplanupgrade') }}">
+                        <span class="menu-title">@lang('Upgrade')</span>
+                    </a>
+                </li>
+            </div> --}}
             {{-- <i class=" bi bi-list mobile-nav-toggle"></i>&nbsp; &nbsp; --}}
 
         </nav>

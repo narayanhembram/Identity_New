@@ -55,6 +55,7 @@ class MysessionController extends Controller
         $storeBooking = New Booking();
         $storeBooking->user_id = Auth::id();
         $storeBooking->team_id = $request->team_id;
+        $storeBooking->member_id = $request->member_id;
         $storeBooking->date = $request->date;
         $storeBooking->time = $request->time;
         $storeBooking->save();
@@ -62,6 +63,8 @@ class MysessionController extends Controller
         $notify[] = ['success', 'Booking Succesfully Done'];
         return redirect()->route('user.mysession.team_pay',$request->team_id)->withNotify($notify);
     }
+
+
 
     public function team_pay($id)
     {

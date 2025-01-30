@@ -35,6 +35,7 @@ class CategoryController extends Controller
             $store->file = $fileName;
         }
         $store->description = $request->description;
+        $store->is_upgrade = $request->is_upgrade;
         $store->save();
 
         $notify[] = ['success', 'Category has been created successfully'];
@@ -62,6 +63,7 @@ class CategoryController extends Controller
         }
 
         $update->description = $request->description;
+        $update->is_upgrade = $request->is_upgrade;
         $update->save();
 
         $notify[] = ['success', 'Category has been updated successfully'];

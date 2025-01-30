@@ -37,7 +37,7 @@
                                         placeholder="@lang('URL')" required>
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="position" class="font-weight-bold">@lang('POSITION')</label>
@@ -46,6 +46,16 @@
                                         @error('position')
                                         <span style="color: red;">{{ $message }}</span>
                                         @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="is_free" class="font-weight-bold">@lang('Is Free')</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="is_free" id="is_free" class="form-check-input">
+                                        <label class="form-check-label" for="is_free">@lang('Mark as Free')</label>
+                                    </div>
                                 </div>
                             </div>
 

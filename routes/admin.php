@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\IButtonController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\Admin\SubcategoryController;
 
 Route::namespace('Auth')->group(function () {
     Route::controller('LoginController')->group(function () {
@@ -174,6 +175,8 @@ Route::middleware('admin')->group(function () {
         Route::get('/bookings', 'bookings')->name('bookings');
         Route::get('/editbookings{id}', 'editbooking')->name('editbooking');
         Route::post('/updatebookings', 'updatebookings')->name('updatebookings');
+        Route::post('/updatetime', 'updatetime')->name('updatetime');
+        Route::post('/member_approve', 'member_approve')->name('member_approve');
     });
 
     //Brand Logo
@@ -207,6 +210,16 @@ Route::middleware('admin')->group(function () {
         Route::post('/store', 'Store')->name('Store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::post('/update/{id}', 'update')->name('update');
+        Route::post('/delete', 'delete')->name('delete');
+    });
+
+    //UpgradePlan Controller
+    Route::controller('UpgradePlanController')->name('upgradeplan.')->prefix('upgradeplan')->group(function () {
+        Route::get('/list', 'list')->name('list');
+        Route::get('/add', 'Add')->name('add');
+        Route::post('/store', 'Store')->name('Store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
         Route::post('/delete', 'delete')->name('delete');
     });
 
@@ -454,6 +467,34 @@ Route::middleware('admin')->group(function () {
     Route::post('/update-question', [QuestionController::class, 'updateQuestion'])->name('update.question');
     Route::get('/delete-question/{id}', [QuestionController::class, 'deleteQuestion'])->name('delete.question');
     //  Route::get('/results', [ResultController::class, 'index'])->name('results');
+
+    Route::controller('EventController')->group(function () {
+        //event title
+        Route::get('event_title', 'event_title')->name('event_title.list');
+        Route::get('event_title/add', 'addEvent_title')->name('event_title.add');
+        Route::post('event_title/store', 'storeEvent_title')->name('event_title.store');
+        Route::get('event_title/edit/{id}', 'editEvent_title')->name('event_title.edit');
+        Route::post('event_title/update', 'updateEvent_title')->name('event_title.update');
+        Route::post('event_title/delete', 'deleteEvent_title')->name('event_title.delete');
+
+        //events
+        Route::get('events', 'list')->name('event.list');
+        Route::get('events/add', 'add')->name('event.add');
+        Route::post('events/store', 'store')->name('event.store');
+        Route::get('events/edit/{id}', 'edit')->name('event.edit');
+        Route::post('events/update', 'update')->name('event.update');
+        Route::post('events/delete', 'delete')->name('event.delete');
+    });
+
+    //clientele
+    Route::controller('ClienteleController')->group(function (){
+        Route::get('/clientele', 'index')->name('clientele.index');
+        Route::get('/clientele/add', 'add')->name('clientele.add');
+        Route::post('/clientele/store', 'store')->name('clientele.store');
+        Route::get('/clientele/edit/{id}', 'edit')->name('clientele.edit');
+        Route::post('/clientele/update', 'update')->name('clientele.update');
+        Route::post('/clientele/delete', 'delete')->name('clientele.delete');
+    });
 
 });
 

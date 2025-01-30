@@ -3,366 +3,381 @@
     $plans = App\Models\Plan::where('status', 1)->latest()->limit(3)->get();
 @endphp
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-<!--========================== Career Plan Start ==========================-->
-{{-- <section class="plan py-100">
-    <div class="container">
-        <div class="title">
-            <h6>{{__(@$plan->data_values->top_heading)}}</h6>
-            <h4>{{__(@$plan->data_values->heading)}}</h4>
-            <p>{{__(@$plan->data_values->sub_heading)}}</p>
-        </div>
-        @include($activeTemplate.'components.plan')
-    </div>
-</section> --}}
 <style>
-    .bio {
-        display: grid;
-        grid-auto-flow: row;
-        grid-template-rows: min-content;
-        grid-gap: 24px;
-        width: 100vh;
-    }
-
-    .artist-list {
+    .testimonial {
         display: flex;
-        min-height: 200px;
-        height: 450px !important;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        list-style-type: none;
-        width: 100%;
-        min-width: 100%;
-        flex-direction: column;
+        padding: 15px 35px;
+        align-items: center;
+        justify-content: center;
+        /* min-height: 100vh; */
     }
 
-    @media only screen and (min-width: 1280px) {
-        .artist-list {
-            flex-direction: row;
+    .wrapper {
+        width: 100%;
+        position: relative;
+    }
+
+    .wrapper i {
+        top: 50%;
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+        font-size: 1.25rem;
+        position: absolute;
+        text-align: center;
+        line-height: 50px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+        transform: translateY(-50%);
+        transition: transform 0.1s linear;
+    }
+
+    .wrapper i:active {
+        transform: translateY(-50%) scale(0.85);
+    }
+
+    .wrapper i:first-child {
+        left: -22px;
+        /* left: -35px; */
+        z-index: 1;
+    }
+
+    .wrapper i:last-child {
+        right: -22px;
+        z-index: 1;
+    }
+
+    .wrapper .carousel {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: calc((100% / 3) - 12px);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        border-radius: 8px;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+    }
+
+    .carousel::-webkit-scrollbar {
+        display: none;
+    }
+
+    .carousel.no-transition {
+        scroll-behavior: auto;
+    }
+
+    .carousel.dragging {
+        scroll-snap-type: none;
+        scroll-behavior: auto;
+    }
+
+    .carousel.dragging .card {
+        cursor: grab;
+        user-select: none;
+    }
+
+    .carousel :where(.card, .img) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carousel .card {
+        border: 1px solid #ab2931;
+        scroll-snap-align: start;
+        /* height: 375px; */
+        list-style: none;
+        background: #d6565629;
+        cursor: pointer;
+        padding-bottom: 15px;
+        flex-direction: column;
+        border-radius: 10px;
+    }
+
+    .carousel .card .img {
+        background: #00a85a;
+        height: 148px;
+        width: 148px;
+        border-radius: 50%;
+        margin-top: 15px;
+    }
+
+    .card .img img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+    }
+
+    .carousel .card h2 {
+        font-weight: 500;
+        font-size: 1.56rem;
+        margin: 30px 0 5px;
+        font-family: "Playfair Display", serif;
+    }
+
+    .carousel .card span {
+        color: #6a6d78;
+        font-size: 1.31rem;
+        font-family: "Playfair Display", serif;
+    }
+
+    .carousel .card p {
+        color: #050505;
+        font-size: 16px;
+        text-align: center;
+        padding-left: 20px;
+        padding-right: 20px;
+        max-height: 150px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+
+    .wrapper .left svg {
+        margin-top: 15px;
+    }
+
+    .wrapper .right svg {
+        margin-top: 15px;
+    }
+
+    @media screen and (max-width: 900px) {
+        .wrapper .carousel {
+            grid-auto-columns: calc((100% / 2) - 9px);
         }
     }
 
-    .artist-item {
-        flex: 1;
-        display: flex;
-        align-items: stretch;
-        cursor: pointer;
-        transition: all 0.35s ease;
-        position: relative;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: top center;
-        overflow: hidden;
+    @media screen and (max-width: 600px) {
+        .wrapper .carousel {
+            grid-auto-columns: 100%;
+        }
     }
 
-    .artist-item::before {
+    .client {
+        text-align: center;
+        font-family: "Playfair Display", serif;
+        font-weight: 500;
+    }
+
+    .testimonial .card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 5px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .testimonial .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .testimonial .card:before {
         content: "";
         position: absolute;
-        z-index: 20;
         top: 0;
         left: 0;
         width: 100%;
-        height: 450px;
-        background: rgba(15, 15, 15, 0.75);
-    }
-
-    .artist-item.active {
-        flex: 6;
-        cursor: default;
-    }
-
-    .artist-item.active::before {
-        background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
-    }
-
-    h2 {
-        font-size: 36px;
-        line-height: 36px;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-
-    @media only screen and (min-width: 768px) {
-        h2 {
-            font-size: 48px;
-            line-height: 48px;
-        }
-    }
-
-    @media only screen and (min-width: 1280px) {
-        h2 {
-            font-size: 30px;
-            line-height: 70px;
-        }
-    }
-
-    h3 {
-        font-weight: bold;
-        white-space: nowrap;
-        position: absolute;
-        z-index: 30;
-        opacity: 1;
-        top: 50%;
-        left: 50%;
-        transition: top 0.35s, opacity 0.15s;
-        transform-origin: 0 0;
-        font-size: 24px;
-        text-transform: uppercase;
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-
-    @media only screen and (min-width: 1280px) {
-        h3 {
-            top: 100%;
-            left: 50%;
-            font-size: 32px;
-            transform: translate(-20px, -50%) rotate(-90deg);
-        }
-    }
-
-    .artist-item.active h3 {
-        opacity: 0;
-        top: 200%;
-    }
-
-    .section-content {
-        position: relative;
-        z-index: 30;
-        opacity: 0;
-        align-self: flex-end;
-        width: 100%;
-        transition: all 0.35s 0.1s ease-out;
-    }
-
-    .artist-item.active .section-content {
-        opacity: 1;
-    }
-
-    .section-content .inner {
-        position: absolute;
-        display: grid;
-        grid-auto-flow: row;
-        grid-template-columns: 1fr;
-        grid-column-gap: 20px;
-        align-items: flex-end;
-        left: 0;
-        bottom: 0;
-        padding: 20px;
-        opacity: 0;
-        transition: opacity 0.25s ease-out;
-    }
-
-    @media only screen and (min-width: 768px) {
-        .section-content .inner {
-            grid-auto-flow: column;
-            grid-template-columns: calc(100% - 340px) 300px;
-            grid-column-gap: 40px;
-            padding: 40px;
-        }
-    }
-
-    @media only screen and (min-width: 1280px) {
-        .section-content .inner {
-            grid-auto-flow: column;
-            grid-template-columns: 460px 200px;
-            grid-column-gap: 40px;
-            padding: 40px;
-        }
-    }
-
-    .artist-item.active .section-content .inner {
-        opacity: 1;
-    }
-
-    .artist-profile-link {
+        height: 100%;
+        clip-path: polygon(0 100%, 100% 0%, 100% 100%);
+        background-image: linear-gradient(-86deg, #1E1E1E 0%, #1E1E1E 100%);
+        opacity: 0.5;
+        transform: scale(0);
+        transform-origin: bottom right;
+        transition: transform 500ms linear;
         pointer-events: none;
+        z-index: 1;
     }
 
-    .artist-item.active .artist-profile-link {
-        pointer-events: all;
+    .testimonial .card:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        clip-path: polygon(0 0, 100% 0%, 0% 100%);
+        background-image: linear-gradient(-86deg, #E4C590 0%, #E4C590 100%);
+        opacity: 0.5;
+        transform: scale(0);
+        transform-origin: top left;
+        transition: transform 500ms linear;
+        pointer-events: none;
+        z-index: 1;
     }
 
-    .artist-item {
-    position: relative; /* To position the pseudo-element */
-    overflow: hidden; /* Ensure the pseudo-element doesn't overflow */
-}
+    .testimonial .card:hover:before,
+    .testimonial .card:hover:after {
+        transform: scale(1);
+    }
 
-.artist-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: inherit; /* Inherit the background image */
-    background-size: cover;
-    filter: blur(8px); /* Adjust the blur level */
-    z-index: 1; /* Position it below the text */
-}
+    .testimonial .card .myimage img {
+        display: block;
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 5px;
+        position: relative;
+        z-index: 2;
+    }
 
-.inner {
-    position: relative; /* Ensure content is above the blurred background */
-    z-index: 2; /* Position it above the pseudo-element */
-}
+    .testimonial .card h2,
+    .testimonial .card p {
+        position: relative;
+        z-index: 2;
+        margin: 10px 0;
+        padding: 0 15px;
+        color: #030f27;
+    }
 
-.view_more{
-    /* margin-left: 40px;
-    margin-bottom: 15px; */
-    width: 150px;
-}
+    .testimonial .card h2 {
+        font-size: 20px;
+        font-weight: bold;
+    }
 
+    .testimonial .card p {
+        font-size: 16px;
+        line-height: 1.5;
+        font-weight: 400;
+    }
 </style>
-{{-- <section class="plan py-3">
-    <div class="container">
-        <div class="notification text-center bg-light p-4 rounded">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="row justify-content-left">
-                        <div class="col-lg-4 col-md-12 text-left">
-                            <h3 class="mb-3 text-danger font-weight-bold">
-                                How CareerMap can help you ?
-                            </h3>
-                            <span class="mt-3 mb-4 divider mini"></span>
-                            <p>
-                                “ What am I passionate about?” “What am I going to be?” These
-                                are the most difficult questions one has to face while they
-                                decide to pursue their higher education.
-                                <br> <br>
-                                Don’t worry! We are here to help you.
-                            </p>
-                        </div>
-                        <div class="col-lg-8 col-md-12">
-                            <div class="row">
-                                <div class="col-md-6 col-12 mb-4">
-                                    <div class="d-flex">
-                                        <div class="pr-3">
-                                            <figure class="mt-4"><img
-                                                    src="https://lmes-mars-cdn.jujube.in/site/new/revisions/v3/carrer-libary.png"
-                                                    class="img-fluid" alt=""></figure>
-                                        </div>
-                                        <div>
-                                            <h4 class="is-title h4 font-weight-bold text-left">
-                                                Career Library
-                                            </h4>
-                                            <p>
-                                                Our comprehensive career library consists of 500+
-                                                career options, 400+ courses, 100+ entrance exams, and
-                                                more things to explore.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12 mb-4">
-                                    <div class="d-flex">
-                                        <div class="pr-3">
-                                            <figure class="mt-4"><img
-                                                    src="https://lmes-mars-cdn.jujube.in/site/new/revisions/v3/master-guidance.png"
-                                                    class="img-fluid" alt=""></figure>
-                                        </div>
-                                        <div>
-                                            <h4 class="is-title h4 font-weight-bold text-left">
-                                                Master Class
-                                            </h4>
-                                            <p>
-                                                Get inspired by video bytes from veterans successful
-                                                in their fields, teaching about the right ideas to
-                                                succeed in the industry.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12 mb-4">
-                                    <div class="d-flex">
-                                        <div class="pr-3">
-                                            <figure class="mt-4"><img
-                                                    src="https://lmes-mars-cdn.jujube.in/site/new/revisions/v3/carrer-report.png"
-                                                    class="img-fluid" alt=""></figure>
-                                        </div>
-                                        <div>
-                                            <h4 class="is-title h4 font-weight-bold text-left">
-                                                Career Assessment
-                                            </h4>
-                                            <p>
-                                                Our AI-based assessment and precise 20-page
-                                                personalized career report helps you discover your
-                                                interest and maps it with the perfect career.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12 mb-4">
-                                    <div class="d-flex">
-                                        <div class="pr-3">
-                                            <figure class="mt-4"><img
-                                                    src="https://lmes-mars-cdn.jujube.in/site/new/revisions/v3/one-on-one.png"
-                                                    class="img-fluid" alt=""></figure>
-                                        </div>
-                                        <div>
-                                            <h4 class="is-title h4 font-weight-bold text-left">
-                                                One-to-one counselling
-                                            </h4>
-                                            <p>
-                                                Get personal, online, one-to-one counseling sessions
-                                                (interactions) with the field experts to gain a deeper
-                                                insights in your field.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                 <div class="mt-6 mt-lg-0">
+                    <h4 style="text-align: left;">Our Services</h4>
+                    <p style="text-align: left;">We offer a variety of professionally designed mentoring options:</p>
                 </div>
-            </div>
-        </div>
+                </div>
+                </div>
+                </div>
+
+<section class="testimonial">
+    <div class="wrapper">
+        <i id="left" class="left"><svg width="16" height="16" fill="currentColor" class="bi bi-arrow-left"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+            </svg></i>
+        <ul class="carousel">
+            @foreach (App\Models\Careerplan::all() as $plans)
+                <li class="card">
+                    <div class="myimage" style="width: 100%;">
+                        <img src="{{ asset('careerplan/' .$plans->image) }}"
+                            style="width: 100%; height:250px;" alt="">
+
+                    </div>
+                    <h2>{{$plans->title}}</h2>
+
+                    <p>{{ Str::limit($plans->description, 30) }}</p>
+                </li>
+            @endforeach
+        </ul>
+        <i id="right" class="right"><svg width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+            </svg></i>
     </div>
-</section> --}}
 
-<section class="plan py_25">
-    <ul class="artist-list" id="artist-list">
-        @foreach (App\Models\Careerplan::all() as $data)
-            <li class="artist-item active"
-                style="background-image: url('{{ asset('careerplan/' . $data->image) }}');" role="button">
-                <h3 style="color: #fff"> {{ $data->title }} </h3>
-                <div class="section-content">
-                    <div class="inner">
-                        <div class="bio">
-                            <h2 style="color: #fff">{{ $data->title }}</h2>
-                            <p style="color: #fff">{{ $data->description }}</p>
-                            <a href="{{ $data->link }}"
-                                target="_blank" class="btn btn-info view_more">
-                                    View More
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </li>
-        @endforeach
-    </ul>
 </section>
 
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let active = 0;
-        const artistListItems = document.querySelectorAll('#artist-list li');
+    const wrapper = document.querySelector(".wrapper");
+    const carousel = document.querySelector(".carousel");
+    const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+    const arrowBtns = document.querySelectorAll(".wrapper i");
+    const carouselChildrens = [...carousel.children];
 
-        function updateActiveClass() {
-            artistListItems.forEach((item, index) => {
-                item.classList.toggle('active', index === active);
-            });
-        }
+    let isDragging = false,
+        isAutoPlay = true,
+        startX,
+        startScrollLeft,
+        timeoutId;
 
-        artistListItems.forEach((item, i) => {
-            item.addEventListener('click', () => {
-                active = i;
-                updateActiveClass();
-            });
+    // Get the number of cards that can fit in the carousel at once
+    let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+
+    // Insert copies of the last few cards to beginning of carousel for infinite scrolling
+    carouselChildrens
+        .slice(-cardPerView)
+        .reverse()
+        .forEach((card) => {
+            carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
         });
 
-        updateActiveClass();
+    // Insert copies of the first few cards to end of carousel for infinite scrolling
+    carouselChildrens.slice(0, cardPerView).forEach((card) => {
+        carousel.insertAdjacentHTML("beforeend", card.outerHTML);
     });
+
+    // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox
+    carousel.classList.add("no-transition");
+    carousel.scrollLeft = carousel.offsetWidth;
+    carousel.classList.remove("no-transition");
+
+    // Add event listeners for the arrow buttons to scroll the carousel left and right
+    arrowBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            carousel.scrollLeft += btn.id == "left" ? -firstCardWidth : firstCardWidth;
+        });
+    });
+
+    const dragStart = (e) => {
+        isDragging = true;
+        carousel.classList.add("dragging");
+        // Records the initial cursor and scroll position of the carousel
+        startX = e.pageX;
+        startScrollLeft = carousel.scrollLeft;
+    };
+
+    const dragging = (e) => {
+        if (!isDragging) return; // if isDragging is false return from here
+        // Updates the scroll position of the carousel based on the cursor movement
+        carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+    };
+
+    const dragStop = () => {
+        isDragging = false;
+        carousel.classList.remove("dragging");
+    };
+
+    const infiniteScroll = () => {
+        // If the carousel is at the beginning, scroll to the end
+        if (carousel.scrollLeft === 0) {
+            carousel.classList.add("no-transition");
+            carousel.scrollLeft = carousel.scrollWidth - 2 * carousel.offsetWidth;
+            carousel.classList.remove("no-transition");
+        }
+        // If the carousel is at the end, scroll to the beginning
+        else if (
+            Math.ceil(carousel.scrollLeft) ===
+            carousel.scrollWidth - carousel.offsetWidth
+        ) {
+            carousel.classList.add("no-transition");
+            carousel.scrollLeft = carousel.offsetWidth;
+            carousel.classList.remove("no-transition");
+        }
+
+        // Clear existing timeout & start autoplay if mouse is not hovering over carousel
+        clearTimeout(timeoutId);
+        if (!wrapper.matches(":hover")) autoPlay();
+    };
+
+    const autoPlay = () => {
+        if (window.innerWidth < 800 || !isAutoPlay)
+            return; // Return if window is smaller than 800 or isAutoPlay is false
+        // Autoplay the carousel after every 2500 ms
+        timeoutId = setTimeout(() => (carousel.scrollLeft += firstCardWidth), 2500);
+    };
+    autoPlay();
+
+    carousel.addEventListener("mousedown", dragStart);
+    carousel.addEventListener("mousemove", dragging);
+    document.addEventListener("mouseup", dragStop);
+    carousel.addEventListener("scroll", infiniteScroll);
+    wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+    wrapper.addEventListener("mouseleave", autoPlay);
 </script>
-<!--========================== Plan End ==========================-->

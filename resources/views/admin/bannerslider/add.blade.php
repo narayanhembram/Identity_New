@@ -10,7 +10,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="title" class="font-weight-bold">@lang('Title')</label>
-                                    <input name="title" type="text" id="tittle" class="form-control" placeholder="Enter Title" required>
+                                    <input name="title" type="text" id="tittle" class="form-control" placeholder="Enter Title" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -22,19 +22,19 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="price" class="font-weight-bold">@lang('Description')</label>
-                                    <input name="description" type="text" id="description" class="form-control" placeholder="Enter Description" required>
+                                    <input name="description" type="text" id="description" class="form-control" placeholder="Enter Description" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="link" class="font-weight-bold">@lang('Link')</label>
-                                    <input name="link" type="text" id="tittle" class="form-control" placeholder="Enter Link" required>
+                                    <input name="link" type="text" id="tittle" class="form-control" placeholder="Enter Link">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="price" class="font-weight-bold">@lang('Long Description')</label>
-                                    <input name="long description" type="text" id="long description" class="form-control" placeholder="Enter Description" required>
+                                    <input name="long description" type="text" id="long description" class="form-control" placeholder="Enter Description" >
                                 </div>
                             </div>
                             <div class="col-lg-12 ">

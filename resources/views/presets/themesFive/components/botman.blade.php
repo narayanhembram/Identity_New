@@ -84,7 +84,7 @@
          width: 100%;
          cursor: pointer;
          transition: background-color 0.2s ease;
-         background-color: #747371;
+
          border-radius: 3%;
      }
 

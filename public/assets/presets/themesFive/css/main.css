@@ -1250,7 +1250,7 @@ button:focus {
 .btn--base {
     color: hsl(var(--white));
     font-weight: 400;
-    padding: 6px 6px;
+    padding: 10px 10px;
     text-transform: capitalize;
     font-size: 18px;
     background-color: hsl(var(--base));
@@ -1259,6 +1259,8 @@ button:focus {
     text-align: center;
     border: 1px solid hsl(var(--base));
     letter-spacing: 0.6px;
+    border-radius:20px ;
+    
 }
 
 .btn--base-two {
@@ -1286,7 +1288,6 @@ button:focus {
 .btn--base:hover,
 .btn--base:focus {
     background-color: transparent;
-    border: 1px solid hsl(var(--base));
     color: hsl(var(--base));
 }
 
@@ -3154,6 +3155,7 @@ select.form-control.form--control:has(option)~.form--label {
     margin-top: auto;
     position: relative;
     overflow: hidden;
+    padding-top:40px ;
 }
 
 .footer-area .shape1 {

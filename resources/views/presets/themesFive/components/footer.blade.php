@@ -7,7 +7,7 @@
 @endphp
 
 <!-- ==================== Footer Start ==================== -->
-<footer class="footer-area pt-120">
+<footer class="footer-area">
     <div class="shape1">
         <img src="{{ asset($activeTemplateTrue . 'images/shape/shape13.png') }}" alt="@lang('shape')">
     </div>
@@ -31,7 +31,7 @@
                             {{ __(strip_tags(@$contact->data_values->short_description)) }}
                         @endif
                     </p>
-                    <ul class="social-list mt-3">
+                    <ul class="social-list mt-3" style="padding-left:0px !Important;">
                         @foreach ($socialIcons as $item)
                             <li class="social-list__item"><a href="{{ $item->data_values->url }}"
                                     class="social-list__link">@php echo $item->data_values->social_icon; @endphp</a> </li>
@@ -40,10 +40,10 @@
                 </div>
             </div>
 
-            <div class="col-xl-2 col-sm-6">
+            <div class="col-xl-3 col-sm-6">
                 <div class="footer-item">
                     <h5 class="footer-item__title">@lang('Important Links')</h5>
-                    <ul class="footer-menu">
+                    <ul class="footer-menu" style="padding-left:0px !Important;">
                         @foreach ($importantLinks as $key => $item)
                             <li class="footer-menu__item"><a href="{{ url('/') . $item->data_values->url }}"
                                     class="footer-menu__link">{{ __($item->data_values->title) }} </a></li>
@@ -52,27 +52,12 @@
                 </div>
             </div>
 
-            <div class="col-xl-2 col-sm-6">
-                <div class="footer-item">
-                    <h5 class="footer-item__title">@lang('Company Links')</h5>
-                    <ul class="footer-menu">
-                        @foreach ($companyLinks as $key => $item)
-                            <li class="footer-menu__item"><a href="{{ url('/') . $item->data_values->url }}"
-                                    class="footer-menu__link">{{ __(@$item->data_values->title) }} </a></li>
-                        @endforeach
-                        @foreach ($links as $link)
-                            <li class="footer-menu__item"><a
-                                    href="{{ route('policy.pages', [slug($link->data_values->title), $link->id]) }}"
-                                    class="footer-menu__link">{{ __(@$link->data_values->title) }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
 
-            <div class="col-xl-2 col-sm-6">
+
+            <div class="col-xl-3 col-sm-6">
                 <div class="footer-item">
                     <h5 class="footer-item__title">@lang('Address')</h5>
-                    <ul class="footer-menu">
+                    <ul class="footer-menu"style="padding-left:0px !Important;">
                         <li class="footer-menu__item"><a
                                 href="tel:{{ $contact->data_values->contact_number }}">{{ $contact->data_values->contact_number }}</a>
                         </li>

@@ -13,7 +13,12 @@ use App\Models\SupportTicket;
 use App\Models\GeneralSetting;
 use App\Models\SupportMessage;
 use App\Models\AdminNotification;
+use App\Models\Category;
+use App\Models\Clientele;
+use App\Models\Event;
+use App\Models\EventTitle;
 use App\Models\Portfolio;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
@@ -256,5 +261,51 @@ class SiteController extends Controller
 
 
     }
-
+    public function about(){
+        $pageTitle = 'About Us';
+        return view('web.about', compact('pageTitle'));
+    }
+    public function carrerLibrary(){
+        $pageTitle = 'Carrer Library';
+        $carrers = Category::all();
+        return view('web.carrer_library', compact('pageTitle','carrers'));
+    }
+    public function psychometricTest(){
+        $pageTitle = 'Psychometric Test';
+        return view('web.psychometric', compact('pageTitle'));
+    }
+    public function events(){
+        $pageTitle = 'Our Events';
+        $events = EventTitle::with('events')->get();
+        return view('web.events', compact('pageTitle', 'events'));
+    }
+    public function viewEvents($id){
+        $pageTitle = 'Our Events';
+        $event = Event::where('title_id', $id)->get();
+        return view('web.view_event', compact('pageTitle','event'));
+    }
+    public function service() {
+        $pageTitle = 'Services';
+        return view('web.services', compact('pageTitle'));
+    }
+    public function clientele(){
+        $pageTitle = 'Clientele';
+        $clientele = Clientele::orderBy('created_at', 'desc')->get()->groupBy('title');
+        return view('web.clientele', compact('pageTitle','clientele'));
+    }
+    public function viewCarrerLibrary($id){
+        $categories = Category::find($id);
+        $pageTitle = $categories->title;
+        $view_carrer = Subcategory::where('category_id', $id)->get();
+        return view('web.view_carrer_library', compact('pageTitle', 'view_carrer'));
+    }
+    public function viewdetails($id){
+        $view_details = Subcategory::find($id);
+        $pageTitle = $view_details->title;
+        return view('web.view_carrer_details', compact('pageTitle','view_details'));
+    }
+    public function csr(){
+        $pageTitle = 'CSR';
+        return view('web.csr', compact('pageTitle'));
+    }
 }
